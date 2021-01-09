@@ -1,0 +1,29 @@
+import BaseHTTPServer
+import sys
+import venntdb, vennthandler
+
+
+
+HOST_NAME = ''
+PORT_NUMBER = 3004
+
+
+
+if __name__ == '__main__':
+	if len(sys.argv) < 3 or len(sys.argv) > 4:
+		print 'usage: %s [db] [optional: port number, default 3004]' % sys.argv[0]
+		sys.exit(-1)
+
+	db = sys.argv[1]
+	if len(sys.argv) == 3:
+		PORT_NUMBER = int(sys.argv2])
+	
+	httpd = BaseHTTPServer.HTTPServer((HOST_NAME, PORT_NUMBER), vennthandler.VenntHandler)
+	httpd._db = venntdb.VenntDBDict(db)
+
+	try:
+		httpd.serve_forever()
+	except KeyboardInterrupt:
+		pass
+
+	httpd.server_close()

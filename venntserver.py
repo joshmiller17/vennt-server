@@ -6,8 +6,7 @@ import venntdb, vennthandler
 
 HOST_NAME = ''
 PORT_NUMBER = 3004
-
-
+	
 
 if __name__ == '__main__':
 	if len(sys.argv) < 2 or len(sys.argv) > 3:
@@ -19,7 +18,7 @@ if __name__ == '__main__':
 		PORT_NUMBER = int(sys.argv[2])
 	
 	httpd = HTTPServer((HOST_NAME, PORT_NUMBER), vennthandler.VenntHandler)
-	httpd._db = venntdb.VenntDB(db)
+	httpd.db = venntdb.VenntDB(db)
 
 	try:
 		print("Ready")

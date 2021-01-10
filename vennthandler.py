@@ -1,10 +1,9 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from urllib.parse import urlparse, parse_qs
 from collections import defaultdict
-import hashlib, json, sys, time, uuid, asyncio
-import venntdb
+import hashlib, json, sys, time, uuid
+import venntdb, rate_limiter
 
-MAX_REQUESTS_PER_MINUTE = 60
 MAX_REQUEST_SIZE = 10000
 
 PATHS = {
@@ -24,22 +23,6 @@ KEY_NAME = "name"
 
 
 class VenntHandler(BaseHTTPRequestHandler):
-
-	def __init__(self, *args):
-		super().__init__(*args)
-		self.requests = {}
-		self.scheduler = asyncio.create_task(self.clear_rate_limiits())
-		
-	async def clear_rate_limiits(self):
-		self.requests = {}
-		await asyncio.sleep(60)
-		
-	def is_rate_limited(self):
-		client = self.client_address[0]
-		if not client in self.requests:
-			self.requests[client] = defaultdict(int)
-		self.requests[client] += 1
-		return self.requests[client] < MAX_REQUESTS_PER_MINUTE
 
 	def log_message(self, format, *args):
 		sys.stdout.write("%s - - [%s] %s\n" %
@@ -77,7 +60,7 @@ class VenntHandler(BaseHTTPRequestHandler):
 		return None
 
 	def do_HEAD(self):
-		if self.is_rate_limited():
+		if rate_limiter.is_rate_limited(self.client_address[0]):
 			return self._send_error("Too many requests")
 	
 		parse = urlparse(self.path)
@@ -93,7 +76,7 @@ class VenntHandler(BaseHTTPRequestHandler):
 	def do_POST(self):
 		print("do_POST received")
 		#self.do_GET()
-		if self.is_rate_limited():
+		if rate_limiter.is_rate_limited(self.client_address[0]):
 			return self._send_error("Too many requests.")
 		
 		content_length = int(self.headers['Content-Length'])
@@ -117,7 +100,7 @@ class VenntHandler(BaseHTTPRequestHandler):
 		if result == {}:
 			if "register" in json_data:
 				username = json_data["register"]
-				if self.server._db.account_exists(username):
+				if self.server.db.account_exists(username):
 					result["success"] = False
 					result["info"] = "Username already exists"
 					self.return_post(result)
@@ -129,17 +112,17 @@ class VenntHandler(BaseHTTPRequestHandler):
 					result["info"] = "No password key"
 					self.return_post(result)
 					return
-				self.server._db.create_account(username, hashlib.md5(password.encode('utf-8')).hexdigest())
+				self.server.db.create_account(username, hashlib.md5(password.encode('utf-8')).hexdigest())
 				result["success"] = True
 				result["info"] = "Account created"
 				auth_token = hashlib.md5((username + str(time.time())).encode('utf-8')).hexdigest()
-				self.server._db.authenticate(username, auth_token)
+				self.server.db.authenticate(username, auth_token)
 				result["auth_token"] = auth_token
 				self.return_post(result)
 				return
 			elif "login" in json_data:
 				username = json_data["login"]
-				if not self.server._db.account_exists(username):
+				if not self.server.db.account_exists(username):
 					result["success"] = False
 					result["info"] = "No such user"
 					self.return_post(result)
@@ -153,7 +136,7 @@ class VenntHandler(BaseHTTPRequestHandler):
 						self.return_post(result)
 						return
 					pass_hash = hashlib.md5(password.encode('utf-8')).hexdigest()
-					if not self.server._db.does_password_match(username, pass_hash):
+					if not self.server.db.does_password_match(username, pass_hash):
 						result["success"] = False
 						result["info"] = "Incorrect password"
 						self.return_post(result)
@@ -162,7 +145,7 @@ class VenntHandler(BaseHTTPRequestHandler):
 						result["success"] = True
 						result["info"] = "Successful login"
 						auth_token = hashlib.md5((username + str(time.time())).encode('utf-8')).hexdigest()
-						self.server._db.authenticate(username, auth_token)
+						self.server.db.authenticate(username, auth_token)
 						result["auth_token"] = auth_token
 						self.return_post(result)
 						return
@@ -182,7 +165,7 @@ class VenntHandler(BaseHTTPRequestHandler):
 		
 
 	def do_GET(self):
-		if self.is_rate_limited():
+		if rate_limiter.is_rate_limited(self.client_address[0]):
 			return self._send_error("Too many requests")
 	
 		parse = urlparse(self.path)
@@ -215,8 +198,8 @@ class VenntHandler(BaseHTTPRequestHandler):
 			name = args[KEY_NAME]		
 			id = str(uuid.uuid4())
 			character = {"name":name, "id":id}
-			username = self.server._db.get_authenticated_user(args[KEY_AUTH])
-			self.server._db.create_character(username, character)
+			username = self.server.db.get_authenticated_user(args[KEY_AUTH])
+			self.server.db.create_character(username, character)
 			
 			ret = {"success":True, "id":id}
 			return self._send_success(ret)

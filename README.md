@@ -89,4 +89,4 @@ GET: `<baseURL>/get_character?q={"auth_token":"<auth_token>"}`
 
 Returns a JSON:
 - `success`: whether the operation was successful
--`val`: on success, returns your character (JSON)
+- `value`: on success, returns your character (JSON)

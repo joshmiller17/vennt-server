@@ -20,6 +20,12 @@ KEY_AUTH = "auth_token"
 KEY_ATTR = "attr"
 KEY_VAL = "val"
 KEY_NAME = "name"
+KEY_ID = "id"
+
+MSG_BAD_AUTH = "Authentication invalid"
+MSG_TOO_MANY_REQ = "Too many requests"
+MSG_REQ_LARGE = "Request too large"
+
 
 
 class VenntHandler(BaseHTTPRequestHandler):
@@ -30,27 +36,15 @@ class VenntHandler(BaseHTTPRequestHandler):
 						  self.log_date_time_string(),
 						  format % args))
 
-	def _send_success(self, data):
+	def respond(self, data):
 		self.send_response(200)
 		self.send_header('Content-type', 'text/html')
 		self.send_header('Access-Control-Allow-Origin','*')
 		self.end_headers()
+		self.wfile.write(json.dumps(data).encode('utf-8'))
 
-		if data != None:
-			result = { 'success': True, 'data': data }
-			self.wfile.write(json.dumps(result).encode('utf-8'))
-		
-	def _send_error(self, data):
-		self.send_response(200)
-		self.send_header('Content-type', 'text/html')
-		self.send_header('Access-Control-Allow-Origin','*')
-		self.end_headers()
 
-		if data != None:
-			result = { 'success': False, 'data': data }
-			self.wfile.write(json.dumps(result).encode('utf-8'))
-
-	def _check_keys(self, args, keys_req, keys_opt=[]):
+	def check_keys(self, args, keys_req, keys_opt=[]):
 		for key in keys_req:
 			if key not in args:
 				return 'Missing required key ' + key + '.'
@@ -61,27 +55,27 @@ class VenntHandler(BaseHTTPRequestHandler):
 
 	def do_HEAD(self):
 		if rate_limiter.is_rate_limited(self.client_address[0]):
-			return self._send_error("Too many requests")
+			return self.respond({"success":False, "info":MSG_TOO_MANY_REQ})
 	
 		parse = urlparse(self.path)
 		path = parse.path
 		if len(path) > MAX_REQUEST_SIZE:
-			return self._send_error("Request too large")
+			return self.respond({"success":False, "info":MSG_REQ_LARGE})
 
 		if path in [val for key, val in PATHS.items()]:
-			return self._send_success(None)
+			return self.respond({"success":True})
 		else:
-			return self._send_error(None)
+			return self.respond({"success":False})
 			
 	def do_POST(self):
 		print("do_POST received")
 		#self.do_GET()
 		if rate_limiter.is_rate_limited(self.client_address[0]):
-			return self._send_error("Too many requests.")
+			return self.respond({"success":False, "info":MSG_TOO_MANY_REQ})
 		
 		content_length = int(self.headers['Content-Length'])
 		if content_length > MAX_REQUEST_SIZE:
-			return self._send_error("Request too large")
+			return self.respond({"success":False, "info":MSG_REQ_LARGE})
 			
 		post_data = self.rfile.read(content_length)
 		post_data = post_data.decode('utf-8')
@@ -94,7 +88,7 @@ class VenntHandler(BaseHTTPRequestHandler):
 		except:
 			result["success"] = False
 			result["info"] = "Bad JSON"
-			self.return_post(result)
+			self.respond(result)
 			return
 		
 		if result == {}:
@@ -103,14 +97,14 @@ class VenntHandler(BaseHTTPRequestHandler):
 				if self.server.db.account_exists(username):
 					result["success"] = False
 					result["info"] = "Username already exists"
-					self.return_post(result)
+					self.respond(result)
 					return
 				if "password" in json_data:
 					password = json_data["password"]
 				else:
 					result["success"] = False
 					result["info"] = "No password key"
-					self.return_post(result)
+					self.respond(result)
 					return
 				self.server.db.create_account(username, hashlib.md5(password.encode('utf-8')).hexdigest())
 				result["success"] = True
@@ -118,14 +112,14 @@ class VenntHandler(BaseHTTPRequestHandler):
 				auth_token = hashlib.md5((username + str(time.time())).encode('utf-8')).hexdigest()
 				self.server.db.authenticate(username, auth_token)
 				result["auth_token"] = auth_token
-				self.return_post(result)
+				self.respond(result)
 				return
 			elif "login" in json_data:
 				username = json_data["login"]
 				if not self.server.db.account_exists(username):
 					result["success"] = False
 					result["info"] = "No such user"
-					self.return_post(result)
+					self.respond(result)
 					return
 				else:
 					if "password" in json_data:
@@ -133,13 +127,13 @@ class VenntHandler(BaseHTTPRequestHandler):
 					else:
 						result["success"] = False
 						result["info"] = "No password key"
-						self.return_post(result)
+						self.respond(result)
 						return
 					pass_hash = hashlib.md5(password.encode('utf-8')).hexdigest()
 					if not self.server.db.does_password_match(username, pass_hash):
 						result["success"] = False
 						result["info"] = "Incorrect password"
-						self.return_post(result)
+						self.respond(result)
 						return
 					else:
 						result["success"] = True
@@ -147,53 +141,48 @@ class VenntHandler(BaseHTTPRequestHandler):
 						auth_token = hashlib.md5((username + str(time.time())).encode('utf-8')).hexdigest()
 						self.server.db.authenticate(username, auth_token)
 						result["auth_token"] = auth_token
-						self.return_post(result)
+						self.respond(result)
 						return
 			else:
 				result["success"] = False
 				result["info"] = "POST must contain register or login key"
-				self.return_post(result)
+				self.respond(result)
 				return
-			
-		
-	def return_post(self, result):
-		self.send_response(200)
-		self.send_header('Content-type', 'text/html')
-		self.send_header('Access-Control-Allow-Origin','*')
-		self.end_headers()
-		self.wfile.write(json.dumps(result).encode('utf-8'))
 		
 
 	def do_GET(self):
 		if rate_limiter.is_rate_limited(self.client_address[0]):
-			return self._send_error("Too many requests")
+			return self.respond({"success":False, "info":MSG_TOO_MANY_REQ})
 	
 		parse = urlparse(self.path)
 		path = parse.path
 		if len(path) > MAX_REQUEST_SIZE:
-			return self._send_error("Request too large")
+			return self.respond({"success":False, "info":MSG_REQ_LARGE})
 
 		# get the JSON arguments
 		query = parse_qs(parse.query)
 
 		if 'q' not in query:
-			return self._send_error('Missing query q.')
+			return self.respond('Missing query q.')
 
 		if len(query['q']) != 1:
-			return self._send_error('Multiple query q.')
+			return self.respond('Multiple query q.')
 
 		try:
 			args = json.loads(query['q'][0])
 		except ValueError:
-			return self._send_error('Error parsing JSON.')
+			return self.respond('Error parsing JSON.')
 
 
 		# handle different path requests
 		if path == PATHS["CREATE_CHARACTER"]:
 			# check args
-			key_error = self._check_keys(args, [KEY_AUTH, KEY_NAME])
+			key_error = self.check_keys(args, [KEY_AUTH, KEY_NAME])
 			if key_error:
-				return self._send_error(key_error)
+				return self.respond(key_error)
+				
+			if not self.server.db.is_authenticated(args[KEY_AUTH]):
+				return self.respond({"success":False, "info":MSG_BAD_AUTH})
 			
 			name = args[KEY_NAME]		
 			id = str(uuid.uuid4())
@@ -202,11 +191,78 @@ class VenntHandler(BaseHTTPRequestHandler):
 			self.server.db.create_character(username, character)
 			
 			ret = {"success":True, "id":id}
-			return self._send_success(ret)
+			return self.respond(ret)
+			
+		elif path == PATHS["CREATE_CAMPAIGN"]:
+			# check args
+			key_error = self.check_keys(args, [KEY_AUTH, KEY_NAME])
+			if key_error:
+				return self.respond(key_error)
+				
+			if not self.server.db.is_authenticated(args[KEY_AUTH]):
+				return self.respond({"success":False, "info":MSG_BAD_AUTH})
+			
+			name = args[KEY_NAME]		
+			id = str(uuid.uuid4())
+			campaign = {"name":name, "id":id}
+			username = self.server.db.get_authenticated_user(args[KEY_AUTH])
+			self.server.db.create_campaign(username, campaign)
+			
+			ret = {"success":True, "id":id}
+			return self.respond(ret)
+			
+		elif path == PATHS["SET_ATTR"]:
+			key_error = self.check_keys(args, [KEY_AUTH, KEY_ID, KEY_ATTR, KEY_VAL])
+			if key_error:
+				return self.respond(key_error)
+				
+			if not self.server.db.is_authenticated(args[KEY_AUTH]):
+				return self.respond({"success":False, "info":MSG_BAD_AUTH})
+			
+			char_id = args[KEY_ID]
+			attr = args[KEY_ATTR]
+			val = args[KEY_VAL]
+			
+			if attr not in venntdb.ATTRIBUTES:
+				return self.respond({"success":False,"info":"Unknown attribute"})
+				
+			username = self.server.db.get_authenticated_user(args[KEY_AUTH])
+				
+			if not self.server.db.character_exists(username, char_id):
+				return self.respond({"success":False,"info":"No such character"})
+			
+			self.server.db.set_attr(username, char_id, attr, val)
+			return self.respond({"success":True})
+			
+		elif path == PATHS["GET_ATTR"]:
+			key_error = self.check_keys(args, [KEY_AUTH, KEY_ID, KEY_ATTR])
+			if key_error:
+				return self.respond(key_error)
+				
+			if not self.server.db.is_authenticated(args[KEY_AUTH]):
+				return self.respond({"success":False, "info":MSG_BAD_AUTH})
+			
+			char_id = args[KEY_ID]
+			attr = args[KEY_ATTR]
+			
+			if attr not in venntdb.ATTRIBUTES:
+				return self.respond({"success":False,"info":"Unknown attribute"})
+				
+			username = self.server.db.get_authenticated_user(args[KEY_AUTH])
+				
+			if not self.server.db.character_exists(username, char_id):
+				return self.respond({"success":False,"info":"No such character"})
+			
+			val = self.server.db.get_attr(username, char_id, attr)
+			return self.respond({"success":True, "value":str(val)})
+			
+			
+	# "SET_ROLE" : "/set_role",
+	# "GET_ROLE" : "/get_role"
 			
 		elif path in PATHS:
-			self._send_success({"success":False, "info":"Not yet implemented"})
+			self.respond({"success":False, "info":"Not yet implemented"})
 			
 		else:
 			# return error for unrecognized request
-			return self._send_error('Bad request path.')
+			return self.respond('Bad request path.')

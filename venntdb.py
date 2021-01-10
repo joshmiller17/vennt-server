@@ -24,6 +24,11 @@ class VenntDB:
 		self.db["accounts"][username]["password"] = pass_hash
 		self.save_db()
 		
+	def create_character(self, username, character):
+		if not "characters" in self.db["accounts"][username]:
+			self.db["accounts"][username]["characters"] = []
+		self.db["accounts"][username]["characters"].append(character)
+		
 	def does_password_match(self, username, pass_hash):
 		if not self.account_exists(username):
 			raise ValueError("Tried to access non-existent user")

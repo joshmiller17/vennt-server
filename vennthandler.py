@@ -15,7 +15,7 @@ PATHS = {
 	"GET_ROLE" : "/get_role",
 	"LOGOUT" : "/logout",
 	"GET_CAMPAIGNS" : "/get_campaigns",
-	"GET_CHARACTERS" : "/get_characters"
+	"GET_CHARACTERS" : "/get_characters",
 	"GET_CHARACTER" : "/get_character"
 }
 
@@ -269,7 +269,7 @@ class VenntHandler(BaseHTTPRequestHandler):
 				return self.respond(key_error)
 			
 			success = self.server.db.deauthenticate(args[KEY_AUTH])
-			return self.respond("success":success)
+			return self.respond({"success":success})
 			
 		elif path == PATHS["GET_CAMPAIGNS"]:
 			key_error = self.check_keys(args, [KEY_AUTH])

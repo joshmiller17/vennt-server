@@ -1,4 +1,5 @@
-import cPickle, json, os
+import _pickle as cPickle
+import json, os
 
 
 
@@ -33,7 +34,7 @@ class VenntDBDict(VenntDB):
 		to_dump = {
 			'entities': self._entities.values()
 			}
-		print json.dumps(to_dump, indent=4, separators=(',', ': '), sort_keys=True)
+		print(json.dumps(to_dump, indent=4, separators=(',', ': '), sort_keys=True))
 
 	def get_entity(self, id):
 		if self._entities.has_key(id):

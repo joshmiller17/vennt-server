@@ -9,6 +9,9 @@ A headless server for making API calls to the Vennt database.
 # API Documentation
 All communications with the server are done via JSON. Authentication is done via POST which gives you an `auth_token` that can be used to make GET calls.
 
+See `example.py` for an example of API calls.
+
+
 ### Create an account
 POST: `{"register":"myusername","password":"mypassword"}`
 

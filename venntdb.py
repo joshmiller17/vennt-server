@@ -4,53 +4,41 @@ import json, os
 
 
 class VenntDB:
-	def dump(self):
-		pass
 
-	def get_entity(self, id):
-		return None
-
-	def set_entity(self, entity):
-		pass
-	
-	def list_entities(self, type):
-		return []
-
-
-
-class VenntDBDict(VenntDB):
 	def __init__(self, filename):
-		self._filename = filename
+		self.filename = filename
 
-		if os.path.exists(self._filename):
-			self._entities  = cPickle.load(open(self._filename, 'rb'))
+		if os.path.exists(self.filename):
+			self.db = cPickle.load(open(self.filename, 'rb'))
+			self.db["auth_tokens"] = {}
 		else:
-			self._entities = {}
-
-	def _save_db(self):
-		cPickle.dump((self._entities), open(self._filename, 'wb'), cPickle.HIGHEST_PROTOCOL)
+			self.db = {}
+			self.db["accounts"] = {}
+			self.db["auth_tokens"] = {}
+			
+	def account_exists(self, username):
+		return username in self.db["accounts"]
+			
+	def create_account(self, username, pass_hash):
+		self.db["accounts"][username] = {}
+		self.db["accounts"][username]["password"] = pass_hash
+		self.save_db()
 		
-	def dump(self):
-		to_dump = {
-			'entities': self._entities.values()
-			}
-		print(json.dumps(to_dump, indent=4, separators=(',', ': '), sort_keys=True))
+	def does_password_match(self, username, pass_hash):
+		if not self.account_exists(username):
+			raise ValueError("Tried to access non-existent user")
+		return pass_hash == self.db["accounts"][username]["password"]
+		
+	def authenticate(self, username, token):
+		self.db["auth_tokens"][token] = username
+		
+	def is_authenticated(self, token):
+		return token in self.db["auth_tokens"]
+		
+	def get_authenticated_user(self, token):
+		if not self.is_authenticated(token):
+			raise ValueError("Tried to access non-authenticated user")
+		return self.db["auth_tokens"][token]
 
-	def get_entity(self, id):
-		if self._entities.has_key(id):
-			return self._entities[id]
-		else:
-			return None
-
-	def set_entity(self, entity):
-		id = entity['id']
-
-		self._entities[id] = entity
-		self._save_db()
-
-	def list_entities(self, type):
-		ret = []
-		for id, entity in self._entities.iteritems():
-			if type == entity['type']:
-				ret.append(entity)
-		return ret
+	def save_db(self):
+		cPickle.dump((self.db), open(self.filename, 'wb'))

@@ -19,7 +19,7 @@ if __name__ == '__main__':
 		PORT_NUMBER = int(sys.argv[2])
 	
 	httpd = HTTPServer((HOST_NAME, PORT_NUMBER), vennthandler.VenntHandler)
-	httpd._db = venntdb.VenntDBDict(db)
+	httpd._db = venntdb.VenntDB(db)
 
 	try:
 		print("Ready")

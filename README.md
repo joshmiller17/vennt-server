@@ -34,5 +34,27 @@ GET: `<baseURL>/create_character?q={"auth_token":"<auth_token>", "name":"myfirst
 
 Returns a JSON:
 - `success`: whether the operation was successful
-- `data`: (on success)
-  - `id`: the unique ID of your new character
+-`id`: on success, the unique ID of your new character
+
+### Create a campaign
+GET: `<baseURL>/create_campaign?q={"auth_token":"<auth_token>", "name":"myfirstcampaign"}`
+
+Returns a JSON:
+- `success`: whether the operation was successful
+-`id`: on success, the unique ID of your new campaign
+
+
+### Set an attribute
+GET: `<baseURL>/set_attr?q={"auth_token":"<auth_token>", "char_id":"<character_id>", "attr":"ATTR", "val":"<num>"}`
+**Valid attributes**: AGI, CHA, DEX, INT, PER, SPI, STR, TEK, WIS, HP, MAX_HP, MP, MAX_MP, VIM, MAX_VIM, ARMOR, HERO, INIT, SPEED
+
+Returns a JSON:
+- `success`: whether the operation was successful
+
+### Get an attribute
+GET: `<baseURL>/get_attr?q={"auth_token":"<auth_token>", "char_id":"<character_id>", "attr":"ATTR"}`
+**Valid attributes**: AGI, CHA, DEX, INT, PER, SPI, STR, TEK, WIS, HP, MAX_HP, MP, MAX_MP, VIM, MAX_VIM, ARMOR, HERO, INIT, SPEED
+
+Returns a JSON:
+- `success`: whether the operation was successful
+- `value`: the attribute value

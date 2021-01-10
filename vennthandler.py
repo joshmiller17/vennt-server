@@ -12,7 +12,11 @@ PATHS = {
 	"CREATE_CHARACTER" : "/create_character",
 	"CREATE_CAMPAIGN" : "/create_campaign",
 	"SET_ROLE" : "/set_role",
-	"GET_ROLE" : "/get_role"
+	"GET_ROLE" : "/get_role",
+	"LOGOUT" : "/logout",
+	"GET_CAMPAIGNS" : "/get_campaigns",
+	"GET_CHARACTERS" : "/get_characters"
+	"GET_CHARACTER" : "/get_character"
 }
 
 
@@ -177,7 +181,7 @@ class VenntHandler(BaseHTTPRequestHandler):
 		# handle different path requests
 		if path == PATHS["CREATE_CHARACTER"]:
 			# check args
-			key_error = self.check_keys(args, [KEY_AUTH, KEY_NAME])
+			key_error = self.check_keys(args, [KEY_AUTH, KEY_NAME], keys_opt=venntdb.ATTRIBUTES)
 			if key_error:
 				return self.respond(key_error)
 				
@@ -187,6 +191,9 @@ class VenntHandler(BaseHTTPRequestHandler):
 			name = args[KEY_NAME]		
 			id = str(uuid.uuid4())
 			character = {"name":name, "id":id}
+			for key in args:
+				if key in ATTRIBUTES:
+					character[key] = args[key]
 			username = self.server.db.get_authenticated_user(args[KEY_AUTH])
 			self.server.db.create_character(username, character)
 			
@@ -255,6 +262,52 @@ class VenntHandler(BaseHTTPRequestHandler):
 			
 			val = self.server.db.get_attr(username, char_id, attr)
 			return self.respond({"success":True, "value":str(val)})
+			
+		elif path == PATHS["LOGOUT"]:
+			key_error = self.check_keys(args, [KEY_AUTH])
+			if key_error:
+				return self.respond(key_error)
+			
+			success = self.server.db.deauthenticate(args[KEY_AUTH])
+			return self.respond("success":success)
+			
+		elif path == PATHS["GET_CAMPAIGNS"]:
+			key_error = self.check_keys(args, [KEY_AUTH])
+			if key_error:
+				return self.respond(key_error)
+				
+			if not self.server.db.is_authenticated(args[KEY_AUTH]):
+				return self.respond({"success":False, "info":MSG_BAD_AUTH})
+				
+			username = self.server.db.get_authenticated_user(args[KEY_AUTH])
+				
+			return self.respond({"success":True, "value":str(self.server.db.get_campaigns(username))})
+			
+		elif path == PATHS["GET_CHARACTERS"]:
+			key_error = self.check_keys(args, [KEY_AUTH])
+			if key_error:
+				return self.respond(key_error)
+				
+			if not self.server.db.is_authenticated(args[KEY_AUTH]):
+				return self.respond({"success":False, "info":MSG_BAD_AUTH})
+				
+			username = self.server.db.get_authenticated_user(args[KEY_AUTH])
+				
+			return self.respond({"success":True, "value":str(self.server.db.get_characters(username))})
+			
+		elif path == PATHS["GET_CHARACTER"]:
+			key_error = self.check_keys(args, [KEY_AUTH, KEY_ID])
+			if key_error:
+				return self.respond(key_error)
+				
+			if not self.server.db.is_authenticated(args[KEY_AUTH]):
+				return self.respond({"success":False, "info":MSG_BAD_AUTH})
+				
+			username = self.server.db.get_authenticated_user(args[KEY_AUTH])
+			id = args[KEY_ID]
+				
+			return self.respond({"success":True, "value":str(self.server.db.get_character(username, id))})
+				
 			
 			
 	# "SET_ROLE" : "/set_role",

@@ -42,9 +42,20 @@ class VenntDB:
 		if not "characters" in self.db["accounts"][username]:
 			self.db["accounts"][username]["characters"] = []
 		for attr in ATTRIBUTES:
-			character[attr] = 0 # init
+			if attr not in character:
+				character[attr] = 0
 		self.db["accounts"][username]["characters"].append(character)
 		self.save_db()
+		
+	def get_campaigns(self, username):
+		if not "campaigns" in self.db["accounts"][username]:
+			return []
+		return self.db["accounts"][username]["campaigns"]
+		
+	def get_characters(self, username):
+		if not "characters" in self.db["accounts"][username]:
+			return []
+		return self.db["accounts"][username]["characters"]
 		
 	def create_campaign(self, username, campaign):
 		if not "campaigns" in self.db["accounts"][username]:
@@ -71,6 +82,11 @@ class VenntDB:
 		if not self.account_exists(username):
 			raise ValueError("Tried to access non-existent user")
 		return pass_hash == self.db["accounts"][username]["password"]
+		
+	def deauthenticate(self, token):
+		success = token in self.db["auth_tokens"]
+		del self.db["auth_tokens"][token]
+		return success
 		
 	def authenticate(self, username, token):
 		self.db["auth_tokens"][token] = username

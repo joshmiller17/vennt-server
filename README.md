@@ -11,6 +11,7 @@ All communications with the server are done via JSON. Authentication is done via
 
 ### Create an account
 POST: `{"register":"myusername","password":"mypassword"}`
+
 Returns a JSON:
 - `success`: whether the operation was successful
 - `info`: on failure, why
@@ -18,6 +19,7 @@ Returns a JSON:
 
 ### Login
 POST: `{"login":"myusername","password":"mypassword"}`
+
 Returns a JSON:
 - `success`: whether the operation was successful
 - `info`: on failure, why

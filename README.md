@@ -27,3 +27,12 @@ Returns a JSON:
 - `success`: whether the operation was successful
 - `info`: on failure, why
 - `auth_token`: on success, your authentication token for making GET calls
+
+
+### Create a character
+GET: `<baseURL>/create_character?q={"auth_token":"<auth_token>", "name":"myfirstcharacter"}`
+
+Returns a JSON:
+- `success`: whether the operation was successful
+- `data`: (on success)
+  - `id`: the unique ID of your new character

@@ -28,9 +28,18 @@ Returns a JSON:
 - `info`: on failure, why
 - `auth_token`: on success, your authentication token for making GET calls
 
+### Logout
+GET: `<baseURL>/logout?q={"auth_token":"<auth_token>"}`
+
+Returns a JSON:
+- `success`: whether the operation was successful (whether `auth_token` was valid prior to logout)
 
 ### Create a character
-GET: `<baseURL>/create_character?q={"auth_token":"<auth_token>", "name":"myfirstcharacter"}`
+GET: `<baseURL>/create_character?q={"auth_token":"<auth_token>", "name":"myfirstcharacter"[,"ATTR":"<num>"...]}`
+
+Setting attribute properties are optional.
+**Valid attributes**: AGI, CHA, DEX, INT, PER, SPI, STR, TEK, WIS, HP, MAX_HP, MP, MAX_MP, VIM, MAX_VIM, ARMOR, HERO, INIT, SPEED
+
 
 Returns a JSON:
 - `success`: whether the operation was successful
@@ -42,6 +51,20 @@ GET: `<baseURL>/create_campaign?q={"auth_token":"<auth_token>", "name":"myfirstc
 Returns a JSON:
 - `success`: whether the operation was successful
 -`id`: on success, the unique ID of your new campaign
+
+### Get characters
+GET: `<baseURL>/get_characters?q={"auth_token":"<auth_token>"}`
+
+Returns a JSON:
+- `success`: whether the operation was successful
+-`val`: on success, returns a list of IDs for your characters
+
+### Get campaigns
+GET: `<baseURL>/get_campaigns?q={"auth_token":"<auth_token>"}`
+
+Returns a JSON:
+- `success`: whether the operation was successful
+-`val`: on success, returns a list of IDs for your campaigns
 
 
 ### Set an attribute
@@ -60,3 +83,10 @@ GET: `<baseURL>/get_attr?q={"auth_token":"<auth_token>", "char_id":"<character_i
 Returns a JSON:
 - `success`: whether the operation was successful
 - `value`: the attribute value
+
+### Get character
+GET: `<baseURL>/get_character?q={"auth_token":"<auth_token>"}`
+
+Returns a JSON:
+- `success`: whether the operation was successful
+-`val`: on success, returns your character (JSON)

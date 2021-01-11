@@ -1,5 +1,11 @@
+# Josh Aaron Miller 2021
+# Vennt DB
+
 import _pickle as cPickle
 import json, os
+
+from authentication import Authenticator
+
 
 ATTRIBUTES = [
 "AGI", "CHA", "DEX", "INT", "PER", "SPI",
@@ -12,15 +18,14 @@ class VenntDB:
 
 	def __init__(self, filename):
 		self.filename = filename
+		self.auth = Authenticator()
 
 		if os.path.exists(self.filename):
 			self.db = cPickle.load(open(self.filename, 'rb'))
-			self.db["auth_tokens"] = {}
 		else:
 			self.db = {}
 			self.db["accounts"] = {}
 			self.db["campaigns"] = {}
-			self.db["auth_tokens"] = {}
 			
 	def dump(self):
 		print(json.dumps(self.db, indent=4, separators=(',', ': '), sort_keys=True))
@@ -127,22 +132,6 @@ class VenntDB:
 		if not self.account_exists(username):
 			raise AssertionError("Tried to access non-existent user")
 		return pass_hash == self.db["accounts"][username]["password"]
-		
-	def deauthenticate(self, token):
-		success = token in self.db["auth_tokens"]
-		del self.db["auth_tokens"][token]
-		return success
-		
-	def authenticate(self, username, token):
-		self.db["auth_tokens"][token] = username
-		
-	def is_authenticated(self, token):
-		return token in self.db["auth_tokens"]
-		
-	def get_authenticated_user(self, token):
-		if not self.is_authenticated(token):
-			raise AssertionError("Tried to access non-authenticated user")
-		return self.db["auth_tokens"][token]
 
 	def save_db(self):
 		cPickle.dump((self.db), open(self.filename, 'wb'))

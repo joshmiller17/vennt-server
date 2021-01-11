@@ -1,3 +1,6 @@
+# Josh Aaron Miller 2021
+# Vennt Server Main
+
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import sys
 import venntdb, vennthandler

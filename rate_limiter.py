@@ -1,3 +1,6 @@
+# Josh Aaron Miller 2021
+# Vennt HTTP Request Rate Limiter
+
 from collections import defaultdict
 import threading, time
 

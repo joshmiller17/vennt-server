@@ -1,3 +1,6 @@
+# Josh Aaron Miller 2021
+# Vennt API example client
+
 import requests, json, uuid
 
 url = 'http://localhost:3004/'

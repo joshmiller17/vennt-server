@@ -40,7 +40,7 @@ MSG_BAD_CAMP = "Invalid campaign ID"
 MSG_INVITE_EXISTS = "User already invited"
 MSG_BAD_ROLE = "Invalid role"
 
-ROLES = [0, 1] # player, GM
+ROLES = ["player","GM"]
 
 
 
@@ -334,10 +334,10 @@ class VenntHandler(BaseHTTPRequestHandler):
 			
 			campaign_id = args[KEY_ID]
 			
-			if campaign_id not in users_campaigns:
+			if campaign_id not in [c["id"] for c in users_campaigns]:
 				return self.respond({"success":False, "info":MSG_BAD_CAMP})
 				
-			if not self.server.db.account_exists(to):
+			if not self.server.db.account_exists(user_to):
 				return self.respond({"success":False, "info":MSG_NO_USER})
 
 			success = self.server.db.send_campaign_invite(user_from, user_to, campaign_id)
@@ -379,7 +379,7 @@ class VenntHandler(BaseHTTPRequestHandler):
 			if campaign_owner is None:
 				return self.respond({"success":False, "info":MSG_BAD_CAMP})
 				
-			self.server.db.add_user_to_campaign(user, campaign_id)
+			self.server.db.add_user_to_campaign(username, campaign_id)
 			
 			return self.respond({"success":True})
 			

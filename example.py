@@ -23,18 +23,18 @@ response = requests.get(url + 'create_campaign?q={"auth_token":"%s","name":"myfi
 print(response.text)
 
 print("create character")
-response = requests.get(url + 'create_character?q={"auth_token":"%s","name":"myfirstcharacter"}' % auth_token)
+response = requests.get(url + 'create_character?q={"auth_token":"%s","name":"myfirstcharacter","PER":"3"}' % auth_token)
 print(response.text)
 
 response = json.loads(response.text)
 my_character_id = response["id"]
 
 print("set attribute")
-response = requests.get(url + 'set_attr?q={"auth_token":"%s","id":"%s", "attr":"str", "value": "3"}' % (auth_token, my_character_id))
+response = requests.get(url + 'set_attr?q={"auth_token":"%s","id":"%s", "attr":"STR", "value": "3"}' % (auth_token, my_character_id))
 print(response.text)
 
 print("get attribute")
-response = requests.get(url + 'get_attr?q={"auth_token":"%s","id":"%s", "attr":"str"}' % (auth_token, my_character_id))
+response = requests.get(url + 'get_attr?q={"auth_token":"%s","id":"%s", "attr":"STR"}' % (auth_token, my_character_id))
 print(response.text)
 
 print("Get campaigns")
@@ -68,7 +68,7 @@ response = requests.get(url + 'accept_campaign_invite?q={"auth_token":"%s","id":
 print(response.text)
 
 print("Set role")
-response = requests.get(url + 'set_role?q={"auth_token":"%s","id":"%s","role":"1","username":"%s"}' % (auth_token,campaign_id,username))
+response = requests.get(url + 'set_role?q={"auth_token":"%s","id":"%s","role":"GM","username":"%s"}' % (auth_token,campaign_id,username))
 print(response.text)
 
 print("Get role")

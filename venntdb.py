@@ -58,18 +58,18 @@ class VenntDB:
 		
 	def send_campaign_invite(self, user_from, user_to, campaign_id):
 		invite = {"from":user_from, "id":campaign_id}
-		if not "campaign_invites" in self.db["accounts"][username]:
-			self.db["accounts"][username]["campaign_invites"] = []
-		for invites in self.db["accounts"][username]["campaign_invites"]:
+		if not "campaign_invites" in self.db["accounts"][user_to]:
+			self.db["accounts"][user_to]["campaign_invites"] = []
+		for invites in self.db["accounts"][user_to]["campaign_invites"]:
 			if invites["id"] == campaign_id:
 				return False
-		self.db["accounts"][username]["campaign_invites"].append(invite)
+		self.db["accounts"][user_to]["campaign_invites"].append(invite)
 		return True
 		
 	def delete_campaign_invite(self, username, campaign_id):
 		del self.db["accounts"][username]["campaign_invites"][campaign_id]
 		
-	def add_user_to_campaign(username, campaign_id):
+	def add_user_to_campaign(self, username, campaign_id):
 		if username in self.db["campaigns"][campaign_id]["members"]:
 			raise AssertionError(username + " already in campaign.")
 		self.db["campaigns"][campaign_id]["members"].append({"username":username,"role":None})

@@ -2,10 +2,6 @@
 A headless server for making API calls to the Vennt database.
 
 
-### Running the server
-`py -3 venntserver.py vennt.db`
-
-
 # API Documentation
 All communications with the server are done via JSON. Authentication is done via POST which gives you an `auth_token` that can be used to make GET calls. Note that all interactions with the API are case-sensitive.
 
@@ -131,3 +127,25 @@ GET: `<baseURL>/get_character?q={"auth_token":"<auth_token>"}`
 Returns a JSON:
 - `success`: whether the operation was successful
 - `value`: on success, returns your character (JSON)
+
+
+
+# Server Documentation
+
+
+### Running the server
+`py -3 venntserver.py vennt.db`
+
+
+### Organization of the database
+venntDB.db is organized in this way:
+
+- `accounts`: a map of usernames to accounts
+  - `characters`: a map of character IDs to character dictionaries
+    - Includes `name`, `id`, and many attributes (see `ATTRIBUTES`)
+  - `campaign_invites`: a list of campaign invites
+    - `from`: username of sender
+    - `id`: campaign ID
+  - `campaigns`: a list of campaign IDs owned by the user
+  - `joined_campaigns`: a list of campaign IDs joined by the user
+- `campaigns`: a map of campaign IDs to campaign dictionaries

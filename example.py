@@ -18,25 +18,63 @@ print(response.text)
 response = json.loads(response.text)
 auth_token = response["auth_token"]
 
-# create a new campaign
-print("New campaign")
+print("Create campaign")
 response = requests.get(url + 'create_campaign?q={"auth_token":"%s","name":"myfirstcampaign"}' % auth_token)
 print(response.text)
 
-# create a new character
-print("New character")
+print("create character")
 response = requests.get(url + 'create_character?q={"auth_token":"%s","name":"myfirstcharacter"}' % auth_token)
 print(response.text)
 
 response = json.loads(response.text)
 my_character_id = response["id"]
 
-# set an attribute
-print("Set attr")
-response = requests.get(url + 'set_attr?q={"auth_token":"%s","id":"%s", "attr":"STR", "val": "3"}' % (auth_token, my_character_id))
+print("set attribute")
+response = requests.get(url + 'set_attr?q={"auth_token":"%s","id":"%s", "attr":"str", "value": "3"}' % (auth_token, my_character_id))
 print(response.text)
 
-# get an attribute
-print("Get attr")
-response = requests.get(url + 'get_attr?q={"auth_token":"%s","id":"%s", "attr":"STR"}' % (auth_token, my_character_id))
+print("get attribute")
+response = requests.get(url + 'get_attr?q={"auth_token":"%s","id":"%s", "attr":"str"}' % (auth_token, my_character_id))
+print(response.text)
+
+print("Get campaigns")
+response = requests.get(url + 'get_campaigns?q={"auth_token":"%s"}' % (auth_token))
+print(response.text)
+
+response = json.loads(response.text)
+campaigns = response["value"]
+campaigns = campaigns.replace("'",'"')
+json_campaigns = json.loads(campaigns) # nested JSONs
+campaign_id = json_campaigns[0]["id"]
+
+print("Get characters")
+response = requests.get(url + 'get_characters?q={"auth_token":"%s"}' % (auth_token))
+print(response.text)
+
+print("Get character")
+response = requests.get(url + 'get_character?q={"auth_token":"%s", "id":"%s"}' % (auth_token,my_character_id))
+print(response.text)
+
+print("Send campaign invite")
+response = requests.get(url + 'send_campaign_invite?q={"auth_token":"%s","username":"%s", "id":"%s"}' % (auth_token,username,campaign_id))
+print(response.text)
+
+print("View campaign invites")
+response = requests.get(url + 'view_campaign_invites?q={"auth_token":"%s"}' % (auth_token))
+print(response.text)
+
+print("Accept campaign invite")
+response = requests.get(url + 'accept_campaign_invite?q={"auth_token":"%s","id":"%s"}' % (auth_token,campaign_id))
+print(response.text)
+
+print("Set role")
+response = requests.get(url + 'set_role?q={"auth_token":"%s","id":"%s","role":"1","username":"%s"}' % (auth_token,campaign_id,username))
+print(response.text)
+
+print("Get role")
+response = requests.get(url + 'get_role?q={"auth_token":"%s","id":"%s","username":"%s"}' % (auth_token,campaign_id,username))
+print(response.text)
+
+print("Logout")
+response = requests.get(url + 'logout?q={"auth_token":"%s"}' % (auth_token))
 print(response.text)

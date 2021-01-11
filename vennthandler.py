@@ -11,24 +11,36 @@ PATHS = {
 	"SET_ATTR" : '/set_attr',
 	"CREATE_CHARACTER" : "/create_character",
 	"CREATE_CAMPAIGN" : "/create_campaign",
-	"SET_ROLE" : "/set_role",
-	"GET_ROLE" : "/get_role",
 	"LOGOUT" : "/logout",
 	"GET_CAMPAIGNS" : "/get_campaigns",
 	"GET_CHARACTERS" : "/get_characters",
-	"GET_CHARACTER" : "/get_character"
+	"GET_CHARACTER" : "/get_character",
+	"SEND_CAMPAIGN_INVITE": "/send_campaign_invite",
+	"VIEW_CAMPAIGN_INVITES": "/view_campaign_invites",
+	"ACCEPT_CAMPAIGN_INVITE": "/accept_campaign_invite",
+	"DECLINE_CAMPAIGN_INVITE": "/decline_campaign_invite",
+	"SET_ROLE" : "/set_role",
+	"GET_ROLE" : "/get_role",
 }
 
 
 KEY_AUTH = "auth_token"
 KEY_ATTR = "attr"
-KEY_VAL = "val"
+KEY_VAL = "value"
 KEY_NAME = "name"
 KEY_ID = "id"
+KEY_USERNAME = "username"
+KEY_ROLE = "role"
 
 MSG_BAD_AUTH = "Authentication invalid"
 MSG_TOO_MANY_REQ = "Too many requests"
 MSG_REQ_LARGE = "Request too large"
+MSG_NO_USER = "No such user"
+MSG_BAD_CAMP = "Invalid campaign ID"
+MSG_INVITE_EXISTS = "User already invited"
+MSG_BAD_ROLE = "Invalid role"
+
+ROLES = [0, 1] # player, GM
 
 
 
@@ -72,8 +84,6 @@ class VenntHandler(BaseHTTPRequestHandler):
 			return self.respond({"success":False})
 			
 	def do_POST(self):
-		print("do_POST received")
-		#self.do_GET()
 		if rate_limiter.is_rate_limited(self.client_address[0]):
 			return self.respond({"success":False, "info":MSG_TOO_MANY_REQ})
 		
@@ -83,8 +93,8 @@ class VenntHandler(BaseHTTPRequestHandler):
 			
 		post_data = self.rfile.read(content_length)
 		post_data = post_data.decode('utf-8')
-		print("POST request,\nPath: %s\nHeaders:\n%s\n\nBody:\n%s\n" %
-				(str(self.path), str(self.headers), post_data))
+		#print("POST request,\nPath: %s\nHeaders:\n%s\n\nBody:\n%s\n" %
+		#		(str(self.path), str(self.headers), post_data))
 		
 		result = {}		
 		try:
@@ -174,7 +184,7 @@ class VenntHandler(BaseHTTPRequestHandler):
 
 		try:
 			args = json.loads(query['q'][0])
-		except ValueError:
+		except:
 			return self.respond('Error parsing JSON.')
 
 
@@ -192,7 +202,7 @@ class VenntHandler(BaseHTTPRequestHandler):
 			id = str(uuid.uuid4())
 			character = {"name":name, "id":id}
 			for key in args:
-				if key in ATTRIBUTES:
+				if key in venntdb.ATTRIBUTES:
 					character[key] = args[key]
 			username = self.server.db.get_authenticated_user(args[KEY_AUTH])
 			self.server.db.create_character(username, character)
@@ -307,11 +317,139 @@ class VenntHandler(BaseHTTPRequestHandler):
 			id = args[KEY_ID]
 				
 			return self.respond({"success":True, "value":str(self.server.db.get_character(username, id))})
+			
+		elif path == PATHS["SEND_CAMPAIGN_INVITE"]:
+			key_error = self.check_keys(args, [KEY_AUTH, KEY_USERNAME, KEY_ID])
+			if key_error:
+				return self.respond(key_error)
+			
+			if not self.server.db.is_authenticated(args[KEY_AUTH]):
+				return self.respond({"success":False, "info":MSG_BAD_AUTH})
 				
+			user_to = args[KEY_USERNAME]
 			
+			user_from = self.server.db.get_authenticated_user(args[KEY_AUTH])
 			
-	# "SET_ROLE" : "/set_role",
-	# "GET_ROLE" : "/get_role"
+			users_campaigns = self.server.db.get_campaigns(user_from)
+			
+			campaign_id = args[KEY_ID]
+			
+			if campaign_id not in users_campaigns:
+				return self.respond({"success":False, "info":MSG_BAD_CAMP})
+				
+			if not self.server.db.account_exists(to):
+				return self.respond({"success":False, "info":MSG_NO_USER})
+
+			success = self.server.db.send_campaign_invite(user_from, user_to, campaign_id)
+			
+			if not success:
+				return self.respond({"success":False, "info":MSG_INVITE_EXISTS})
+			
+			return self.respond({"success":success})
+			
+		elif path == PATHS["VIEW_CAMPAIGN_INVITES"]:
+			key_error = self.check_keys(args, [KEY_AUTH])
+			if key_error:
+				return self.respond(key_error)
+			
+			if not self.server.db.is_authenticated(args[KEY_AUTH]):
+				return self.respond({"success":False, "info":MSG_BAD_AUTH})
+				
+			username = self.server.db.get_authenticated_user(args[KEY_AUTH])
+			invites = self.server.db.get_campaign_invites(username)
+			
+			return self.respond({"success":True, "value":invites})
+			
+		elif path == PATHS["ACCEPT_CAMPAIGN_INVITE"]:
+			key_error = self.check_keys(args, [KEY_AUTH, KEY_ID])
+			if key_error:
+				return self.respond(key_error)
+			
+			if not self.server.db.is_authenticated(args[KEY_AUTH]):
+				return self.respond({"success":False, "info":MSG_BAD_AUTH})
+				
+			username = self.server.db.get_authenticated_user(args[KEY_AUTH])
+			invites = self.server.db.get_campaign_invites(username)
+			campaign_id = args[KEY_ID]
+			
+			campaign_owner = None
+			for inv in invites:
+				if campaign_id == inv["id"]:
+					campaign_owner = inv["from"]
+			if campaign_owner is None:
+				return self.respond({"success":False, "info":MSG_BAD_CAMP})
+				
+			self.server.db.add_user_to_campaign(user, campaign_id)
+			
+			return self.respond({"success":True})
+			
+		elif path == PATHS["DECLINE_CAMPAIGN_INVITE"]:
+			key_error = self.check_keys(args, [KEY_AUTH, KEY_ID])
+			if key_error:
+				return self.respond(key_error)
+			
+			if not self.server.db.is_authenticated(args[KEY_AUTH]):
+				return self.respond({"success":False, "info":MSG_BAD_AUTH})
+				
+			username = self.server.db.get_authenticated_user(args[KEY_AUTH])
+			invites = self.server.db.get_campaign_invites(username)
+			campaign_id = args[KEY_ID]
+			
+			campaign_owner = None
+			for inv in invites:
+				if campaign_id == inv["id"]:
+					campaign_owner = inv["from"]
+			if campaign_owner is None:
+				return self.respond({"success":False, "info":MSG_BAD_CAMP})
+				
+			self.server.db.delete_campaign_invite(user, campaign_id)
+			
+			return self.respond({"success":True})
+			
+		elif path == PATHS["SET_ROLE"]:
+			key_error = self.check_keys(args, [KEY_AUTH, KEY_ID, KEY_USERNAME, KEY_ROLE])
+			if key_error:
+				return self.respond(key_error)
+				
+			if not self.server.db.is_authenticated(args[KEY_AUTH]):
+				return self.respond({"success":False, "info":MSG_BAD_AUTH})
+				
+			if args[KEY_ROLE] not in ROLES:
+				return self.respond({"success":False, "info":MSG_BAD_ROLE})
+						
+			username = self.server.db.get_authenticated_user(args[KEY_AUTH])
+			campaign_id = args[KEY_ID]
+			
+			campaign = self.server.db.get_campaign(campaign_id)
+			if campaign is None or campaign["owner"] != username:
+				return self.respond({"success":False, "info":MSG_BAD_CAMP})
+				
+			for member in campaign["members"]:
+				if member["username"] == args[KEY_USERNAME]:
+					member["role"] = args[KEY_ROLE]
+					return self.respond({"success":True})
+			return self.respond({"success":False, "info":MSG_NO_USER}) 
+			
+		elif path == PATHS["GET_ROLE"]:
+			key_error = self.check_keys(args, [KEY_AUTH, KEY_ID, KEY_USERNAME])
+			if key_error:
+				return self.respond(key_error)
+				
+			if not self.server.db.is_authenticated(args[KEY_AUTH]):
+				return self.respond({"success":False, "info":MSG_BAD_AUTH})
+						
+			username = self.server.db.get_authenticated_user(args[KEY_AUTH])
+			campaign_id = args[KEY_ID]
+			
+			campaign = self.server.db.get_campaign(campaign_id)
+			if campaign is None or (campaign_id not in self.server.db.get_campaigns(username) and campaign_id not in self.server.db.get_joined_campaigns(username)):
+				return self.respond({"success":False, "info":MSG_BAD_CAMP})
+			
+			for member in campaign["members"]:
+				if member["username"] == args[KEY_USERNAME]:
+					return self.respond({"success":True, "value":member["role"]})
+			return self.respond({"success":False, "info":MSG_NO_USER}) 
+
 			
 		elif path in PATHS:
 			self.respond({"success":False, "info":"Not yet implemented"})

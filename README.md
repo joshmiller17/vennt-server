@@ -57,14 +57,14 @@ GET: `<baseURL>/get_characters?q={"auth_token":"<auth_token>"}`
 
 Returns a JSON:
 - `success`: whether the operation was successful
--`val`: on success, returns a list of IDs for your characters
+-`value`: on success, returns a list of IDs for your characters
 
 ### Get campaigns
 GET: `<baseURL>/get_campaigns?q={"auth_token":"<auth_token>"}`
 
 Returns a JSON:
 - `success`: whether the operation was successful
--`val`: on success, returns a list of IDs for your campaigns
+-`value`: on success, returns a list of IDs for your campaigns
 
 
 ### Set an attribute
@@ -89,4 +89,4 @@ GET: `<baseURL>/get_character?q={"auth_token":"<auth_token>"}`
 
 Returns a JSON:
 - `success`: whether the operation was successful
--`val`: on success, returns your character (JSON)
+- `value`: on success, returns your character (JSON)

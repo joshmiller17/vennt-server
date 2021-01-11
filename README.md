@@ -7,7 +7,7 @@ A headless server for making API calls to the Vennt database.
 
 
 # API Documentation
-All communications with the server are done via JSON. Authentication is done via POST which gives you an `auth_token` that can be used to make GET calls.
+All communications with the server are done via JSON. Authentication is done via POST which gives you an `auth_token` that can be used to make GET calls. Note that all interactions with the API are case-sensitive.
 
 See `example.py` for an example of API calls.
 
@@ -66,6 +66,47 @@ Returns a JSON:
 - `success`: whether the operation was successful
 -`value`: on success, returns a list of IDs for your campaigns
 
+### Invite someone to a campaign
+GET: `<baseURL>/send_campaign_invite?q={"auth_token":"<auth_token>","username":"<recipient>"}`
+
+Returns a JSON:
+- `success`: whether the operation was successful
+
+### View active campaign invites
+GET: `<baseURL>/view_campaign_invites?q={"auth_token":"<auth_token>"}`
+
+Returns a JSON:
+- `success`: whether the operation was successful
+- `value`: list of campaign invites
+  - `from`: username of inviter
+  - `id`: campaign ID
+  
+### Accept campaign invite
+GET: `<baseURL>/accept_campaign_invite?q={"auth_token":"<auth_token>","id":"<campaign_id>"}`
+
+Returns a JSON:
+- `success`: whether the operation was successful
+
+### Decline campaign invite
+GET: `<baseURL>/decline_campaign_invite?q={"auth_token":"<auth_token>","id":"<campaign_id>"}`
+
+Returns a JSON:
+- `success`: whether the operation was successful
+
+### Set campaign role
+You must be the campaign owner to set a role.
+GET: `<baseURL>/set_role?q={"auth_token":"<auth_token>","username":"<target>","role":"[GM/player]"}`
+
+Returns a JSON:
+- `success`: whether the operation was successful
+
+### Get campaign role
+You must be the campaign owner or a member of the campaign to view someone's role.
+GET: `<baseURL>/set_role?q={"auth_token":"<auth_token>","username":"<target>"}`
+
+Returns a JSON:
+- `success`: whether the operation was successful
+- `value`: the user's role (GM or player)
 
 ### Set an attribute
 GET: `<baseURL>/set_attr?q={"auth_token":"<auth_token>", "char_id":"<character_id>", "attr":"ATTR", "val":"<num>"}`

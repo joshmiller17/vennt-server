@@ -76,6 +76,17 @@ Returns a JSON:
 - `success`: whether the operation was successful
 - `value`: the attribute value
 
+## Enemies
+
+### Create an enemy
+GET: `<baseURL>/create_enemy?q={"auth_token":"<auth_token>", "name":"myfirstenemy"[,"ATTR":"<num>"...]}`
+
+Setting attribute properties are optional.
+**Valid attributes**: AGI, CHA, DEX, INT, PER, SPI, STR, TEK, WIS, HP, MAX_HP, MP, MAX_MP, VIM, MAX_VIM, ARMOR, HERO, INIT, SPEED
+
+Returns a JSON:
+- `success`: whether the operation was successful
+-`id`: on success, the unique ID of your new enemy
 
 ## Campaigns
 

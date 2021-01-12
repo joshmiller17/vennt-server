@@ -74,10 +74,10 @@ class Authenticator:
 
 	def __init__(self):
 		self.tokens = {} # token : Client
-		self.timeout_auth_thread = threading.Thread(target=timeout_auth_tokens, daemon=True)
+		self.timeout_auth_thread = threading.Thread(target=self.timeout_auth_tokens, daemon=True)
 		self.timeout_auth_thread.start()
 		
-	def timeout_auth_tokens():
+	def timeout_auth_tokens(self):
 		while True:
 			time.sleep(3600)
 			current = time.time()

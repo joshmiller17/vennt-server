@@ -1,4 +1,7 @@
 MAX_REQUEST_SIZE = 10000
+MAX_INVENTORY_SIZE = 100
+MAX_NAME_LENGTH = 100
+MAX_DESC_LENGTH = 500
 
 PATHS = {
 	"GET_ATTR" : '/get_attr',
@@ -15,7 +18,17 @@ PATHS = {
 	"DECLINE_CAMPAIGN_INVITE": "/decline_campaign_invite",
 	"SET_ROLE" : "/set_role",
 	"GET_ROLE" : "/get_role",
+	"ADD_ITEM" : "/add_item",
+	"VIEW_ITEMS" : "/view_items",
+	"REMOVE_ITEM" : "/remove_item"
 }
+
+ATTRIBUTES = [
+"AGI", "CHA", "DEX", "INT", "PER", "SPI",
+"STR", "TEK", "WIS", "HP", "MAX_HP", "MP",
+"MAX_MP", "VIM", "MAX_VIM", "ARMOR", "HERO",
+"INIT", "SPEED", "XP", "SP"
+]
 
 
 KEY_AUTH = "auth_token"
@@ -25,6 +38,8 @@ KEY_NAME = "name"
 KEY_ID = "id"
 KEY_USERNAME = "username"
 KEY_ROLE = "role"
+KEY_DESC = "desc"
+KEY_BULK = "bulk"
 
 MSG_BAD_AUTH = "Authentication invalid"
 MSG_TOO_MANY_REQ = "Too many requests"
@@ -33,5 +48,8 @@ MSG_NO_USER = "No such user"
 MSG_BAD_CAMP = "Invalid campaign ID"
 MSG_INVITE_EXISTS = "User already invited"
 MSG_BAD_ROLE = "Invalid role"
+MSG_NAME_LONG = "Name too long"
+MSG_DESC_LONG = "Description too long"
+MSG_NOT_INT = "Key {} should be an integer"
 
 ROLES = ["player","GM"]

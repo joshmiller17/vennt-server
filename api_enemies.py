@@ -1,5 +1,5 @@
 # Josh Aaron Miller 2021
-# API calls for Characters
+# API calls for Enemies
 
 import venntdb, uuid
 from constants import *

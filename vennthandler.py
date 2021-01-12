@@ -10,6 +10,7 @@ import venntdb, rate_limiter
 from api_campaigns import *
 from api_characters import *
 from api_enemies import *
+from api_inventory import *
 from authentication import *
 from constants import *
 
@@ -122,11 +123,34 @@ class VenntHandler(BaseHTTPRequestHandler):
 			success = self.server.db.auth.deauthenticate(args[KEY_AUTH])
 			return self.respond({"success":success})
 		
+		# --------------  INVENTORY -----------------------
+		
+		elif path == PATHS["ADD_ITEM"]:
+			key_error = self.check_keys(args, [KEY_AUTH, KEY_NAME, KEY_DESC, KEY_BULK])
+			if key_error:
+				return self.respond(key_error)
+				
+			return add_item(self, args, username)
+			
+		elif path == PATHS["VIEW_ITEMS"]:
+			key_error = self.check_keys(args, [KEY_AUTH])
+			if key_error:
+				return self.respond(key_error)
+				
+			items = self.server.db.view_items(username)
+			return self.respond({"success":True, "value":items})
+			
+		elif path == PATHS["REMOVE_ITEM"]:
+			key_error = self.check_keys(args, [KEY_AUTH, KEY_ID])
+			if key_error:
+				return self.respond(key_error)
+				
+			return self.respond({"success":self.server.db.remove_item(username, args[KEY_ID])})
 		
 		# -------------  CHARACTERS -------------------------
 		
 		elif path == PATHS["CREATE_CHARACTER"]:
-			key_error = self.check_keys(args, [KEY_AUTH, KEY_NAME], keys_opt=venntdb.ATTRIBUTES)
+			key_error = self.check_keys(args, [KEY_AUTH, KEY_NAME], keys_opt=ATTRIBUTES)
 			if key_error:
 				return self.respond(key_error)
 			
@@ -223,7 +247,7 @@ class VenntHandler(BaseHTTPRequestHandler):
 		# -------------  ENEMIES  -------------------------
 		
 		elif path == PATHS["CREATE_ENEMY"]:
-			key_error = self.check_keys(args, [KEY_AUTH, KEY_NAME], keys_opt=venntdb.ATTRIBUTES)
+			key_error = self.check_keys(args, [KEY_AUTH, KEY_NAME], keys_opt=ATTRIBUTES)
 			if key_error:
 				return self.respond(key_error)
 			

@@ -1,0 +1,67 @@
+[
+    {
+        "name": "Aggressive",
+        "attr": "STR",
+        "dmg": "1d6+4"
+    },
+    {
+        "name": "Balanced",
+        "attr": "STR",
+        "dmg": "1d6+6"
+    },
+    {
+        "name": "Blade",
+        "attr": "DEX",
+        "dmg": "1d6+3"
+    },
+    {
+        "name": "Bow",
+        "attr": "STR",
+        "dmg": "1d6+4"
+    },
+    {
+        "name": "Brawling",
+        "attr": "STR",
+        "dmg": "1d6+4"
+    },
+    {
+        "name": "Brutal",
+        "attr": "STR",
+        "dmg": "1d6+5"
+    },
+    {
+        "name": "Polearm",
+        "attr": "STR",
+        "dmg": "1d6+4"
+    },
+    {
+        "name": "Rifle",
+        "attr": "DEX",
+        "dmg": "2d6"
+    },
+    {
+        "name": "Shotgun",
+        "attr": "DEX",
+        "dmg": "2d6"
+    },
+    {
+        "name": "Sidearm",
+        "attr": "DEX",
+        "dmg": "1d6"
+    },
+    {
+        "name": "Thrown",
+        "attr": "STR",
+        "dmg": "1d6"
+    },
+    {
+        "name": "Unarmed",
+        "attr": "STR",
+        "dmg": "1d3"
+    },
+    {
+        "name": "Whip",
+        "attr": "STR",
+        "dmg": "1d6"
+    }
+]

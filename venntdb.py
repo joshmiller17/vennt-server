@@ -56,6 +56,15 @@ class VenntDB:
 		self.db["accounts"][username]["characters"].append(character)
 		self.save_db()
 		
+	def create_enemy(self, username, enemy):
+		if not "enemies" in self.db["accounts"][username]:
+			self.db["accounts"][username]["enemies"] = []
+		for attr in ATTRIBUTES:
+			if attr not in enemy:
+				enemy[attr] = 0
+		self.db["accounts"][username]["enemies"].append(enemy)
+		self.save_db()
+		
 	def get_campaign_invites(self, username):
 		if not "campaign_invites" in self.db["accounts"][username]:
 			return []
@@ -69,10 +78,12 @@ class VenntDB:
 			if invites["id"] == campaign_id:
 				return False
 		self.db["accounts"][user_to]["campaign_invites"].append(invite)
+		self.save_db()
 		return True
 		
 	def delete_campaign_invite(self, username, campaign_id):
 		del self.db["accounts"][username]["campaign_invites"][campaign_id]
+		self.save_db()
 		
 	def add_user_to_campaign(self, username, campaign_id):
 		if username in self.db["campaigns"][campaign_id]["members"]:
@@ -81,6 +92,7 @@ class VenntDB:
 		if "joined_campaigns" not in self.db["accounts"][username]:
 			self.db["accounts"][username]["joined_campaigns"] = []
 		self.db["accounts"][username]["joined_campaigns"].append(campaign_id)
+		self.save_db()
 	
 	def get_campaign(self, campaign_id):
 		if campaign_id in self.db["campaigns"]:

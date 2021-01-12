@@ -9,6 +9,7 @@ import venntdb, rate_limiter
 
 from api_campaigns import *
 from api_characters import *
+from api_enemies import *
 from authentication import *
 from constants import *
 
@@ -218,6 +219,16 @@ class VenntHandler(BaseHTTPRequestHandler):
 				return self.respond(key_error)
 				
 			return get_role(self, args, username)
+			
+		# -------------  ENEMIES  -------------------------
+		
+		elif path == PATHS["CREATE_ENEMY"]:
+			key_error = self.check_keys(args, [KEY_AUTH, KEY_NAME], keys_opt=venntdb.ATTRIBUTES)
+			if key_error:
+				return self.respond(key_error)
+			
+			return create_enemy(self, args, username)
+			
 
 		elif path in PATHS:
 			self.respond({"success":False, "info":"Not yet implemented"})

@@ -1,7 +1,9 @@
 # Josh Aaron Miller 2021
 # Vennt authentication-related processing
 
-import hashlib, time
+import hashlib, time, threading
+
+TIMEOUT = 3600 * 12
 
 # VenntHandler methods
 def handle_register(self, json_data):
@@ -66,11 +68,25 @@ class Client:
 	def __init__(self, address, username):
 		self.address = address
 		self.username = username
+		self.last_activity = time.time()
 
 class Authenticator:
 
 	def __init__(self):
 		self.tokens = {} # token : Client
+		self.timeout_auth_thread = threading.Thread(target=timeout_auth_tokens, daemon=True)
+		self.timeout_auth_thread.start()
+		
+	def timeout_auth_tokens():
+		while True:
+			time.sleep(3600)
+			current = time.time()
+			inactive_tokens = []
+			for token, client in self.tokens.items():
+				if current - client.last_activity > TIMEOUT:
+					inactive_tokens.append(token)
+			for token in inactive_tokens:
+				del self.tokens[token]
 
 	def deauthenticate(self, token):
 		success = token in self.tokens
@@ -82,7 +98,10 @@ class Authenticator:
 		self.tokens[token] = client
 		
 	def is_authenticated(self, address, token):
-		return token in self.tokens and address == self.tokens[token].address
+		if token in self.tokens:
+			if address == self.tokens[token].address:
+				self.tokens[token].last_activity = time.time() # refresh last activity
+				return token
 		
 	def get_authenticated_user(self, address, token):
 		if not self.is_authenticated(address, token):

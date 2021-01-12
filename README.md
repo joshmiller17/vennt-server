@@ -8,6 +8,10 @@ All communications with the server are done via JSON. Authentication is done via
 See `example.py` for an example of API calls.
 
 
+## Data Types
+- `attr`: Valid attributes are AGI, CHA, DEX, INT, PER, SPI, STR, TEK, WIS, HP, MAX_HP, MP, MAX_MP, VIM, MAX_VIM, ARMOR, HERO, INIT, SPEED, XP, SP
+- `role`: Valid roles are "player" and "GM"
+
 ## Meta / Accounts
 
 ### Create an account
@@ -39,7 +43,6 @@ Returns a JSON:
 GET: `<baseURL>/create_character?q={"auth_token":"<auth_token>", "name":"myfirstcharacter"[,"ATTR":"<num>"...]}`
 
 Setting attribute properties are optional.
-**Valid attributes**: AGI, CHA, DEX, INT, PER, SPI, STR, TEK, WIS, HP, MAX_HP, MP, MAX_MP, VIM, MAX_VIM, ARMOR, HERO, INIT, SPEED
 
 Returns a JSON:
 - `success`: whether the operation was successful
@@ -62,15 +65,11 @@ Returns a JSON:
 ### Set an attribute
 GET: `<baseURL>/set_attr?q={"auth_token":"<auth_token>", "char_id":"<character_id>", "attr":"ATTR", "val":"<num>"}`
 
-**Valid attributes**: AGI, CHA, DEX, INT, PER, SPI, STR, TEK, WIS, HP, MAX_HP, MP, MAX_MP, VIM, MAX_VIM, ARMOR, HERO, INIT, SPEED
-
 Returns a JSON:
 - `success`: whether the operation was successful
 
 ### Get an attribute
 GET: `<baseURL>/get_attr?q={"auth_token":"<auth_token>", "char_id":"<character_id>", "attr":"ATTR"}`
-
-**Valid attributes**: AGI, CHA, DEX, INT, PER, SPI, STR, TEK, WIS, HP, MAX_HP, MP, MAX_MP, VIM, MAX_VIM, ARMOR, HERO, INIT, SPEED
 
 Returns a JSON:
 - `success`: whether the operation was successful
@@ -82,7 +81,6 @@ Returns a JSON:
 GET: `<baseURL>/create_enemy?q={"auth_token":"<auth_token>", "name":"myfirstenemy"[,"ATTR":"<num>"...]}`
 
 Setting attribute properties are optional.
-**Valid attributes**: AGI, CHA, DEX, INT, PER, SPI, STR, TEK, WIS, HP, MAX_HP, MP, MAX_MP, VIM, MAX_VIM, ARMOR, HERO, INIT, SPEED
 
 Returns a JSON:
 - `success`: whether the operation was successful
@@ -161,7 +159,7 @@ venntDB.db is organized in this way:
 
 - `accounts`: a map of usernames to accounts
   - `characters`: a map of character IDs to character dictionaries
-    - Includes `name`, `id`, and many attributes (see `ATTRIBUTES`)
+    - Includes `name`, `id`, and many attributes (see `Data Types` in API documentation)
   - `campaign_invites`: a list of campaign invites
     - `from`: username of sender
     - `id`: campaign ID

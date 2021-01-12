@@ -1,3 +1,6 @@
+# Josh Aaron Miller 2021
+# Vennt DB Dump
+
 import sys
 import venntdb
 

@@ -1,5 +1,11 @@
+# Josh Aaron Miller 2021
+# Vennt DB
+
 import _pickle as cPickle
 import json, os
+
+from authentication import Authenticator
+
 
 ATTRIBUTES = [
 "AGI", "CHA", "DEX", "INT", "PER", "SPI",
@@ -12,15 +18,14 @@ class VenntDB:
 
 	def __init__(self, filename):
 		self.filename = filename
+		self.auth = Authenticator()
 
 		if os.path.exists(self.filename):
 			self.db = cPickle.load(open(self.filename, 'rb'))
-			self.db["auth_tokens"] = {}
 		else:
 			self.db = {}
 			self.db["accounts"] = {}
 			self.db["campaigns"] = {}
-			self.db["auth_tokens"] = {}
 			
 	def dump(self):
 		print(json.dumps(self.db, indent=4, separators=(',', ': '), sort_keys=True))
@@ -51,6 +56,15 @@ class VenntDB:
 		self.db["accounts"][username]["characters"].append(character)
 		self.save_db()
 		
+	def create_enemy(self, username, enemy):
+		if not "enemies" in self.db["accounts"][username]:
+			self.db["accounts"][username]["enemies"] = []
+		for attr in ATTRIBUTES:
+			if attr not in enemy:
+				enemy[attr] = 0
+		self.db["accounts"][username]["enemies"].append(enemy)
+		self.save_db()
+		
 	def get_campaign_invites(self, username):
 		if not "campaign_invites" in self.db["accounts"][username]:
 			return []
@@ -64,10 +78,12 @@ class VenntDB:
 			if invites["id"] == campaign_id:
 				return False
 		self.db["accounts"][user_to]["campaign_invites"].append(invite)
+		self.save_db()
 		return True
 		
 	def delete_campaign_invite(self, username, campaign_id):
 		del self.db["accounts"][username]["campaign_invites"][campaign_id]
+		self.save_db()
 		
 	def add_user_to_campaign(self, username, campaign_id):
 		if username in self.db["campaigns"][campaign_id]["members"]:
@@ -76,6 +92,7 @@ class VenntDB:
 		if "joined_campaigns" not in self.db["accounts"][username]:
 			self.db["accounts"][username]["joined_campaigns"] = []
 		self.db["accounts"][username]["joined_campaigns"].append(campaign_id)
+		self.save_db()
 	
 	def get_campaign(self, campaign_id):
 		if campaign_id in self.db["campaigns"]:
@@ -127,22 +144,6 @@ class VenntDB:
 		if not self.account_exists(username):
 			raise AssertionError("Tried to access non-existent user")
 		return pass_hash == self.db["accounts"][username]["password"]
-		
-	def deauthenticate(self, token):
-		success = token in self.db["auth_tokens"]
-		del self.db["auth_tokens"][token]
-		return success
-		
-	def authenticate(self, username, token):
-		self.db["auth_tokens"][token] = username
-		
-	def is_authenticated(self, token):
-		return token in self.db["auth_tokens"]
-		
-	def get_authenticated_user(self, token):
-		if not self.is_authenticated(token):
-			raise AssertionError("Tried to access non-authenticated user")
-		return self.db["auth_tokens"][token]
 
 	def save_db(self):
 		cPickle.dump((self.db), open(self.filename, 'wb'))

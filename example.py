@@ -1,3 +1,6 @@
+# Josh Aaron Miller 2021
+# Vennt API example client
+
 import requests, json, uuid
 
 url = 'http://localhost:3004/'
@@ -28,6 +31,10 @@ print(response.text)
 
 response = json.loads(response.text)
 my_character_id = response["id"]
+
+print("create enemy")
+response = requests.get(url + 'create_enemy?q={"auth_token":"%s","name":"myfirstenemy","WIS":"3"}' % auth_token)
+print(response.text)
 
 print("set attribute")
 response = requests.get(url + 'set_attr?q={"auth_token":"%s","id":"%s", "attr":"STR", "value": "3"}' % (auth_token, my_character_id))

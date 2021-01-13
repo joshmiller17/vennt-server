@@ -7,6 +7,11 @@ All communications with the server are done via JSON. Authentication is done via
 
 See `example.py` for an example of API calls.
 
+All API calls return a JSON with these keys:
+- `success`: whether the operation was successful
+- `info`: on failure, why the operation failed
+
+Each method describes additional JSON keys provided, if any.
 
 ## Data Types
 - `attr`: Valid attributes are AGI, CHA, DEX, INT, PER, SPI, STR, TEK, WIS, HP, MAX_HP, MP, MAX_MP, VIM, MAX_VIM, ARMOR, HERO, INIT, SPEED, XP, SP
@@ -18,24 +23,19 @@ See `example.py` for an example of API calls.
 ### Create an account
 POST: `{"register":"myusername","password":"mypassword"}`
 
-Returns a JSON:
-- `success`: whether the operation was successful
-- `info`: on failure, why
+Additional keys:
 - `auth_token`: on success, your authentication token for making GET calls
 
 ### Login
 POST: `{"login":"myusername","password":"mypassword"}`
 
-Returns a JSON:
-- `success`: whether the operation was successful
-- `info`: on failure, why
+Additional keys:
 - `auth_token`: on success, your authentication token for making GET calls
 
 ### Logout
 GET: `<baseURL>/logout?q={"auth_token":"<auth_token>"}`
 
-Returns a JSON:
-- `success`: whether the operation was successful (whether `auth_token` was valid prior to logout)
+The operation succeeding means that `auth_token` was valid prior to logout.
 
 
 ## Characters
@@ -45,51 +45,53 @@ GET: `<baseURL>/create_character?q={"auth_token":"<auth_token>", "name":"myfirst
 
 Setting attribute properties are optional.
 
-Returns a JSON:
-- `success`: whether the operation was successful
+Additional keys:
 -`id`: on success, the unique ID of your new character
 
 ### Get characters
 GET: `<baseURL>/get_characters?q={"auth_token":"<auth_token>"}`
 
-Returns a JSON:
-- `success`: whether the operation was successful
+Additional keys:
 -`value`: on success, returns a list of IDs for your characters
 
 ### Get character details
 GET: `<baseURL>/get_character?q={"auth_token":"<auth_token>"}`
 
-Returns a JSON:
-- `success`: whether the operation was successful
+Additional keys:
 - `value`: on success, returns your character (JSON)
 
 ### Set an attribute
 GET: `<baseURL>/set_attr?q={"auth_token":"<auth_token>", "char_id":"<character_id>", "attr":"ATTR", "value":"<num>"}`
 
-Returns a JSON:
-- `success`: whether the operation was successful
 
 ### Get an attribute
 GET: `<baseURL>/get_attr?q={"auth_token":"<auth_token>", "char_id":"<character_id>", "attr":"ATTR"}`
 
-Returns a JSON:
-- `success`: whether the operation was successful
+Additional keys:
 - `value`: the attribute value
+
+## Abilities
+
+### Lookup ability
+GET: `<baseURL>/add_item?q={"auth_token":"<auth_token>", "name":"abilityname"}`
+
+When a partial match is provided, the lookup will succeed if exactly one match is found, by assuming that match.
+
+Additional keys:
+-`matches` (on failure): The list of abilities which contain your query as a substring.
 
 ## Inventory
 
 ### Add an item
 GET: `<baseURL>/add_item?q={"auth_token":"<auth_token>", "name":"itemname", "bulk":"<num>", "desc":"item description"}`
 
-Returns a JSON:
-- `success`: whether the operation was successful
+Additional keys:
 -`id`: on success, the unique ID of your new item
 
 ### View items
 GET: `<baseURL>/view_items?q={"auth_token":"<auth_token>"}`
 
-Returns a JSON:
-- `success`: whether the operation was successful
+Additional keys:
 -`value`: on success, a list of item dictionaries
   - `name`: item name
   - `bulk`: the item's bulk value
@@ -98,24 +100,17 @@ Returns a JSON:
 ### Remove item
 GET: `<baseURL>/remove_item?q={"auth_token":"<auth_token>", "id":"<item_id>"}`
 
-Returns a JSON:
-- `success`: whether the operation was successful
-
 ### Add weapon
 GET: `<baseURL>/add_weapon?q={"auth_token":"<auth_token>", "name":"weapon_name", "attr":"ATTR", "dmg": "<rollstr>" [, "mods" : { "key" : value } }`
 
 Modifiers go in the `mods` dict, such as `"burning" : "1d6"`. Weapons added are account-specific.
-
-Returns a JSON:
-- `success`: whether the operation was successful
 
 ### Get weapon
 GET: `<baseURL>/get_weapon?q={"auth_token":"<auth_token>", "name":"weapon_name"}`
 
 The `get_weapon` call can also retrieve standard Vennt weapons like `Blade` and `Rifle`.
 
-Returns a JSON:
-- `success`: whether the operation was successful
+Additional keys:
 - `weapon`: on success, a weapon dictionary
   - `name`: the weapon's name
   - `attr`: the weapon's attribute
@@ -125,9 +120,6 @@ Returns a JSON:
 ### Remove weapon
 GET: `<baseURL>/remove_weapon?q={"auth_token":"<auth_token>", "name":"weapon_name"}`
 
-Returns a JSON:
-- `success`: whether the operation was successful
-
 ## Enemies
 
 ### Create an enemy
@@ -135,8 +127,7 @@ GET: `<baseURL>/create_enemy?q={"auth_token":"<auth_token>", "name":"myfirstenem
 
 Setting attribute properties are optional.
 
-Returns a JSON:
-- `success`: whether the operation was successful
+Additional keys:
 -`id`: on success, the unique ID of your new enemy
 
 ## Campaigns
@@ -144,28 +135,22 @@ Returns a JSON:
 ### Create a campaign
 GET: `<baseURL>/create_campaign?q={"auth_token":"<auth_token>", "name":"myfirstcampaign"}`
 
-Returns a JSON:
-- `success`: whether the operation was successful
+Additional keys:
 -`id`: on success, the unique ID of your new campaign
 
 ### Get campaigns
 GET: `<baseURL>/get_campaigns?q={"auth_token":"<auth_token>"}`
 
-Returns a JSON:
-- `success`: whether the operation was successful
+Additional keys:
 -`value`: on success, returns a list of IDs for your campaigns
 
 ### Invite someone to a campaign
 GET: `<baseURL>/send_campaign_invite?q={"auth_token":"<auth_token>","username":"<recipient>"}`
 
-Returns a JSON:
-- `success`: whether the operation was successful
-
 ### View active campaign invites
 GET: `<baseURL>/view_campaign_invites?q={"auth_token":"<auth_token>"}`
 
-Returns a JSON:
-- `success`: whether the operation was successful
+Additional keys:
 - `value`: list of campaign invites
   - `from`: username of inviter
   - `id`: campaign ID
@@ -173,30 +158,21 @@ Returns a JSON:
 ### Accept campaign invite
 GET: `<baseURL>/accept_campaign_invite?q={"auth_token":"<auth_token>","id":"<campaign_id>"}`
 
-Returns a JSON:
-- `success`: whether the operation was successful
 
 ### Decline campaign invite
 GET: `<baseURL>/decline_campaign_invite?q={"auth_token":"<auth_token>","id":"<campaign_id>"}`
 
-Returns a JSON:
-- `success`: whether the operation was successful
 
 ### Set campaign role
 You must be the campaign owner to set a role.
 GET: `<baseURL>/set_role?q={"auth_token":"<auth_token>","username":"<target>","role":"[GM/player]"}`
 
-Returns a JSON:
-- `success`: whether the operation was successful
-
 ### Get campaign role
 You must be the campaign owner or a member of the campaign to view someone's role.
 GET: `<baseURL>/set_role?q={"auth_token":"<auth_token>","username":"<target>"}`
 
-Returns a JSON:
-- `success`: whether the operation was successful
+Additional keys:
 - `value`: the user's role (GM or player)
-
 
 
 
@@ -219,3 +195,7 @@ venntDB.db is organized in this way:
   - `campaigns`: a list of campaign IDs owned by the user
   - `joined_campaigns`: a list of campaign IDs joined by the user
 - `campaigns`: a map of campaign IDs to campaign dictionaries
+- `weapons`: a dictionary of standard weapons read in from `weapons.json`
+- `abilities`: a dictionary of abilities read in from `abilities.json` which is scraped using `scrapePaths.py`
+- `ability_cache`: a storage of ability objects cached on query
+- `ability_cache_index`: the index of the oldest used cache slot in `ability_cache`

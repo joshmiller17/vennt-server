@@ -182,6 +182,8 @@ Additional keys:
 ### Running the server
 `py -3 venntserver.py vennt.db`
 
+### Adding a new method to the DB
+Whenever a new function is added to the DB that is not in venntdb.py, it must also be imported at the top of the class
 
 ### Organization of the database
 venntDB.db is organized in this way:

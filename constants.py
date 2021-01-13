@@ -2,6 +2,8 @@ MAX_REQUEST_SIZE = 10000
 MAX_INVENTORY_SIZE = 100
 MAX_NAME_LENGTH = 100
 MAX_DESC_LENGTH = 500
+MAX_ABILITY_CACHE = 100
+
 
 PATHS = {
 	"GET_ATTR" : '/get_attr',
@@ -24,7 +26,8 @@ PATHS = {
 	"ADD_WEAPON": "/add_weapon",
 	"REMOVE_WEAPON": "/remove_weapon",
 	"GET_WEAPON": "/get_weapon",
-	"CREATE_ENEMY": "/create_enemy"
+	"CREATE_ENEMY": "/create_enemy",
+	"LOOKUP_ABILITY": "/lookup_ability"
 }
 
 ATTRIBUTES = [

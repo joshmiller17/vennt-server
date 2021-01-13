@@ -5,7 +5,6 @@ import requests, json, uuid
 
 url = 'http://localhost:3004/'
 
-# create a new account
 print("New account")
 username = str(uuid.uuid4())
 data = '{"register": "%s", "password": "pw"}' % username
@@ -20,7 +19,6 @@ data = {"auth_token":auth_token}
 response = requests.get(url + 'logout?q=%s' % json.dumps(data))
 print(response.text)
 
-# login
 print("Login")
 data = '{"login": "%s", "password": "pw"}' % username
 response = requests.post(url, data=data.encode('utf-8'))
@@ -28,6 +26,11 @@ print(response.text)
 
 response = json.loads(response.text)
 auth_token = response["auth_token"]
+
+print("Lookup ability")
+data = {"auth_token":auth_token,"name":"Basic Cooking"}
+response = requests.get(url + 'lookup_ability?q=%s' % json.dumps(data))
+print(response.text)
 
 print("Add weapon")
 data = {"auth_token":auth_token,"name":"myfirstweapon","attr":"STR","dmg":"1d6+6","mods":{"burning":"1d6"}}

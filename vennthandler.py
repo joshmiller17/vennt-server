@@ -12,6 +12,7 @@ from api_characters import *
 from api_enemies import *
 from api_inventory import *
 from authentication import *
+from webscraper import *
 from constants import *
 
 
@@ -123,6 +124,15 @@ class VenntHandler(BaseHTTPRequestHandler):
 			
 			success = self.server.db.auth.deauthenticate(args[KEY_AUTH])
 			return self.respond({"success":success})
+			
+		# ----------------  ABILITIES -----------------------
+		
+		elif path == PATHS["LOOKUP_ABILITY"]:
+			key_error = self.check_keys(args, [KEY_AUTH, KEY_NAME])
+			if key_error:
+				return self.respond(key_error)
+				
+			return lookup_ability(self, args)
 		
 		# ----------  INVENTORY / WEAPONS -----------------------
 		

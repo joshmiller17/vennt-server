@@ -11,6 +11,7 @@ See `example.py` for an example of API calls.
 ## Data Types
 - `attr`: Valid attributes are AGI, CHA, DEX, INT, PER, SPI, STR, TEK, WIS, HP, MAX_HP, MP, MAX_MP, VIM, MAX_VIM, ARMOR, HERO, INIT, SPEED, XP, SP
 - `role`: Valid roles are "player" and "GM"
+- `<rollstr>`: Any key marked as `<rollstr>` requires a dice roll in standard die roll notation, e.g. "1d6+6". Comments can go in brackets. For full documentation on possible parses, see the [Python d20 library](https://pypi.org/project/d20/).
 
 ## Meta / Accounts
 
@@ -63,7 +64,7 @@ Returns a JSON:
 - `value`: on success, returns your character (JSON)
 
 ### Set an attribute
-GET: `<baseURL>/set_attr?q={"auth_token":"<auth_token>", "char_id":"<character_id>", "attr":"ATTR", "val":"<num>"}`
+GET: `<baseURL>/set_attr?q={"auth_token":"<auth_token>", "char_id":"<character_id>", "attr":"ATTR", "value":"<num>"}`
 
 Returns a JSON:
 - `success`: whether the operation was successful
@@ -74,6 +75,58 @@ GET: `<baseURL>/get_attr?q={"auth_token":"<auth_token>", "char_id":"<character_i
 Returns a JSON:
 - `success`: whether the operation was successful
 - `value`: the attribute value
+
+## Inventory
+
+### Add an item
+GET: `<baseURL>/add_item?q={"auth_token":"<auth_token>", "name":"itemname", "bulk":"<num>", "desc":"item description"}`
+
+Returns a JSON:
+- `success`: whether the operation was successful
+-`id`: on success, the unique ID of your new item
+
+### View items
+GET: `<baseURL>/view_items?q={"auth_token":"<auth_token>"}`
+
+Returns a JSON:
+- `success`: whether the operation was successful
+-`value`: on success, a list of item dictionaries
+  - `name`: item name
+  - `bulk`: the item's bulk value
+  - `desc`: the item's description
+  
+### Remove item
+GET: `<baseURL>/remove_item?q={"auth_token":"<auth_token>", "id":"<item_id>"}`
+
+Returns a JSON:
+- `success`: whether the operation was successful
+
+### Add weapon
+GET: `<baseURL>/add_weapon?q={"auth_token":"<auth_token>", "name":"weapon_name", "attr":"ATTR", "dmg": "<rollstr>" [, "mods" : { "key" : value } }`
+
+Modifiers go in the `mods` dict, such as `"burning" : "1d6"`. Weapons added are account-specific.
+
+Returns a JSON:
+- `success`: whether the operation was successful
+
+### Get weapon
+GET: `<baseURL>/get_weapon?q={"auth_token":"<auth_token>", "name":"weapon_name"}`
+
+The `get_weapon` call can also retrieve standard Vennt weapons like `Blade` and `Rifle`.
+
+Returns a JSON:
+- `success`: whether the operation was successful
+- `weapon`: on success, a weapon dictionary
+  - `name`: the weapon's name
+  - `attr`: the weapon's attribute
+  - `dmg`: the weapon's damage
+  - `mods` the weapon's modifiers, as a dictionary of key/value pairs
+  
+### Remove weapon
+GET: `<baseURL>/remove_weapon?q={"auth_token":"<auth_token>", "name":"weapon_name"}`
+
+Returns a JSON:
+- `success`: whether the operation was successful
 
 ## Enemies
 

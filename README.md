@@ -136,7 +136,7 @@ Additional keys:
 GET: `<baseURL>/create_campaign?q={"auth_token":"<auth_token>", "name":"myfirstcampaign"}`
 
 Additional keys:
--`id`: on success, the unique ID of your new campaign
+-`campaign_id`: on success, the unique ID of your new campaign
 
 ### Get campaigns
 GET: `<baseURL>/get_campaigns?q={"auth_token":"<auth_token>"}`
@@ -145,7 +145,7 @@ Additional keys:
 -`value`: on success, returns a list of IDs for your campaigns
 
 ### Invite someone to a campaign
-GET: `<baseURL>/send_campaign_invite?q={"auth_token":"<auth_token>","username":"<recipient>"}`
+GET: `<baseURL>/send_campaign_invite?q={"auth_token":"<auth_token>", "campaign_id": "<campaign_id>", "username":"<recipient>"}`
 
 ### View active campaign invites
 GET: `<baseURL>/view_campaign_invites?q={"auth_token":"<auth_token>"}`
@@ -153,23 +153,23 @@ GET: `<baseURL>/view_campaign_invites?q={"auth_token":"<auth_token>"}`
 Additional keys:
 - `value`: list of campaign invites
   - `from`: username of inviter
-  - `id`: campaign ID
+  - `campaign_id`: campaign ID
   
 ### Accept campaign invite
-GET: `<baseURL>/accept_campaign_invite?q={"auth_token":"<auth_token>","id":"<campaign_id>"}`
+GET: `<baseURL>/accept_campaign_invite?q={"auth_token":"<auth_token>","campaign_id":"<campaign_id>"}`
 
 
 ### Decline campaign invite
-GET: `<baseURL>/decline_campaign_invite?q={"auth_token":"<auth_token>","id":"<campaign_id>"}`
+GET: `<baseURL>/decline_campaign_invite?q={"auth_token":"<auth_token>","campaign_id":"<campaign_id>"}`
 
 
 ### Set campaign role
 You must be the campaign owner to set a role.
-GET: `<baseURL>/set_role?q={"auth_token":"<auth_token>","username":"<target>","role":"[GM/player]"}`
+GET: `<baseURL>/set_role?q={"auth_token":"<auth_token>","campaign_id":"<campaign_id>", "username":"<target>","role":"[GM/player]"}`
 
 ### Get campaign role
 You must be the campaign owner or a member of the campaign to view someone's role.
-GET: `<baseURL>/set_role?q={"auth_token":"<auth_token>","username":"<target>"}`
+GET: `<baseURL>/set_role?q={"auth_token":"<auth_token>", "campaign_id":"<campaign_id>", "username":"<target>"}`
 
 Additional keys:
 - `value`: the user's role (GM or player)

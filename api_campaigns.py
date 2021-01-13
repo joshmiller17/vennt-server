@@ -60,7 +60,7 @@ def decline_campaign_invite(self, args, username):
 	if campaign_owner is None:
 		return self.respond({"success":False, "info":MSG_BAD_CAMP})
 		
-	self.server.db.delete_campaign_invite(user, campaign_id)
+	self.server.db.remove_campaign_invite(username, campaign_id)
 	
 	return self.respond({"success":True})
 	

@@ -102,6 +102,7 @@ class VenntHandler(BaseHTTPRequestHandler):
 
 		try:
 			args = json.loads(query['q'][0])
+			print(args)
 		except:
 			return self.respond('Error parsing JSON.')
 			
@@ -123,7 +124,7 @@ class VenntHandler(BaseHTTPRequestHandler):
 			success = self.server.db.auth.deauthenticate(args[KEY_AUTH])
 			return self.respond({"success":success})
 		
-		# --------------  INVENTORY -----------------------
+		# ----------  INVENTORY / WEAPONS -----------------------
 		
 		elif path == PATHS["ADD_ITEM"]:
 			key_error = self.check_keys(args, [KEY_AUTH, KEY_NAME, KEY_DESC, KEY_BULK])
@@ -146,6 +147,27 @@ class VenntHandler(BaseHTTPRequestHandler):
 				return self.respond(key_error)
 				
 			return self.respond({"success":self.server.db.remove_item(username, args[KEY_ID])})
+			
+		elif path == PATHS["ADD_WEAPON"]:
+			key_error = self.check_keys(args, [KEY_AUTH, KEY_NAME, KEY_ATTR, KEY_DMG], keys_opt=[KEY_MODS])
+			if key_error:
+				return self.respond(key_error)
+				
+			return add_weapon(self, args, username)
+			
+		elif path == PATHS["REMOVE_WEAPON"]:
+			key_error = self.check_keys(args, [KEY_AUTH, KEY_NAME])
+			if key_error:
+				return self.respond(key_error)
+				
+			return self.respond({"success":self.server.db.remove_weapon(username, args[KEY_NAME])})
+			
+		elif path == PATHS["GET_WEAPON"]:
+			key_error = self.check_keys(args, [KEY_AUTH, KEY_NAME])
+			if key_error:
+				return self.respond(key_error)
+				
+			return get_weapon(self, args, username)
 		
 		# -------------  CHARACTERS -------------------------
 		
@@ -182,7 +204,7 @@ class VenntHandler(BaseHTTPRequestHandler):
 			if key_error:
 				return self.respond(key_error)
 				
-			return self.respond({"success":True, "value":str(self.server.db.get_character(username, id))})
+			return self.respond({"success":True, "value":str(self.server.db.get_character(username, args[KEY_ID]))})
 			
 		# -------------  CAMPAIGNS  -------------------------
 			
@@ -199,7 +221,7 @@ class VenntHandler(BaseHTTPRequestHandler):
 			if key_error:
 				return self.respond(key_error)
 				
-			return self.respond({"success":True, "value":str(self.server.db.get_campaigns(username))})
+			return self.respond({"success":True, "value":self.server.db.get_campaigns(username)})
 			
 		elif path == PATHS["SEND_CAMPAIGN_INVITE"]:
 			key_error = self.check_keys(args, [KEY_AUTH, KEY_USERNAME, KEY_ID])

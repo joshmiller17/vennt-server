@@ -93,7 +93,17 @@ class Authenticator:
 		del self.tokens[token]
 		return success
 		
+	def deauthenticate_user(self, username):
+		invalid_tokens = []
+		for token in self.tokens:
+			client = self.tokens[token]
+			if client.username == username:
+				invalid_tokens.append(token)
+		for token in invalid_tokens:
+			self.deauthenticate(token)
+		
 	def authenticate(self, address, username, token):
+		self.deauthenticate_user(username) # remove old tokens
 		client = Client(address, username)
 		self.tokens[token] = client
 		

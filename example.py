@@ -12,6 +12,14 @@ data = '{"register": "%s", "password": "pw"}' % username
 response = requests.post(url, data=data.encode('utf-8'))
 print(response.text)
 
+response = json.loads(response.text)
+auth_token = response["auth_token"]
+
+print("Logout")
+data = {"auth_token":auth_token}
+response = requests.get(url + 'logout?q=%s' % json.dumps(data))
+print(response.text)
+
 # login
 print("Login")
 data = '{"login": "%s", "password": "pw"}' % username
@@ -21,67 +29,114 @@ print(response.text)
 response = json.loads(response.text)
 auth_token = response["auth_token"]
 
+print("Add weapon")
+data = {"auth_token":auth_token,"name":"myfirstweapon","attr":"STR","dmg":"1d6+6","mods":{"burning":"1d6"}}
+response = requests.get(url + 'add_weapon?q=%s' % json.dumps(data))
+print(response.text)
+
+print("Get weapon")
+data = {"auth_token":auth_token,"name":"myfirstweapon"}
+response = requests.get(url + 'get_weapon?q=%s' % json.dumps(data))
+print(response.text)
+
+print("Remove weapon")
+data = {"auth_token":auth_token,"name":"myfirstweapon"}
+response = requests.get(url + 'remove_weapon?q=%s' % json.dumps(data))
+print(response.text)
+
 print("Create campaign")
-response = requests.get(url + 'create_campaign?q={"auth_token":"%s","name":"myfirstcampaign"}' % auth_token)
+data = {"auth_token":auth_token,"name":"myfirstcampaign"}
+response = requests.get(url + 'create_campaign?q=%s' % json.dumps(data))
 print(response.text)
 
 print("create character")
-response = requests.get(url + 'create_character?q={"auth_token":"%s","name":"myfirstcharacter","PER":"3"}' % auth_token)
+data = {"auth_token":auth_token,"name":"myfirstcharacter","PER":"3"}
+response = requests.get(url + 'create_character?q=%s' % json.dumps(data))
 print(response.text)
 
 response = json.loads(response.text)
 my_character_id = response["id"]
 
 print("create enemy")
-response = requests.get(url + 'create_enemy?q={"auth_token":"%s","name":"myfirstenemy","WIS":"3"}' % auth_token)
+data = {"auth_token":auth_token,"name":"myfirstenemy","WIS":"3"}
+response = requests.get(url + 'create_enemy?q=%s' % json.dumps(data))
 print(response.text)
 
 print("set attribute")
-response = requests.get(url + 'set_attr?q={"auth_token":"%s","id":"%s", "attr":"STR", "value": "3"}' % (auth_token, my_character_id))
+data = {"auth_token":auth_token,"id":my_character_id,"attr":"STR","value":"3"}
+response = requests.get(url + 'set_attr?q=%s' % json.dumps(data))
 print(response.text)
 
 print("get attribute")
-response = requests.get(url + 'get_attr?q={"auth_token":"%s","id":"%s", "attr":"STR"}' % (auth_token, my_character_id))
+data = {"auth_token":auth_token,"id":my_character_id,"attr":"STR"}
+response = requests.get(url + 'get_attr?q=%s' % json.dumps(data))
 print(response.text)
 
 print("Get campaigns")
-response = requests.get(url + 'get_campaigns?q={"auth_token":"%s"}' % (auth_token))
+data = {"auth_token":auth_token}
+response = requests.get(url + 'get_campaigns?q=%s' % json.dumps(data))
 print(response.text)
 
 response = json.loads(response.text)
-campaigns = response["value"]
-campaigns = campaigns.replace("'",'"')
-json_campaigns = json.loads(campaigns) # nested JSONs
-campaign_id = json_campaigns[0]["id"]
+campaign_id = response["value"][0]["id"]
 
 print("Get characters")
-response = requests.get(url + 'get_characters?q={"auth_token":"%s"}' % (auth_token))
+data = {"auth_token":auth_token}
+response = requests.get(url + 'get_characters?q=%s' % json.dumps(data))
 print(response.text)
 
 print("Get character")
-response = requests.get(url + 'get_character?q={"auth_token":"%s", "id":"%s"}' % (auth_token,my_character_id))
+data = {"auth_token":auth_token,"id":my_character_id}
+response = requests.get(url + 'get_character?q=%s' % json.dumps(data))
 print(response.text)
 
 print("Send campaign invite")
-response = requests.get(url + 'send_campaign_invite?q={"auth_token":"%s","username":"%s", "id":"%s"}' % (auth_token,username,campaign_id))
+data = {"auth_token":auth_token,"username":username,"id":campaign_id}
+response = requests.get(url + 'send_campaign_invite?q=%s' % json.dumps(data))
 print(response.text)
 
 print("View campaign invites")
-response = requests.get(url + 'view_campaign_invites?q={"auth_token":"%s"}' % (auth_token))
+data = {"auth_token":auth_token}
+response = requests.get(url + 'view_campaign_invites?q=%s' % json.dumps(data))
+print(response.text)
+
+print("Decline campaign invite")
+data = {"auth_token":auth_token,"id":campaign_id}
+response = requests.get(url + 'decline_campaign_invite?q=%s' % json.dumps(data))
 print(response.text)
 
 print("Accept campaign invite")
-response = requests.get(url + 'accept_campaign_invite?q={"auth_token":"%s","id":"%s"}' % (auth_token,campaign_id))
+data = {"auth_token":auth_token,"username":username,"id":campaign_id}
+response = requests.get(url + 'send_campaign_invite?q=%s' % json.dumps(data))
+print(response.text)
+data = {"auth_token":auth_token,"id":campaign_id}
+response = requests.get(url + 'accept_campaign_invite?q=%s' % json.dumps(data))
 print(response.text)
 
 print("Set role")
-response = requests.get(url + 'set_role?q={"auth_token":"%s","id":"%s","role":"GM","username":"%s"}' % (auth_token,campaign_id,username))
+data = {"auth_token":auth_token,"id":campaign_id,"username":username,"role":"GM"}
+response = requests.get(url + 'set_role?q=%s' % json.dumps(data))
 print(response.text)
 
 print("Get role")
-response = requests.get(url + 'get_role?q={"auth_token":"%s","id":"%s","username":"%s"}' % (auth_token,campaign_id,username))
+data = {"auth_token":auth_token,"id":campaign_id,"username":username}
+response = requests.get(url + 'get_role?q=%s' % json.dumps(data))
 print(response.text)
 
-print("Logout")
-response = requests.get(url + 'logout?q={"auth_token":"%s"}' % (auth_token))
+print("Add item")
+data = {"auth_token":auth_token,"name":"donut","bulk":"1","desc":"Just a donut"}
+response = requests.get(url + 'add_item?q=%s' % json.dumps(data))
+print(response.text)
+
+response = json.loads(response.text)
+item_id = response["id"]
+
+print("View items")
+data = {"auth_token":auth_token}
+response = requests.get(url + 'view_items?q=%s' % json.dumps(data))
+print(response.text)
+
+print("Remove item")
+data = {"auth_token":auth_token,"id":item_id}
+response = requests.get(url + 'remove_item?q=%s' % json.dumps(data))
 print(response.text)

@@ -20,7 +20,11 @@ PATHS = {
 	"GET_ROLE" : "/get_role",
 	"ADD_ITEM" : "/add_item",
 	"VIEW_ITEMS" : "/view_items",
-	"REMOVE_ITEM" : "/remove_item"
+	"REMOVE_ITEM" : "/remove_item",
+	"ADD_WEAPON": "/add_weapon",
+	"REMOVE_WEAPON": "/remove_weapon",
+	"GET_WEAPON": "/get_weapon",
+	"CREATE_ENEMY": "/create_enemy"
 }
 
 ATTRIBUTES = [
@@ -40,11 +44,15 @@ KEY_USERNAME = "username"
 KEY_ROLE = "role"
 KEY_DESC = "desc"
 KEY_BULK = "bulk"
+KEY_DMG = "dmg"
+KEY_MODS = "mods"
 
 MSG_BAD_AUTH = "Authentication invalid"
 MSG_TOO_MANY_REQ = "Too many requests"
 MSG_REQ_LARGE = "Request too large"
 MSG_NO_USER = "No such user"
+MSG_NO_CHAR = "No such character"
+MSG_NO_ATTR = "Unknown attribute"
 MSG_BAD_CAMP = "Invalid campaign ID"
 MSG_INVITE_EXISTS = "User already invited"
 MSG_BAD_ROLE = "Invalid role"

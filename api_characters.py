@@ -27,10 +27,10 @@ def set_attr(self, args, username):
 	val = args[KEY_VAL]
 	
 	if attr not in ATTRIBUTES:
-		return self.respond({"success":False,"info":"Unknown attribute"})
+		return self.respond({"success":False,"info":MSG_NO_ATTR})
 						
 	if not self.server.db.character_exists(username, char_id):
-		return self.respond({"success":False,"info":"No such character"})
+		return self.respond({"success":False,"info":MSG_NO_CHAR})
 	
 	self.server.db.set_attr(username, char_id, attr, val)
 	return self.respond({"success":True})
@@ -40,10 +40,10 @@ def get_attr(self, args, username):
 	attr = args[KEY_ATTR]
 	
 	if attr not in ATTRIBUTES:
-		return self.respond({"success":False,"info":"Unknown attribute"})
+		return self.respond({"success":False,"info":MSG_NO_ATTR})
 						
 	if not self.server.db.character_exists(username, char_id):
-		return self.respond({"success":False,"info":"No such character"})
+		return self.respond({"success":False,"info":MSG_NO_CHAR})
 	
 	val = self.server.db.get_attr(username, char_id, attr)
 	return self.respond({"success":True, "value":str(val)})

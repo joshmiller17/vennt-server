@@ -20,7 +20,7 @@ def add_item(self, args, username):
 	except:
 		return self.respond({"success":False, "info":MSG_NOT_INT.format(KEY_BULK)})
 	
-	id = str(uuid.uuid4())
+	id = IDType.ITEM + str(uuid.uuid4())
 	item = {"name":name, "id":id, "desc":desc, "bulk":bulk}
 	success = self.server.db.add_item(username, item)
 	

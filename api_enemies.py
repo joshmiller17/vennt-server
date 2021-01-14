@@ -8,7 +8,7 @@ from constants import *
 
 def create_enemy(self, args, username):
 	name = args[KEY_NAME]		
-	id = str(uuid.uuid4())
+	id = IDType.ENEMY + str(uuid.uuid4())
 	enemy = {"name":name, "id":id}
 	for key in args:
 		if key in venntdb.ATTRIBUTES:

@@ -11,20 +11,24 @@ from api_campaigns import *
 from api_characters import *
 from api_enemies import *
 from api_inventory import *
+from api_initiative import *
 from authentication import *
 from webscraper import *
 from constants import *
 
+import importlib
+logClass = importlib.import_module("logger")
+logger = logClass.Logger("webscraper")
 
 class VenntHandler(BaseHTTPRequestHandler):
 
 	def log_message(self, format, *args):
-		sys.stdout.write("%s - - [%s] %s\n" %
-						 (hashlib.md5(('venntserver' + self.client_address[0]).encode('utf-8')).hexdigest(),
-						  self.log_date_time_string(),
-						  format % args))
+		client_short = hashlib.md5(('venntserver' + self.client_address[0]).encode('utf-8')).hexdigest()[:8]
+		logger.log("log_message", "Client {} sent {}".format(client_short, args))
 
 	def respond(self, data):
+		if not data["success"]:
+			logger.log("respond", "Request failed: " + str(data))
 		self.send_response(200)
 		self.send_header('Content-type', 'text/html')
 		self.send_header('Access-Control-Allow-Origin','*')
@@ -65,8 +69,6 @@ class VenntHandler(BaseHTTPRequestHandler):
 			
 		post_data = self.rfile.read(content_length)
 		post_data = post_data.decode('utf-8')
-		#print("POST request,\nPath: %s\nHeaders:\n%s\n\nBody:\n%s\n" %
-		#		(str(self.path), str(self.headers), post_data))
 		
 		try:
 			json_data = json.loads(post_data)
@@ -103,9 +105,10 @@ class VenntHandler(BaseHTTPRequestHandler):
 
 		try:
 			args = json.loads(query['q'][0])
-			print(args)
 		except:
 			return self.respond('Error parsing JSON.')
+			
+		logger.log("do_GET", "Args: " + str(args))
 			
 		if KEY_AUTH not in args:
 			return 'Missing required key ' + KEY_AUTH + '.'
@@ -133,6 +136,44 @@ class VenntHandler(BaseHTTPRequestHandler):
 				return self.respond(key_error)
 				
 			return lookup_ability(self, args)
+			
+		# -------------  INITIATIVE -------------------------
+		
+		elif path == PATHS["ADD_TURN"]:
+			key_error = self.check_keys(args, [KEY_AUTH, KEY_CAMPAIGN_ID, KEY_ID, KEY_VAL])
+			if key_error:
+				return self.respond(key_error)
+				
+			return add_turn(self, args, username)
+			
+		elif path == PATHS["RESET_TURN_ORDER"]:
+			key_error = self.check_keys(args, [KEY_AUTH, KEY_CAMPAIGN_ID])
+			if key_error:
+				return self.respond(key_error)
+				
+			return reset_turn_order(self, args, username)
+			
+		elif path == PATHS["NEXT_TURN"]:
+			key_error = self.check_keys(args, [KEY_AUTH, KEY_CAMPAIGN_ID])
+			if key_error:
+				return self.respond(key_error)
+				
+			return next_turn(self, args, username)
+			
+		elif path == PATHS["GET_TURN_ORDER"]:
+			key_error = self.check_keys(args, [KEY_AUTH, KEY_CAMPAIGN_ID])
+			if key_error:
+				return self.respond(key_error)
+				
+			return get_turn_order(self, args, username)
+			
+		elif path == PATHS["GET_CURRENT_TURN"]:
+			key_error = self.check_keys(args, [KEY_AUTH, KEY_CAMPAIGN_ID])
+			if key_error:
+				return self.respond(key_error)
+				
+			return get_current_turn(self, args, username)
+		
 		
 		# ----------  INVENTORY / WEAPONS -----------------------
 		
@@ -234,7 +275,7 @@ class VenntHandler(BaseHTTPRequestHandler):
 			return self.respond({"success":True, "value":self.server.db.get_campaigns(username)})
 			
 		elif path == PATHS["SEND_CAMPAIGN_INVITE"]:
-			key_error = self.check_keys(args, [KEY_AUTH, KEY_USERNAME, KEY_ID])
+			key_error = self.check_keys(args, [KEY_AUTH, KEY_USERNAME, KEY_CAMPAIGN_ID])
 			if key_error:
 				return self.respond(key_error)
 
@@ -249,28 +290,28 @@ class VenntHandler(BaseHTTPRequestHandler):
 			return self.respond({"success":True, "value":invites})
 			
 		elif path == PATHS["ACCEPT_CAMPAIGN_INVITE"]:
-			key_error = self.check_keys(args, [KEY_AUTH, KEY_ID])
+			key_error = self.check_keys(args, [KEY_AUTH, KEY_CAMPAIGN_ID])
 			if key_error:
 				return self.respond(key_error)
 			
 			return accept_campaign_invite(self, args, username)
 			
 		elif path == PATHS["DECLINE_CAMPAIGN_INVITE"]:
-			key_error = self.check_keys(args, [KEY_AUTH, KEY_ID])
+			key_error = self.check_keys(args, [KEY_AUTH, KEY_CAMPAIGN_ID])
 			if key_error:
 				return self.respond(key_error)
 
 			return decline_campaign_invite(self, args, username)
 			
 		elif path == PATHS["SET_ROLE"]:
-			key_error = self.check_keys(args, [KEY_AUTH, KEY_ID, KEY_USERNAME, KEY_ROLE])
+			key_error = self.check_keys(args, [KEY_AUTH, KEY_CAMPAIGN_ID, KEY_USERNAME, KEY_ROLE])
 			if key_error:
 				return self.respond(key_error)
 				
 			return set_role(self, args, username)
 			
 		elif path == PATHS["GET_ROLE"]:
-			key_error = self.check_keys(args, [KEY_AUTH, KEY_ID, KEY_USERNAME])
+			key_error = self.check_keys(args, [KEY_AUTH, KEY_CAMPAIGN_ID, KEY_USERNAME])
 			if key_error:
 				return self.respond(key_error)
 				

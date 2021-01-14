@@ -11,7 +11,7 @@ def create_character(self, args, username):
 	if len(name) > MAX_NAME_LENGTH:
 		return self.respond({"success":False, "info":MSG_NAME_LONG})
 	
-	id = str(uuid.uuid4())
+	id = IDType.CHARACTER + str(uuid.uuid4())
 	character = {"name":name, "id":id}
 	for key in args:
 		if key in ATTRIBUTES:

@@ -3,7 +3,7 @@ MAX_INVENTORY_SIZE = 100
 MAX_NAME_LENGTH = 100
 MAX_DESC_LENGTH = 500
 MAX_ABILITY_CACHE = 100
-
+MAX_INIT = 100
 
 PATHS = {
 	"GET_ATTR" : '/get_attr',
@@ -27,7 +27,12 @@ PATHS = {
 	"REMOVE_WEAPON": "/remove_weapon",
 	"GET_WEAPON": "/get_weapon",
 	"CREATE_ENEMY": "/create_enemy",
-	"LOOKUP_ABILITY": "/lookup_ability"
+	"LOOKUP_ABILITY": "/lookup_ability",
+	"ADD_TURN": "/add_turn",
+	"RESET_TURN_ORDER": "/reset_turn_order",
+	"NEXT_TURN": "/next_turn",
+	"GET_TURN_ORDER": "/get_turn_order",
+	"GET_CURRENT_TURN": "/get_current_turn"
 }
 
 ATTRIBUTES = [
@@ -43,6 +48,7 @@ KEY_ATTR = "attr"
 KEY_VAL = "value"
 KEY_NAME = "name"
 KEY_ID = "id"
+KEY_CAMPAIGN_ID = "campaign_id"
 KEY_USERNAME = "username"
 KEY_ROLE = "role"
 KEY_DESC = "desc"
@@ -64,3 +70,10 @@ MSG_DESC_LONG = "Description too long"
 MSG_NOT_INT = "Key {} should be an integer"
 
 ROLES = ["player","GM"]
+
+class IDType:
+
+	CAMPAIGN = 'G' # Group
+	CHARACTER = 'C'
+	ITEM = 'I'
+	ENEMY = 'E'

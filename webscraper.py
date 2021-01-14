@@ -4,7 +4,7 @@
 import time, requests, datetime, re
 from bs4 import BeautifulSoup
 
-import venntdb, uuid
+import venntdb
 from constants import *
 
 import importlib

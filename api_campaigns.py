@@ -6,20 +6,30 @@ from constants import *
 
 # VenntHandler methods
 
+def has_campaign_permissions(self, username, campaign_id, owner_only=False):
+	campaign = self.server.db.get_campaign(campaign_id)
+	if campaign is None:
+		return False
+	if owner_only and campaign_id not in [c["id"] for c in self.server.db.get_campaigns(username)]:
+		return False
+	if (campaign_id not in [c["id"] for c in self.server.db.get_campaigns(username)]) and campaign_id not in self.server.db.get_joined_campaigns(username):
+		return False
+	return True
+
 def create_campaign(self, args, username):
 	name = args[KEY_NAME]		
-	id = str(uuid.uuid4())
+	id = IDType.CAMPAIGN + str(uuid.uuid4())
 	campaign = {"name":name, "id":id}
 	self.server.db.create_campaign(username, campaign)
 	
-	ret = {"success":True, "id":id}
+	ret = {"success":True, "campaign_id":id}
 	return self.respond(ret)
 	
 def send_campaign_invite(self, args, username):
 	user_to = args[KEY_USERNAME]
 	user_from = username
 	users_campaigns = self.server.db.get_campaigns(user_from)
-	campaign_id = args[KEY_ID]
+	campaign_id = args[KEY_CAMPAIGN_ID]
 	
 	if campaign_id not in [c["id"] for c in users_campaigns]:
 		return self.respond({"success":False, "info":MSG_BAD_CAMP})
@@ -36,7 +46,7 @@ def send_campaign_invite(self, args, username):
 	
 def accept_campaign_invite(self, args, username):
 	invites = self.server.db.get_campaign_invites(username)
-	campaign_id = args[KEY_ID]
+	campaign_id = args[KEY_CAMPAIGN_ID]
 	
 	campaign_owner = None
 	for inv in invites:
@@ -51,7 +61,7 @@ def accept_campaign_invite(self, args, username):
 	
 def decline_campaign_invite(self, args, username):
 	invites = self.server.db.get_campaign_invites(username)
-	campaign_id = args[KEY_ID]
+	campaign_id = args[KEY_CAMPAIGN_ID]
 	
 	campaign_owner = None
 	for inv in invites:
@@ -68,10 +78,9 @@ def set_role(self, args, username):
 	if args[KEY_ROLE] not in ROLES:
 		return self.respond({"success":False, "info":MSG_BAD_ROLE})
 				
-	campaign_id = args[KEY_ID]
+	campaign_id = args[KEY_CAMPAIGN_ID]
 	
-	campaign = self.server.db.get_campaign(campaign_id)
-	if campaign is None or campaign["owner"] != username:
+	if not has_campaign_permissions(self, username, campaign_id, owner_only=True):
 		return self.respond({"success":False, "info":MSG_BAD_CAMP})
 		
 	for member in campaign["members"]:
@@ -82,9 +91,9 @@ def set_role(self, args, username):
 	
 	
 def get_role(self, args, username):
-	campaign_id = args[KEY_ID]
-	campaign = self.server.db.get_campaign(campaign_id)
-	if campaign is None or (campaign_id not in self.server.db.get_campaigns(username) and campaign_id not in self.server.db.get_joined_campaigns(username)):
+	campaign_id = args[KEY_CAMPAIGN_ID]
+	
+	if not has_campaign_permissions(self, username, campaign_id):
 		return self.respond({"success":False, "info":MSG_BAD_CAMP})
 	
 	for member in campaign["members"]:

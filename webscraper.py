@@ -38,6 +38,12 @@ def find_ability(self, name):
 	name = name.replace("'", "’") # Wiki uses smart quotes
 	logger.log("find_ability", "Looking for " + name)
 	return self.server.db.find_ability(name)
+	
+def ability_exists(self, *args):
+	approximations, URL = self.find_ability(" ".join(args[:]))
+	if len(approximations) != 1:
+		return False
+	return True
 
 # Returns contents of ability as list of lines
 def get_ability_contents(ability, URL):

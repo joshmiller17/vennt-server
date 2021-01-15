@@ -32,7 +32,9 @@ PATHS = {
 	"RESET_TURN_ORDER": "/reset_turn_order",
 	"NEXT_TURN": "/next_turn",
 	"GET_TURN_ORDER": "/get_turn_order",
-	"GET_CURRENT_TURN": "/get_current_turn"
+	"GET_CURRENT_TURN": "/get_current_turn",
+	"ADD_ABILITY" : "/add_ability",
+	"GET_ABILITIES": "/get_abilities"
 }
 
 ATTRIBUTES = [
@@ -61,7 +63,8 @@ MSG_TOO_MANY_REQ = "Too many requests"
 MSG_REQ_LARGE = "Request too large"
 MSG_NO_USER = "No such user"
 MSG_NO_CHAR = "No such character"
-MSG_NO_ATTR = "Unknown attribute"
+MSG_NO_ATTR = "No such attribute"
+MSG_NO_ABI = "No such ability"
 MSG_BAD_CAMP = "Invalid campaign ID"
 MSG_INVITE_EXISTS = "User already invited"
 MSG_BAD_ROLE = "Invalid role"

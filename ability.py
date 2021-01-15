@@ -4,37 +4,12 @@
 import re
 
 import importlib
-webscraper = importlib.import_module("webscraper")
 logClass = importlib.import_module("logger")
 logger = logClass.Logger("ability")
-
-
-# TODO this moved to venntdb
-ABILITY_CACHE = {} # name : Ability
-
-# Returns whether ability search has exactly 1 approximation
-def ability_exists(*args):
-	approximations, URL = webscraper.find_ability(" ".join(args[:]))
-	if len(approximations) != 1:
-		return False
-	return True
-
-def get_ability(name):
-	for key, value in ABILITY_CACHE.items():
-		if key == name:
-			return value
-	# cache miss
-	new_ability = make_ability(name)
-	ABILITY_CACHE[name] = new_ability
-	return new_ability
 	
-# Input: ability name
+# Input: ability contents
 # Output: Ability object
-def make_ability(name):
-	approximations, URL = webscraper.find_ability(name)
-	if len(approximations) != 1:
-		raise ValueError("Bad call to ability.make_ability, incorrect number of approximations (" + str(len(approximations)) + "): " + ", ".join(approximations))
-	contents = webscraper.get_ability_contents(name, URL)
+def make_ability(contents):
 	pur_cost = None
 	act_cost = None
 	read_cost = ""
@@ -48,6 +23,7 @@ def make_ability(name):
 	ability_range = None
 	prereq = None
 	parsed_name = False
+	name = None
 	for line in contents:
 		if line.startswith("Cost:"):
 			pur_cost = parse_purchase_cost(line)
@@ -73,8 +49,10 @@ def make_ability(name):
 			ability_range = parse_range(line)
 		elif parsed_name:
 			eff += line
-			
-		parsed_name = True
+		
+		if not parsed_name:
+			name = line
+			parsed_name = True
 			
 	ret = Ability(name, contents, purchase_cost=pur_cost, activation_cost=act_cost, readable_cost=read_cost, effect=eff, unlocks=unlock, prerequisites=prereq, expedited_for=exp_for, mp_costs=m_cost, casting_dl=cast_dl, range=ability_range, dc = build_dc, build_time = build_t)
 	logger.log("make_ability", str(ret))

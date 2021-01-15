@@ -12,6 +12,7 @@ from api_characters import *
 from api_enemies import *
 from api_inventory import *
 from api_initiative import *
+from api_abilities import *
 from authentication import *
 from webscraper import *
 from constants import *
@@ -136,6 +137,27 @@ class VenntHandler(BaseHTTPRequestHandler):
 				return self.respond(key_error)
 				
 			return lookup_ability(self, args)
+			
+		elif path == PATHS["LOOKUP_ABILITY"]:
+			key_error = self.check_keys(args, [KEY_AUTH, KEY_NAME])
+			if key_error:
+				return self.respond(key_error)
+				
+			return lookup_ability(self, args) # webscraper
+			
+		elif path == PATHS["ADD_ABILITY"]:
+			key_error = self.check_keys(args, [KEY_AUTH, KEY_NAME])
+			if key_error:
+				return self.respond(key_error)
+				
+			return add_ability(self, args, username)
+			
+		elif path == PATHS["GET_ABILITIES"]:
+			key_error = self.check_keys(args, [KEY_AUTH])
+			if key_error:
+				return self.respond(key_error)
+				
+			return self.respond({"success":True, "value":self.server.db.get_abilities(username)})
 			
 		# -------------  INITIATIVE -------------------------
 		

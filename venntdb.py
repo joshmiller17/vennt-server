@@ -13,7 +13,7 @@ class VenntDB:
 	from db_campaigns import create_campaign, get_campaign_invites, send_campaign_invite, remove_campaign_invite, add_user_to_campaign, get_campaign, get_campaigns, get_joined_campaigns
 	from db_characters import character_exists, get_character, create_character, get_characters, get_attr, set_attr
 	from db_inventory import get_standard_weapon, get_custom_weapon, get_weapon, remove_weapon, add_weapon, add_item, view_items, remove_item
-	from db_abilities import get_cached_ability, cache_ability, find_ability
+	from db_abilities import get_cached_ability, cache_ability, find_ability, get_abilities, get_ability, get_or_make_ability, add_ability
 	from db_initiative import reset_turn_order, add_turn, next_turn, get_turn_order, get_current_turn
 
 
@@ -35,7 +35,7 @@ class VenntDB:
 			if os.path.exists("abilities.json"):
 				with open("abilities.json",encoding="utf8") as f: # encoding for smart quotes
 					self.db["abilities"] = json.load(f)
-			self.db["ability_cache"] = [] # list of Ability objects
+			self.db["ability_cache"] = [None] * MAX_ABILITY_CACHE # list of Ability objects
 			self.db["ability_cache_index"] = 0
 		
 	def dump(self):

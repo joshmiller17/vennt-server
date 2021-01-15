@@ -43,6 +43,17 @@ print(response.text)
 response = json.loads(response.text)
 my_character_id = response["id"]
 
+print("add ability")
+data = {"auth_token":auth_token,"name":"Basic Cooking"}
+response = requests.get(url + 'add_ability?q=%s' % json.dumps(data))
+print(response.text)
+
+print("get abilities")
+data = {"auth_token":auth_token}
+response = requests.get(url + 'get_abilities?q=%s' % json.dumps(data))
+print(response.text)
+
+
 print("reset turn order")
 data = {"auth_token":auth_token,"campaign_id":campaign_id}
 response = requests.get(url + 'reset_turn_order?q=%s' % json.dumps(data))

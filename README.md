@@ -80,6 +80,29 @@ When a partial match is provided, the lookup will succeed if exactly one match i
 Additional keys:
 -`matches` (on failure): The list of abilities which contain your query as a substring.
 
+## Initiative
+
+### Reset turn order
+GET: `<baseURL>/reset_turn_order?q={"auth_token":"<auth_token>", "campaign_id":"<campaign_id>"}`
+
+### Add a turn
+GET: `<baseURL>/add_turn?q={"auth_token":"<auth_token>", "campaign_id":"<campaign_id>", "id":"<entity_id>", "value":"<num>"}`
+
+### Advance turn order
+GET: `<baseURL>/next_turn?q={"auth_token":"<auth_token>", "campaign_id":"<campaign_id>"}`
+
+### Get turn order
+GET: `<baseURL>/get_turn_order?q={"auth_token":"<auth_token>", "campaign_id":"<campaign_id>"}`
+
+Additional keys:
+-`value` (on success): The dictionary of turns as a mapping of initiative rolls to entity IDs
+
+### Get current turn
+GET: `<baseURL>/get_current_turn?q={"auth_token":"<auth_token>", "campaign_id":"<campaign_id>"}`
+
+Additional keys:
+-`value` (on success): The entity ID of whose turn it is
+
 ## Inventory
 
 ### Add an item

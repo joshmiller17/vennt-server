@@ -159,6 +159,13 @@ class VenntHandler(BaseHTTPRequestHandler):
 				
 			return self.respond({"success":True, "value":self.server.db.get_abilities(username)})
 			
+		elif path == PATHS["GET_ABILITY"]:
+			key_error = self.check_keys(args, [KEY_AUTH])
+			if key_error:
+				return self.respond(key_error)
+				
+			return get_ability(self, args, username)
+			
 		# -------------  INITIATIVE -------------------------
 		
 		elif path == PATHS["ADD_TURN"]:

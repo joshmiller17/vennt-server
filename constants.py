@@ -34,7 +34,8 @@ PATHS = {
 	"GET_TURN_ORDER": "/get_turn_order",
 	"GET_CURRENT_TURN": "/get_current_turn",
 	"ADD_ABILITY" : "/add_ability",
-	"GET_ABILITIES": "/get_abilities"
+	"GET_ABILITIES": "/get_abilities",
+	"GET_ABILITY": "/get_ability"
 }
 
 ATTRIBUTES = [

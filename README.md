@@ -262,7 +262,7 @@ venntDB.db is organized in this way:
 
 ### Adding a new API call
 1. Add the data handling logic to venntdb.py (see Adding a new method to the DB below)
-2. Add the API call to vennthandler.py
+2. Add the API call to vennthandler.py and constants.py
 3. Add an example to example.py, test the new function locally
 4. Add the documentation to this README
 

@@ -93,27 +93,27 @@ Additional keys:
 GET: `<baseURL>/get_ability?q={"auth_token":"<auth_token>","name":"<ability_name>"}`
 
 Additional keys:
--`value` (on success): A dictionary describing your ability.
-  -`purchase`: The cost to purchase the ability (str)
-  -`expedited`: Who the ability is expedited for (str)
-  -`unlocks`: What is unlocked by this ability (str)
-  -`prereq`: What is listed as prerequisites for this ability (str)
-  -`mp_cost`: For spells, the MP costs for this ability as a list of 3 numbers (half, normal, double)
-  -`cast_dl`: For spells, the DL to cast this ability as a list of 3 numbers (half, normal, double)
-  -`range`: For spells, the spell's range (str)
-  -`build_dc`: For tinker devices, the DC to build (str)
-  -`build_time`: For tinker devices, the time to build (str)
-  -`effect`: The description of the ability (str)
-  -`activation`: The human-readable cost to activate this ability (str)
-  -`cost`: The Activation cost parsed into a dict
-    -`A`: Actions
-    -`R`: Reactions
-    -`M`: MP
-    -`V`: Vim
-    -`P`: Hero Points
+- `value` (on success): A dictionary describing your ability.
+  - `purchase`: The cost to purchase the ability (str)
+  - `expedited`: Who the ability is expedited for (str)
+  - `unlocks`: What is unlocked by this ability (str)
+  - `prereq`: What is listed as prerequisites for this ability (str)
+  - `mp_cost`: For spells, the MP costs for this ability as a list of 3 numbers (half, normal, double)
+  - `cast_dl`: For spells, the DL to cast this ability as a list of 3 numbers (half, normal, double)
+  - `range`: For spells, the spell's range (str)
+  - `build_dc`: For tinker devices, the DC to build (str)
+  - `build_time`: For tinker devices, the time to build (str)
+  - `effect`: The description of the ability (str)
+  - `activation`: The human-readable cost to activate this ability (str)
+  - `cost`: The Activation cost parsed into a dict
+    - `A`: Actions
+    - `R`: Reactions
+    - `M`: MP
+    - `V`: Vim
+    - `P`: Hero Points
     - `Attack`: If key is present, this ability is part of an attack -- the parser currently does not distinguish between ranged and melee attacks
     - `Passive`: If key is present, this ability is passive
-    -`Special`: Anything which cannot be currently parsed, e.g. "3* Actions" or "X Vim"
+    - `Special`: Anything which cannot be currently parsed, e.g. "3* Actions" or "X Vim"
 
 
 ## Initiative

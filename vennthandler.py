@@ -102,12 +102,12 @@ class VenntHandler(BaseHTTPRequestHandler):
 			return self.respond({"success":False, "info":'Missing query q.'})
 
 		if len(query['q']) != 1:
-			return self.respond("success":False, "info":'Multiple query q.'})
+			return self.respond({"success":False, "info":'Multiple query q.'})
 
 		try:
 			args = json.loads(query['q'][0])
 		except:
-			return self.respond("success":False, "info":'Error parsing JSON'})
+			return self.respond({"success":False, "info":'Error parsing JSON'})
 			
 		logger.log("do_GET", "Args: " + str(args))
 			

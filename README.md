@@ -241,9 +241,6 @@ Additional keys:
 ### Running the server
 `py -3 venntserver.py vennt.db`
 
-### Adding a new method to the DB
-Whenever a new function is added to the DB that is not in venntdb.py, it must also be imported at the top of the class
-
 ### Organization of the database
 venntDB.db is organized in this way:
 
@@ -260,3 +257,14 @@ venntDB.db is organized in this way:
 - `abilities`: a dictionary of abilities read in from `abilities.json` which is scraped using `scrapePaths.py`
 - `ability_cache`: a storage of ability objects cached on query
 - `ability_cache_index`: the index of the oldest used cache slot in `ability_cache`
+
+## Contributing
+
+### Adding a new API call
+1. Add the data handling logic to venntdb.py (see Adding a new method to the DB below)
+2. Add the API call to vennthandler.py
+3. Add an example to example.py, test the new function locally
+4. Add the documentation to this README
+
+### Adding a new method to the DB
+Whenever a new function is added to the DB that is not in venntdb.py, it must also be imported at the top of the class

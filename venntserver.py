@@ -22,7 +22,7 @@ if __name__ == '__main__':
 		PORT_NUMBER = int(sys.argv[2])
 	
 	httpd = HTTPServer((HOST_NAME, PORT_NUMBER), vennthandler.VenntHandler)
-	httpd.socket = ssl.wrap_socket (httpd.socket, certfile='./server.pem', server_side=True)
+	httpd.socket = ssl.wrap_socket(httpd.socket, certfile='./server.pem', server_side=True)
 	httpd.db = venntdb.VenntDB(db)
 
 	try:

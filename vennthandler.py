@@ -28,7 +28,7 @@ class VenntHandler(BaseHTTPRequestHandler):
 		logger.log("log_message", "Client {} sent {}".format(client_short, args))
 
 	def respond(self, data):
-		if not data["success"]:
+		if "success" not in data or not data["success"]:
 			logger.log("respond", "Request failed: " + str(data))
 		self.send_response(200)
 		self.send_header('Content-type', 'text/html')
@@ -99,15 +99,15 @@ class VenntHandler(BaseHTTPRequestHandler):
 		query = parse_qs(parse.query)
 
 		if 'q' not in query:
-			return self.respond('Missing query q.')
+			return self.respond({"success":False, "info":'Missing query q.'})
 
 		if len(query['q']) != 1:
-			return self.respond('Multiple query q.')
+			return self.respond("success":False, "info":'Multiple query q.'})
 
 		try:
 			args = json.loads(query['q'][0])
 		except:
-			return self.respond('Error parsing JSON.')
+			return self.respond("success":False, "info":'Error parsing JSON'})
 			
 		logger.log("do_GET", "Args: " + str(args))
 			

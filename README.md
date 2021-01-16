@@ -80,6 +80,16 @@ When a partial match is provided, the lookup will succeed if exactly one match i
 Additional keys:
 -`matches` (on failure): The list of abilities which contain your query as a substring.
 
+### Add ability
+GET: `<baseURL>/add_ability?q={"auth_token":"<auth_token>", "name":"abilityname"}`
+
+### Get abilities
+GET: `<baseURL>/get_abilities?q={"auth_token":"<auth_token>"}`
+
+Additional keys:
+-`value` (on success): The list of names of your abilities.
+
+
 ## Initiative
 
 ### Reset turn order

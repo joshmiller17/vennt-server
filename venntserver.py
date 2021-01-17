@@ -2,8 +2,7 @@
 # Vennt Server Main
 
 from http.server import BaseHTTPRequestHandler, HTTPServer
-import sys
-import ssl
+import sys, ssl, argparse
 import venntdb, vennthandler
 
 
@@ -13,18 +12,22 @@ PORT_NUMBER = 3004
 	
 
 if __name__ == '__main__':
-	if len(sys.argv) < 3 or len(sys.argv) > 4:
-		print('usage: %s [db] [certfile path] [optional: port number, default 3004]' % sys.argv[0])
-		sys.exit(-1)
-
-	db = sys.argv[1]
-	cert = sys.argv[2]
-	if len(sys.argv) == 4:
-		PORT_NUMBER = int(sys.argv[3])
+	parser = argparse.ArgumentParser(description='Vennt server.')
+	parser.add_argument('-db', default='vennt.db', help="Path to database file")
+	parser.add_argument('-keyfile', default=None, help="Path to private key if using HTTPS")
+	parser.add_argument('-certfile', default=None, help="Path to cert file if using HTTPS")
+	parser.add_argument('--nocert', action='store_true', help="Disable HTTPS encryption")
+	parser.add_argument('-port', type=int, default=3004, help="Port number (default 3004)")
 	
-	httpd = HTTPServer((HOST_NAME, PORT_NUMBER), vennthandler.VenntHandler)
-	httpd.socket = ssl.wrap_socket(httpd.socket, certfile=cert, server_side=True)
-	httpd.db = venntdb.VenntDB(db)
+	args = parser.parse_args()
+
+	
+	httpd = HTTPServer((HOST_NAME, args.port), vennthandler.VenntHandler)
+	if not args.nocert:
+		if args.keyfile is None or args.certfile is None:
+			raise ArgumentError("keyfile and certfile required without --nocert flag")
+		httpd.socket = ssl.wrap_socket(httpd.socket, keyfile=args.keyfile, certfile=args.certfile, server_side=True)
+	httpd.db = venntdb.VenntDB(args.db)
 
 	try:
 		print("Ready")

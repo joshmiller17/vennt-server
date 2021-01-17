@@ -66,7 +66,7 @@ class VenntHandler(BaseHTTPRequestHandler):
 			self.send_header('Content-type', 'text/html')
 			self.send_header('Access-Control-Allow-Origin','*')
 			self.end_headers()
-			self.wfile.write("")
+			self.wfile.write("".encode('utf-8'))
 			
 	def do_POST(self):
 		if rate_limiter.is_rate_limited(self.client_address[0]):

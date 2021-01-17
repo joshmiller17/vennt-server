@@ -38,8 +38,8 @@ def get_undo_history(self, args, username):
 
 
 def attack(self, username, campaign_id, character_id, target_id, weapon_name):
-	if not has_permissions(self, username, campaign_id)
-	
+	#if not has_permissions(self, username, campaign_id)
+	pass
 	# if no permission, error
 	
 def use(self, username, campaign_id, character_id, ability_name, spell_strength=1):

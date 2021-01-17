@@ -8,7 +8,7 @@ from constants import *
 
 def push_undo(self, campaign_id, changeDict):
 	if not "undo" in self.db["campaigns"][campaign_id]:
-		self.db["campaigns"][campaign_id]["undo"] = [None] * MAX_UNDO_HISTORY + 1
+		self.db["campaigns"][campaign_id]["undo"] = [None] * (MAX_UNDO_HISTORY + 1)
 		self.db["campaigns"][campaign_id]["undo_index"] = 0
 	self.db["campaigns"][campaign_id]["undo"][self.db["campaigns"][campaign_id]["undo_index"]] = changeDict
 	self.db["campaigns"][campaign_id]["undo_index"] += 1

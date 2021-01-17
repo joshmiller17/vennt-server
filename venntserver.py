@@ -2,7 +2,8 @@
 # Vennt Server Main
 
 from http.server import BaseHTTPRequestHandler, HTTPServer
-import sys, ssl, argparse
+import sys, ssl, argparse, os.path
+from os import path
 import venntdb, vennthandler
 
 
@@ -26,6 +27,10 @@ if __name__ == '__main__':
 	if not args.nocert:
 		if args.keyfile is None or args.certfile is None:
 			raise ArgumentError("keyfile and certfile required without --nocert flag")
+		if not path.exists(args.keyfile):
+			raise ArgumentError("No such file " + args.keyfile)
+		if not path.exists(args.certfile):
+			raise ArgumentError("No such file " + args.certfile)
 		httpd.socket = ssl.wrap_socket(httpd.socket, keyfile=args.keyfile, certfile=args.certfile, server_side=True)
 	httpd.db = venntdb.VenntDB(args.db)
 

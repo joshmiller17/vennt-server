@@ -37,7 +37,7 @@ PATHS = {
 	"ADD_ABILITY" : "/add_ability",
 	"GET_ABILITIES": "/get_abilities",
 	"GET_ABILITY": "/get_ability",
-	"GET_UNDO_HISTORY": "/get_undo_history"
+	"GET_UNDO_HISTORY": "/get_undo_history",
 }
 
 ATTRIBUTES = [
@@ -68,6 +68,7 @@ MSG_NO_USER = "No such user"
 MSG_NO_CHAR = "No such character"
 MSG_NO_ATTR = "No such attribute"
 MSG_NO_ABI = "No such ability"
+MSG_NO_PERMISSION = "Invalid campaign permissions"
 MSG_BAD_CAMP = "Invalid campaign ID"
 MSG_INVITE_EXISTS = "User already invited"
 MSG_BAD_ROLE = "Invalid role"

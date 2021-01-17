@@ -10,17 +10,18 @@ from api_campaigns import has_campaign_permissions
 # Helper funcs
 
 def has_permissions(self, username, campaign_id, gm_only=False, character_id=None):
-	permission = has_campaign_permissions(self, username, campaign_id)
-	if not permission:
+	if not has_campaign_permissions(self, username, campaign_id)
 		return False
-	# TODO if GM, always yes
+
 	role = self.server.db["campaigns"][campaign_id]
-	
-	# TODO else use/cast if not in combat or its your turn
-	
-	# TODO attack if its your turn
-	
-	return permission
+	if role == "GM":
+		return True
+	elif role == "player":
+		whose_turn = self.server.db.get_current_turn(campaign_id)
+		if whose_turn is None or character_id == whose_turn:
+			return True
+			
+	return False
 
 
 
@@ -43,8 +44,9 @@ def attack(self, username, campaign_id, character_id, target_id, weapon_name):
 	# if no permission, error
 	
 def use(self, username, campaign_id, character_id, ability_name, spell_strength=1):
-	pass # TODO
+	if not has_permissions(self, username, campaign_id, gm_only=False, character_id=character_id):
+		return self.respond({"success":False, "info":MSG_NO_PERMISSION})
 	
-	# if no permission, error
+	abiDict = self.server.db.get_ability(username, ability_name)
 	
 	

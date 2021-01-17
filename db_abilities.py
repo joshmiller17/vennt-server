@@ -7,20 +7,14 @@ from constants import *
 
 # VenntDB Methods
 
-def add_ability(self, username, abiDict):
-	if "abilities" not in self.db["accounts"][username]:
-		self.db["accounts"][username]["abilities"] = []
-	self.db["accounts"][username]["abilities"].append(abiDict)
+def add_ability(self, username, character_id, abiDict):
+	self.db["accounts"][username]["characters"][character_id]["abilities"].append(abiDict)
 
-def get_abilities(self, username):
-	if "abilities" not in self.db["accounts"][username]:
-		return []
-	return [abiDict["name"] for abiDict in self.db["accounts"][username]["abilities"]]
+def get_abilities(self, username, character_id):
+	return [abiDict["name"] for abiDict in self.db["accounts"][username]["characters"][character_id]["abilities"]]
 
-def get_ability(self, username, ability):
-	if "abilities" not in self.db["accounts"][username]:
-		return None
-	for abiDict in self.db["accounts"][username]["abilities"]:
+def get_ability(self, username, character_id, ability):
+	for abiDict in self.db["accounts"][username]["characters"][character_id]["abilities"]:
 		if ability == abiDict["name"]:
 			return abiDict
 	return None

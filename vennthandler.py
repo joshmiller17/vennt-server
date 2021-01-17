@@ -63,7 +63,7 @@ class VenntHandler(BaseHTTPRequestHandler):
 			
 	def do_OPTIONS(self):
 			self.send_response(200)
-			self.do_GET()
+			self.do_POST()
 			
 	def do_POST(self):
 		if rate_limiter.is_rate_limited(self.client_address[0]):

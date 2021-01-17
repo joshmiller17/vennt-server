@@ -63,9 +63,9 @@ class VenntHandler(BaseHTTPRequestHandler):
 			
 	def do_OPTIONS(self):
 			self.send_response(200)
-			self.send_header('Access-Control-Allow-Methods', 'OPTIONS, GET, HEAD, POST')
 			self.send_header('Access-Control-Allow-Origin','*')
 			self.send_header('Access-Control-Allow-Headers', '*')
+			self.send_header('Allow', 'OPTIONS, GET, HEAD, POST')
 			self.end_headers()
 			
 	def do_POST(self):

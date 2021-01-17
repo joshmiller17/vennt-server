@@ -53,6 +53,10 @@ data = {"auth_token":auth_token}
 response = requests.get(url + 'get_abilities?q=%s' % json.dumps(data))
 print(response.text)
 
+print("get ability")
+data = {"auth_token":auth_token,"name":"Basic Cooking"}
+response = requests.get(url + 'get_ability?q=%s' % json.dumps(data))
+print(response.text)
 
 print("reset turn order")
 data = {"auth_token":auth_token,"campaign_id":campaign_id}

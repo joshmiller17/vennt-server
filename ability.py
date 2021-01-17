@@ -8,55 +8,42 @@ logClass = importlib.import_module("logger")
 logger = logClass.Logger("ability")
 	
 # Input: ability contents
-# Output: Ability object
+# Output: Ability dict
 def make_ability(contents):
-	pur_cost = None
-	act_cost = None
-	read_cost = ""
-	eff = ""
-	exp_for = None
-	m_cost = None
-	build_dc = None
-	build_t = None
-	cast_dl = None
-	unlock = None
-	ability_range = None
-	prereq = None
-	parsed_name = False
-	name = None
+	abiDict = {}
+
 	for line in contents:
 		if line.startswith("Cost:"):
-			pur_cost = parse_purchase_cost(line)
+			abiDict["purchase"] = parse_purchase_cost(line)
 		elif line.startswith("Expedited for:"):
-			exp_for = parse_expedited(line)
+			abiDict["expedited"] = parse_expedited(line)
 		elif line.startswith("Unlocks:"):
-			unlock = parse_unlocks(line)
+			abiDict["unlocks"] = parse_unlocks(line)
 		elif line.startswith("Prereq"):
-			prereq = parse_prereq(line)
+			abiDict["prereq"] = parse_prereq(line)
 		elif line.startswith("MP Cost:"):
-			m_cost = parse_mp_costs(line)
+			abiDict["mp_cost"] = parse_mp_costs(line)
 		elif line.startswith("Casting DL:"):
-			cast_dl = parse_casting_dl(line)
+			abiDict["cast_dl"] = parse_casting_dl(line)
 		elif line.startswith("DC:"):
-			build_dc = parse_dc(line)
+			abiDict["build_dc"] = parse_dc(line)
 		elif line.startswith("Build time:"):
-			build_t = parse_build_time(line)
+			abiDict["build_time"] = parse_build_time(line)
 		elif line.startswith("Activation:"):
-			act_cost = parse_activation_cost(line)
-			read_cost = line[12:-1]
-			parsed_activation = True
+			abiDict["cost"] = parse_activation_cost(line)
+			abiDict["activation"] = line[12:-1]
 		elif line.startswith("Range:"):
-			ability_range = parse_range(line)
-		elif parsed_name:
-			eff += line
+			abiDict["range"] = parse_range(line)
+		elif "name" in abiDict:
+			if "effect" not in abiDict:
+				abiDict["effect"] = ""
+			abiDict["effect"] += line
 		
-		if not parsed_name:
-			name = line
-			parsed_name = True
+		if not "name" in abiDict:
+			abiDict["name"] = line
 			
-	ret = Ability(name, contents, purchase_cost=pur_cost, activation_cost=act_cost, readable_cost=read_cost, effect=eff, unlocks=unlock, prerequisites=prereq, expedited_for=exp_for, mp_costs=m_cost, casting_dl=cast_dl, range=ability_range, dc = build_dc, build_time = build_t)
-	logger.log("make_ability", str(ret))
-	return ret
+	logger.log("make_ability", str(abiDict))
+	return abiDict
 
 def parse_dc(line):
 	return line[4:-1] # just get string for now	
@@ -119,50 +106,17 @@ def parse_range(line):
 	return line[7:-1] # just get string for now
 
 
-class Ability():
-	def __init__(self, name, contents, purchase_cost, activation_cost, readable_cost, effect, unlocks=None, prerequisites=None, expedited_for = None, mp_costs = None, casting_dl = None, range = None, dc = None, build_time = None):
-		self.name = name
-		self.contents = contents
-		self.purchase_cost = purchase_cost
-		self.unlocks = unlocks
-		self.prerequisites = prerequisites
-		self.cost = activation_cost
-		self.readable_cost = readable_cost
-		self.expedited = expedited_for
-		self.is_spell = (mp_costs != None) or (casting_dl != None)
-		self.mp_costs = mp_costs
-		self.casting_dl = casting_dl
-		self.range = range
-		self.effect = effect
-		self.dc = dc
-		self.build_time = build_time
-		self.is_tinker = (dc != None) or (build_time != None)
+def is_valid(abiDict):
+	req_keys = ["name", "effect", "cost"]
+	for key in req_keys:
+		if key not in abiDict:
+			return False
+	return True
 	
-	def is_valid(self):
-		if not self.name or not self.contents or self.cost is None:
-			return False
-		return True
-		
-	def is_spendable(self):
-		if self.cost is None or self.cost == {}:
-			return False
-		for key, val in self.cost.items():
-			if key in ['A', 'R', 'V', 'M', 'P']:
-				return True
+def is_spendable(abiDict):
+	if "cost" not in abiDict or abiDict["cost"] == {}:
 		return False
-	
-	def __str__(self):
-		ret = "[" + self.name + "]\n"
-		#ret += "-- Cost: " + str(self.purchase_cost) + "\n"
-		#ret += "-- Expedited for: " + str(self.expedited) + "\n"
-		ret += "-- Activation: " + self.readable_cost + " -> " + str(self.cost) + "\n"
-		if self.is_spell:
-			ret += "-- MP Cost: " + str(self.mp_costs) + "\n"
-			ret += "-- Casting DL: " + str(self.casting_dl) + "\n"
-		if self.is_tinker:
-			ret += "-- DC: " + str(self.dc) + "\n"
-			ret += "-- Build Time: " + str(self.build_time) + "\n"
-		if self.range is not None:
-			ret += "-- Range: " + str(self.range) + "\n"
-		#ret += "-- Effect: " + self.effect + "\n"
-		return ret
+	for key, val in abiDict["cost"].items():
+		if key in ['A', 'R', 'V', 'M', 'P']:
+			return True
+	return False

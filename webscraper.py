@@ -17,10 +17,10 @@ logger = logClass.Logger("webscraper")
 def lookup_ability(self, args):
 	name = args[KEY_NAME]
 	
-	abiObj = self.server.db.get_cached_ability(name)
-	if abiObj is not None:
+	abiDict = self.server.db.get_cached_ability(name)
+	if abiDict is not None:
 		logger.log("lookup_ability", "cache hit")
-		return self.respond({"success":True, "value":abiObj.contents})
+		return self.respond({"success":True, "value":abiDict["contents"]})
 	
 	logger.log("lookup_ability", "cache miss")
 	approximations, URL = find_ability(self, name)

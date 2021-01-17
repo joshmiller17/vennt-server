@@ -7,22 +7,22 @@ from constants import *
 
 # VenntDB Methods
 
-def add_ability(self, username, abiObj):
+def add_ability(self, username, abiDict):
 	if "abilities" not in self.db["accounts"][username]:
 		self.db["accounts"][username]["abilities"] = []
-	self.db["accounts"][username]["abilities"].append(abiObj)
+	self.db["accounts"][username]["abilities"].append(abiDict)
 
 def get_abilities(self, username):
 	if "abilities" not in self.db["accounts"][username]:
 		return []
-	return [abiObj.name for abiObj in self.db["accounts"][username]["abilities"]]
+	return [abiDict["name"] for abiDict in self.db["accounts"][username]["abilities"]]
 
 def get_ability(self, username, ability):
 	if "abilities" not in self.db["accounts"][username]:
 		return None
-	for abiObj in self.db["accounts"][username]["abilities"]:
-		if ability == abiObj.name:
-			return abiObj
+	for abiDict in self.db["accounts"][username]["abilities"]:
+		if ability == abiDict["name"]:
+			return abiDict
 	return None
 	
 
@@ -32,8 +32,8 @@ def get_cached_ability(self, name):
 			return ability
 	return None
 		
-def cache_ability(self, abiObj):
-	self.db["ability_cache"][self.db["ability_cache_index"]] = abiObj
+def cache_ability(self, abiDict):
+	self.db["ability_cache"][self.db["ability_cache_index"]] = abiDict
 	self.db["ability_cache_index"] += 1
 	if self.db["ability_cache_index"] > MAX_ABILITY_CACHE:
 		self.db["ability_cache_index"] = 0

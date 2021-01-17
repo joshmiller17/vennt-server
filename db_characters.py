@@ -32,14 +32,14 @@ def get_characters(self, username):
 	return self.db["accounts"][username]["characters"]
 		
 def get_attr(self, username, char_id, attr):
-	if not self.account_exists(username):
+	if not self.is_valid(account,username):
 		raise AssertionError("Tried to access non-existent user")
 	if not self.character_exists(username, char_id):
 		raise AssertionError("Tried to access non-existent character")
 	return self.get_character(username, char_id)[attr]
 	
 def set_attr(self, username, char_id, attr, val):
-	if not self.account_exists(username):
+	if not self.is_valid(account,username):
 		raise AssertionError("Tried to access non-existent user")
 	if not self.character_exists(username, char_id):
 		raise AssertionError("Tried to access non-existent character")

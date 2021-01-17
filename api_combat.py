@@ -10,7 +10,7 @@ from api_campaigns import has_campaign_permissions
 # Helper funcs
 
 def has_permissions(self, username, campaign_id, gm_only=False, character_id=None):
-	if not has_campaign_permissions(self, username, campaign_id)
+	if not has_campaign_permissions(self, username, campaign_id):
 		return False
 
 	role = self.server.db["campaigns"][campaign_id]
@@ -20,7 +20,7 @@ def has_permissions(self, username, campaign_id, gm_only=False, character_id=Non
 		whose_turn = self.server.db.get_current_turn(campaign_id)
 		if whose_turn is None or character_id == whose_turn:
 			return True
-			
+	
 	return False
 
 

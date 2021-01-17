@@ -41,9 +41,21 @@ class VenntDB:
 		
 	def dump(self):
 		print(json.dumps(self.db, indent=4, separators=(',', ': '), sort_keys=True))
-			
-	def account_exists(self, username):
-		return username in self.db["accounts"]
+		
+	def assert_valid(self, *args, dict=None):
+		if not self.is_valid(args, dict):
+			raise AssertionError("Database path does not exist")
+		
+	def is_valid(self, *args, dict=None):
+		if dict is None:
+			dict = self.db
+		print(args) # TEST
+		if len(args) < 1:
+			return True
+		elif len(args) == 1:
+			return args[0] in dict
+		else:
+			return args[0] in dict and self.is_valid(args[1:], dict=dict)
 			
 	def create_account(self, username, pass_hash):
 		self.db["accounts"][username] = {}
@@ -60,7 +72,7 @@ class VenntDB:
 		self.save_db()
 
 	def does_password_match(self, username, pass_hash):
-		if not self.account_exists(username):
+		if not self.is_valid("accounts", username):
 			raise AssertionError("Tried to access non-existent user")
 		return pass_hash == self.db["accounts"][username]["password"]
 

@@ -9,7 +9,7 @@ TIMEOUT = 3600 * 12
 def handle_register(self, json_data):
 	result = {}
 	username = json_data["register"]
-	if self.server.db.account_exists(username):
+	if self.server.db.is_valid("accounts", username):
 		result["success"] = False
 		result["info"] = "Username already exists"
 		self.respond(result)
@@ -34,7 +34,7 @@ def handle_register(self, json_data):
 def handle_login(self, json_data):
 	result = {}
 	username = json_data["login"]
-	if not self.server.db.account_exists(username):
+	if not self.server.db.is_valid("accounts", username):
 		result["success"] = False
 		result["info"] = "No such user"
 		self.respond(result)

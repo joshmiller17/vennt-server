@@ -35,7 +35,7 @@ class VenntDB:
 			if os.path.exists("abilities.json"):
 				with open("abilities.json",encoding="utf8") as f: # encoding for smart quotes
 					self.db["abilities"] = json.load(f)
-			self.db["ability_cache"] = [None] * (MAX_ABILITY_CACHE +) 1 # list of Ability dicts
+			self.db["ability_cache"] = [None] * (MAX_ABILITY_CACHE + 1) # list of Ability dicts
 			self.db["ability_cache_index"] = 0
 		
 	def dump(self):

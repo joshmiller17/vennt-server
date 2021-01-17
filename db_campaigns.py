@@ -6,6 +6,13 @@ from constants import *
 
 # VenntDB Methods
 
+def get_role(self, username, campaign_id):
+	campaign = self.db["campaigns"][campaign_id]
+	for member in campaign["members"]:
+		if member["username"] == username:
+			return member["role"]
+	return None
+
 def create_campaign(self, username, campaign):
 	if not "campaigns" in self.db["accounts"][username]:
 		self.db["accounts"][username]["campaigns"] = []

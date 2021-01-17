@@ -15,6 +15,7 @@ class VenntDB:
 	from db_inventory import get_standard_weapon, get_custom_weapon, get_weapon, remove_weapon, add_weapon, add_item, view_items, remove_item
 	from db_abilities import get_cached_ability, cache_ability, find_ability, get_abilities, get_ability, get_or_make_ability, add_ability
 	from db_initiative import reset_turn_order, add_turn, next_turn, get_turn_order, get_current_turn
+	from db_combat import push_undo, pop_undo, get_undo_history
 
 
 	def __init__(self, filename):

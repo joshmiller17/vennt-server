@@ -13,6 +13,7 @@ from api_enemies import *
 from api_inventory import *
 from api_initiative import *
 from api_abilities import *
+from api_combat import *
 from authentication import *
 from webscraper import *
 from constants import *
@@ -112,7 +113,7 @@ class VenntHandler(BaseHTTPRequestHandler):
 		logger.log("do_GET", "Args: " + str(args))
 			
 		if KEY_AUTH not in args:
-			return 'Missing required key ' + KEY_AUTH + '.'
+			return self.respond({"success":False, "info":'Missing required key ' + KEY_AUTH + '.'})
 		username = self.server.db.auth.check_and_fetch(self.client_address[0], args[KEY_AUTH])
 		if username is None:
 			return self.respond({"success":False, "info":MSG_BAD_AUTH})
@@ -165,6 +166,15 @@ class VenntHandler(BaseHTTPRequestHandler):
 				return self.respond(key_error)
 				
 			return get_ability(self, args, username)
+			
+		# -------------  COMBAT -------------------------
+		
+		elif path == PATHS["GET_UNDO_HISTORY"]:
+			key_error = self.check_keys(args, [KEY_AUTH, KEY_CAMPAIGN_ID])
+			if key_error:
+				return self.respond(key_error)
+				
+			return get_undo_history(self, args, username)
 			
 		# -------------  INITIATIVE -------------------------
 		

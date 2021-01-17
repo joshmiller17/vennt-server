@@ -96,8 +96,8 @@ def get_role(self, args, username):
 	if not has_campaign_permissions(self, username, campaign_id):
 		return self.respond({"success":False, "info":MSG_BAD_CAMP})
 	
-	for member in campaign["members"]:
-		if member["username"] == args[KEY_USERNAME]:
-			return self.respond({"success":True, "value":member["role"]})
+	role = self.server.db.get_role(args[KEY_USERNAME], campaign_id)
+	if role is not None:
+		return self.respond({"success":True, "value":member["role"]})
 	return self.respond({"success":False, "info":MSG_NO_USER}) 
 	

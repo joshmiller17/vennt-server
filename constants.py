@@ -36,7 +36,8 @@ PATHS = {
 	"GET_CURRENT_TURN": "/get_current_turn",
 	"ADD_ABILITY" : "/add_ability",
 	"GET_ABILITIES": "/get_abilities",
-	"GET_ABILITY": "/get_ability"
+	"GET_ABILITY": "/get_ability",
+	"GET_UNDO_HISTORY": "/get_undo_history"
 }
 
 ATTRIBUTES = [

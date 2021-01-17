@@ -61,6 +61,9 @@ class VenntHandler(BaseHTTPRequestHandler):
 		else:
 			return self.respond({"success":False})
 			
+	def do_OPTIONS(self):
+			return self.respond({"success":True})
+			
 	def do_POST(self):
 		if rate_limiter.is_rate_limited(self.client_address[0]):
 			return self.respond({"success":False, "info":MSG_TOO_MANY_REQ})

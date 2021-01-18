@@ -10,38 +10,30 @@ def character_exists(self, username, char_id):
 	return self.get_character(username, char_id) is not None
 	
 def get_character(self, username, char_id):
-	if not "characters" in self.db["accounts"][username]:
-		return None
+	self.assert_valid("accounts", username, "characters")
 	for character in self.db["accounts"][username]["characters"]:
 		if char_id == character["id"]:
 			return character
 	return None
 	
 def create_character(self, username, character):
-	if not "characters" in self.db["accounts"][username]:
-		self.db["accounts"][username]["characters"] = []
+	self.assert_valid("accounts", username, "characters")
 	for attr in ATTRIBUTES:
 		if attr not in character:
 			character[attr] = 0
+	character["items"] = []
 	self.db["accounts"][username]["characters"].append(character)
 	self.save_db()
 	
 def get_characters(self, username):
-	if not "characters" in self.db["accounts"][username]:
-		return []
+	self.assert_valid("accounts", username, "characters")
 	return self.db["accounts"][username]["characters"]
 		
 def get_attr(self, username, char_id, attr):
-	if not self.is_valid(account,username):
-		raise AssertionError("Tried to access non-existent user")
-	if not self.character_exists(username, char_id):
-		raise AssertionError("Tried to access non-existent character")
+	self.assert_valid("accounts", username, "characters", char_id)
 	return self.get_character(username, char_id)[attr]
 	
 def set_attr(self, username, char_id, attr, val):
-	if not self.is_valid(account,username):
-		raise AssertionError("Tried to access non-existent user")
-	if not self.character_exists(username, char_id):
-		raise AssertionError("Tried to access non-existent character")
+	self.assert_valid("accounts", username, "characters", char_id)
 	self.get_character(username, char_id)[attr] = val
 	self.save_db()

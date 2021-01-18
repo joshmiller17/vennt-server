@@ -8,12 +8,15 @@ from constants import *
 # VenntDB Methods
 
 def add_ability(self, username, character_id, abiDict):
+	self.assert_valid("accounts", username, "characters", character_id, "abilities")
 	self.db["accounts"][username]["characters"][character_id]["abilities"].append(abiDict)
 
 def get_abilities(self, username, character_id):
+	self.assert_valid("accounts", username, "characters", character_id, "abilities")
 	return [abiDict["name"] for abiDict in self.db["accounts"][username]["characters"][character_id]["abilities"]]
 
 def get_ability(self, username, character_id, ability):
+	self.assert_valid("accounts", username, "characters", character_id, "abilities")
 	for abiDict in self.db["accounts"][username]["characters"][character_id]["abilities"]:
 		if ability == abiDict["name"]:
 			return abiDict

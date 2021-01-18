@@ -49,17 +49,21 @@ class VenntDB:
 	def is_valid(self, *args, dict=None):
 		if dict is None:
 			dict = self.db
-		print(args) # TEST
 		if len(args) < 1:
 			return True
 		elif len(args) == 1:
 			return args[0] in dict
 		else:
-			return args[0] in dict and self.is_valid(args[1:], dict=dict)
+			return args[0] in dict and self.is_valid(*args[1:], dict=dict[args[0]])
 			
 	def create_account(self, username, pass_hash):
 		self.db["accounts"][username] = {}
 		self.db["accounts"][username]["password"] = pass_hash
+		self.db["accounts"][username]["characters"] = []
+		self.db["accounts"][username]["campaigns"] = []
+		self.db["accounts"][username]["campaign_invites"] = []
+		self.db["accounts"][username]["joined_campaigns"] = []
+		self.db["accounts"][username]["weapons"] = []
 		self.save_db()
 		
 	def create_enemy(self, username, enemy):

@@ -13,8 +13,7 @@ def get_standard_weapon(self, weapon_name):
 	return None
 	
 def get_custom_weapon(self, username, weapon_name):
-	if not "weapons" in self.db["accounts"][username]:
-		return None
+	self.assert_valid("accounts", username, "weapons")
 	for weapon in self.db["accounts"][username]["weapons"]:
 		if weapon["name"] == weapon_name:
 			return weapon
@@ -27,8 +26,7 @@ def get_weapon(self, username, weapon_name):
 	return weapon
 	
 def remove_weapon(self, username, weapon_name):
-	if not "weapons" in self.db["accounts"][username]:
-		return False
+	self.assert_valid("accounts", username, "weapons")
 	for weapon in self.db["accounts"][username]["weapons"]:
 		if weapon["name"] == weapon_name:
 			self.db["accounts"][username]["weapons"].remove(weapon)
@@ -37,14 +35,12 @@ def remove_weapon(self, username, weapon_name):
 	return False
 	
 def add_weapon(self, username, weapon):
-	if not "weapons" in self.db["accounts"][username]:
-		self.db["accounts"][username]["weapons"] = []
+	self.assert_valid("accounts", username, "weapons")
 	self.db["accounts"][username]["weapons"].append(weapon)
 	self.save_db()
 	
 def add_item(self, username, item):
-	if not "items" in self.db["accounts"][username]:
-		self.db["accounts"][username]["items"] = []
+	self.assert_valid("accounts", username, "items")
 	if len(self.db["accounts"][username]["items"]) >= MAX_INVENTORY_SIZE:
 		return False
 	self.db["accounts"][username]["items"].append(item)
@@ -52,13 +48,11 @@ def add_item(self, username, item):
 	return True
 	
 def view_items(self, username):
-	if not "items" in self.db["accounts"][username]:
-		return []
+	self.assert_valid("accounts", username, "items")
 	return self.db["accounts"][username]["items"]
 	
 def remove_item(self, username, item_id):
-	if not "items" in self.db["accounts"][username]:
-		return False
+	self.assert_valid("accounts", username, "items")
 	for item in self.db["accounts"][username]["items"]:
 		if item["id"] == item_id:
 			self.db["accounts"][username]["items"].remove(item)

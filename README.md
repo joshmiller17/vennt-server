@@ -239,7 +239,8 @@ Additional keys:
 
 
 ### Running the server
-`py -3 venntserver.py vennt.db`
+`py -3 venntserver.py vennt.db --nocert`
+Or `py -3 venntserver.py --help` for more information on running the server securely.
 
 ### Organization of the database
 venntDB.db is organized in this way:

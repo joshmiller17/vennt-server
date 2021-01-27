@@ -73,7 +73,7 @@ Additional keys:
 ## Abilities
 
 ### Lookup ability
-GET: `<baseURL>/add_item?q={"auth_token":"<auth_token>", "name":"abilityname"}`
+GET: `<baseURL>/lookup_ability?q={"auth_token":"<auth_token>", "name":"abilityname"}`
 
 When a partial match is provided, the lookup will succeed if exactly one match is found, by assuming that match.
 
@@ -81,16 +81,16 @@ Additional keys:
 -`matches` (on failure): The list of abilities which contain your query as a substring.
 
 ### Add ability
-GET: `<baseURL>/add_ability?q={"auth_token":"<auth_token>", "name":"abilityname"}`
+GET: `<baseURL>/add_ability?q={"auth_token":"<auth_token>", "id":"<character_id>", "name":"abilityname"}`
 
 ### Get abilities
-GET: `<baseURL>/get_abilities?q={"auth_token":"<auth_token>"}`
+GET: `<baseURL>/get_abilities?q={"auth_token":"<auth_token>", "id":"<character_id>"}`
 
 Additional keys:
 -`value` (on success): The list of names of your abilities.
 
 ### Get ability
-GET: `<baseURL>/get_ability?q={"auth_token":"<auth_token>","name":"<ability_name>"}`
+GET: `<baseURL>/get_ability?q={"auth_token":"<auth_token>", "id":"<character_id>", "name":"<ability_name>"}`
 
 Additional keys:
 - `value` (on success): A dictionary describing your ability.
@@ -239,7 +239,8 @@ Additional keys:
 
 
 ### Running the server
-`py -3 venntserver.py vennt.db`
+`py -3 venntserver.py vennt.db --nocert`
+Or `py -3 venntserver.py --help` for more information on running the server securely.
 
 ### Organization of the database
 venntDB.db is organized in this way:
@@ -247,6 +248,10 @@ venntDB.db is organized in this way:
 - `accounts`: a map of usernames to accounts
   - `characters`: a map of character IDs to character dictionaries
     - Includes `name`, `id`, and many attributes (see `Data Types` in API documentation)
+    - Includes `items`; each item has:
+      - `name`: item name
+      - `bulk`: item bulk (numeric)
+      - `desc`: item description
   - `campaign_invites`: a list of campaign invites
     - `from`: username of sender
     - `id`: campaign ID

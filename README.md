@@ -73,7 +73,7 @@ Additional keys:
 ## Abilities
 
 ### Lookup ability
-GET: `<baseURL>/add_item?q={"auth_token":"<auth_token>", "name":"abilityname"}`
+GET: `<baseURL>/lookup_ability?q={"auth_token":"<auth_token>", "name":"abilityname"}`
 
 When a partial match is provided, the lookup will succeed if exactly one match is found, by assuming that match.
 
@@ -248,6 +248,10 @@ venntDB.db is organized in this way:
 - `accounts`: a map of usernames to accounts
   - `characters`: a map of character IDs to character dictionaries
     - Includes `name`, `id`, and many attributes (see `Data Types` in API documentation)
+    - Includes `items`; each item has:
+      - `name`: item name
+      - `bulk`: item bulk (numeric)
+      - `desc`: item description
   - `campaign_invites`: a list of campaign invites
     - `from`: username of sender
     - `id`: campaign ID

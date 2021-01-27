@@ -81,16 +81,16 @@ Additional keys:
 -`matches` (on failure): The list of abilities which contain your query as a substring.
 
 ### Add ability
-GET: `<baseURL>/add_ability?q={"auth_token":"<auth_token>", "name":"abilityname"}`
+GET: `<baseURL>/add_ability?q={"auth_token":"<auth_token>", "id":"<character_id>", "name":"abilityname"}`
 
 ### Get abilities
-GET: `<baseURL>/get_abilities?q={"auth_token":"<auth_token>"}`
+GET: `<baseURL>/get_abilities?q={"auth_token":"<auth_token>", "id":"<character_id>"}`
 
 Additional keys:
 -`value` (on success): The list of names of your abilities.
 
 ### Get ability
-GET: `<baseURL>/get_ability?q={"auth_token":"<auth_token>","name":"<ability_name>"}`
+GET: `<baseURL>/get_ability?q={"auth_token":"<auth_token>", "id":"<character_id>", "name":"<ability_name>"}`
 
 Additional keys:
 - `value` (on success): A dictionary describing your ability.

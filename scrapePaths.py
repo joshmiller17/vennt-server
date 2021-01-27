@@ -78,9 +78,6 @@ if __name__ == "__main__":
 	paths = getPaths()
 	print("Found %d paths"%len(paths))
 
-	#open the output file
-	out = open(outfile,"w",encoding="utf8")
-
 	all_entries = []
 	#for each path...
 	for i,(name,url) in enumerate(paths):
@@ -96,4 +93,7 @@ if __name__ == "__main__":
 			
 		#sleep to be polite to the server
 		time.sleep(1)
+	
+	#open the output file
+	out = open(outfile,"w",encoding="utf8")
 	out.write(json.dumps(all_entries,ensure_ascii=False, indent=4)+"\n")

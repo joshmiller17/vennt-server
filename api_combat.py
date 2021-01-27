@@ -20,7 +20,6 @@ def has_permissions(self, username, campaign_id, gm_only=False, character_id=Non
 		whose_turn = self.server.db.get_current_turn(campaign_id)
 		if whose_turn is None or character_id == whose_turn:
 			return True
-	
 	return False
 
 
@@ -37,11 +36,12 @@ def get_undo_history(self, args, username):
 	return self.respond({"success":True, "value":history})
 
 
-
 def attack(self, username, campaign_id, character_id, target_id, weapon_name):
-	#if not has_permissions(self, username, campaign_id)
+	#TODO if not has_permissions(self, username, campaign_id)
 	pass
-	# if no permission, error
+	# TODO if no permission, error
+	
+	return # TODO unfinished
 	
 def use(self, username, campaign_id, character_id, ability_name, spell_strength=1):
 	if not has_permissions(self, username, campaign_id, gm_only=False, character_id=character_id):
@@ -49,4 +49,6 @@ def use(self, username, campaign_id, character_id, ability_name, spell_strength=
 	
 	abiDict = self.server.db.get_ability(username, ability_name)
 	
+	# TODO how to find character if you're not the GM
 	
+	return # TODO unfinished

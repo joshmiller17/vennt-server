@@ -30,7 +30,7 @@ def lookup_ability(self, args):
 		return self.respond({"success":False, "info":"More than one match", "matches":approximations})
 	else:
 		ability = "\n".join(get_ability_contents(approximations[0], URL))
-		# TODO create ability object and add to cache
+		# should add to cache here or no?
 		return self.respond({"success":True, "value":ability})
 
 # Returns list of matches and URL string (if found)

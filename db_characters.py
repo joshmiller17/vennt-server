@@ -22,6 +22,7 @@ def create_character(self, username, character):
 		if attr not in character:
 			character[attr] = 0
 	character["items"] = []
+	character["abilities"] = []
 	self.db["accounts"][username]["characters"].append(character)
 	self.save_db()
 	

@@ -1,7 +1,7 @@
 # Josh Aaron Miller 2021
 # Helper functions for managing stats and rolls
 
-import venntdb, random, math
+import venntdb, random, math, d20
 from constants import *
 
 def d6():
@@ -14,6 +14,13 @@ def clean_modifier(v):
 	if isinstance(v, str):
 		v = v.replace("+", "")
 	return int(v)
+	
+def is_valid_roll(rollstr):
+	try:
+		d20.roll(rollstr)
+		return True
+	except:
+		return False
 	
 def compare_hp(current, max):
 	percent = (1.0 * current) / (1.0 * max)

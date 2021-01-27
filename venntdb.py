@@ -6,6 +6,10 @@ import json, os
 
 from authentication import Authenticator
 from constants import *
+
+import importlib
+logClass = importlib.import_module("logger")
+logger = logClass.Logger("VenntDB")
 	
 
 class VenntDB:
@@ -43,10 +47,11 @@ class VenntDB:
 		print(json.dumps(self.db, indent=4, separators=(',', ': '), sort_keys=True))
 		
 	def assert_valid(self, *args, dict=None):
-		if not self.is_valid(args, dict):
+		logger.log("assert_valid", ">".join(args))
+		if not self.is_valid(*args, dict=dict):
 			raise AssertionError("Database path does not exist")
 		
-	def is_valid(self, *args, dict=None):
+	def is_valid(self, *args, dict=None): # check valid path through DB
 		if dict is None:
 			dict = self.db
 		if len(args) < 1:

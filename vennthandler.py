@@ -20,7 +20,7 @@ from constants import *
 
 import importlib
 logClass = importlib.import_module("logger")
-logger = logClass.Logger("webscraper")
+logger = logClass.Logger("VenntHandler")
 
 class VenntHandler(BaseHTTPRequestHandler):
 
@@ -41,10 +41,10 @@ class VenntHandler(BaseHTTPRequestHandler):
 	def check_keys(self, args, keys_req, keys_opt=[]):
 		for key in keys_req:
 			if key not in args:
-				return 'Missing required key ' + key + '.'
+				return {"success":False, "info":'Missing required key ' + key + '.'}
 		for key in args.keys():
 			if key not in keys_req and key not in keys_opt:
-				return 'Unknown key ' + key + '.'
+				return {"success":False, "info":'Unknown key ' + key + '.'}
 		return None
 
 	def do_HEAD(self):
@@ -156,21 +156,21 @@ class VenntHandler(BaseHTTPRequestHandler):
 			return lookup_ability(self, args) # webscraper
 			
 		elif path == PATHS["ADD_ABILITY"]:
-			key_error = self.check_keys(args, [KEY_AUTH, KEY_NAME])
+			key_error = self.check_keys(args, [KEY_AUTH, KEY_ID, KEY_NAME])
 			if key_error:
 				return self.respond(key_error)
 				
 			return add_ability(self, args, username)
 			
 		elif path == PATHS["GET_ABILITIES"]:
-			key_error = self.check_keys(args, [KEY_AUTH])
+			key_error = self.check_keys(args, [KEY_AUTH, KEY_ID])
 			if key_error:
 				return self.respond(key_error)
 				
-			return self.respond({"success":True, "value":self.server.db.get_abilities(username)})
+			return self.respond({"success":True, "value":self.server.db.get_abilities(username, args[KEY_ID])})
 			
 		elif path == PATHS["GET_ABILITY"]:
-			key_error = self.check_keys(args, [KEY_AUTH])
+			key_error = self.check_keys(args, [KEY_AUTH, KEY_ID, KEY_NAME])
 			if key_error:
 				return self.respond(key_error)
 				

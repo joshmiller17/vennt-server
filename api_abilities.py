@@ -8,8 +8,8 @@ from constants import *
 
 def add_ability(self, args, username):
 	ability = args[KEY_NAME]
-	
-	abiDict = self.server.db.get_ability(username, ability)
+		
+	abiDict = self.server.db.get_ability(username, args[KEY_ID], ability)
 	if abiDict is not None:
 		return self.respond({"success":True, "info":"Ability already added."})
 	
@@ -24,7 +24,7 @@ def add_ability(self, args, username):
 def get_ability(self, args, username):
 	ability = args[KEY_NAME]
 	
-	abiDict = self.server.db.get_ability(username, ability)
+	abiDict = self.server.db.get_ability(username, args[KEY_ID], ability)
 	if abiDict is None:
 		return self.respond({"success":True, "info":MSG_NO_ABI})
 	

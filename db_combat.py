@@ -7,6 +7,7 @@ from constants import *
 # VenntDB Methods
 
 def push_undo(self, campaign_id, changeDict):
+	self.assert_valid("campaigns", campaign_id)
 	if not "undo" in self.db["campaigns"][campaign_id]:
 		self.db["campaigns"][campaign_id]["undo"] = [None] * (MAX_UNDO_HISTORY + 1)
 		self.db["campaigns"][campaign_id]["undo_index"] = 0
@@ -16,6 +17,7 @@ def push_undo(self, campaign_id, changeDict):
 		self.db["campaigns"][campaign_id]["undo_index"] = 0
 	
 def pop_undo(self, campaign_id):
+	self.assert_valid("campaigns", campaign_id)
 	self.db["campaigns"][campaign_id]["undo_index"] -= 1
 	if self.db["campaigns"][campaign_id]["undo_index"] < 0:
 		self.db["campaigns"][campaign_id]["undo_index"] = MAX_UNDO_HISTORY
@@ -23,6 +25,7 @@ def pop_undo(self, campaign_id):
 	
 def get_undo_history(self, campaign_id):
 	ret = []
+	self.assert_valid("campaigns", campaign_id)
 	self.db["campaigns"][campaign_id]["undo"][self.db["campaigns"][campaign_id]["undo_index"]] = None
 	index = self.db["campaigns"][campaign_id]["undo_index"] - 1
 	done = False

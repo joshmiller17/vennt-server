@@ -267,9 +267,11 @@ venntDB.db is organized in this way:
 
 ### Adding a new API call
 1. Add the data handling logic to venntdb.py (see Adding a new method to the DB below)
-2. Add the API call to vennthandler.py and constants.py
-3. Add an example to example.py, test the new function locally
-4. Add the documentation to this README
+2. Add the API call to the relevant api_x.py (even if it's a one-line function); **the burden of permission-checking must happen at this step**
+3. Add the API call to vennthandler.py
+4. Add the API call to constants.py
+5. Add an example to example.py, test the new function locally
+6. Add the documentation to this README
 
 ### Adding a new method to the DB
 Whenever a new function is added to the DB that is not in venntdb.py, it must also be imported at the top of the class

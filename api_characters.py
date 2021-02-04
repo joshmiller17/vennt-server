@@ -6,6 +6,12 @@ from constants import *
 
 # VenntHandler methods
 
+def get_characters(self, args, username):
+	return self.respond({"success":True, "value":str(self.server.db.get_characters(username))})
+	
+def get_character(self, args, username):
+	return self.respond({"success":True, "value":str(self.server.db.get_character(username, args[KEY_ID]))})
+
 def create_character(self, args, username):
 	name = args[KEY_NAME]
 	if len(name) > MAX_NAME_LENGTH:

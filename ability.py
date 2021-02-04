@@ -11,6 +11,7 @@ logger = logClass.Logger("ability")
 # Output: Ability dict
 def make_ability(contents):
 	abiDict = {}
+	abiDict["contents"] = contents
 
 	for line in contents:
 		if line.startswith("Cost:"):
@@ -40,7 +41,7 @@ def make_ability(contents):
 			abiDict["effect"] += line
 		
 		if not "name" in abiDict:
-			abiDict["name"] = line
+			abiDict["name"] = line[:-1] # chop off \n
 			
 	logger.log("make_ability", str(abiDict))
 	return abiDict

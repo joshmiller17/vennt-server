@@ -11,9 +11,8 @@ def character_exists(self, username, char_id):
 	
 def get_character(self, username, char_id):
 	self.assert_valid("accounts", username, "characters")
-	for character in self.db["accounts"][username]["characters"]:
-		if char_id == character["id"]:
-			return character
+	if self.is_valid("accounts", username, "characters", char_id):
+		return self.db["accounts"][username]["characters"][char_id]
 	return None
 	
 def create_character(self, username, character):
@@ -23,7 +22,7 @@ def create_character(self, username, character):
 			character[attr] = 0
 	character["items"] = []
 	character["abilities"] = []
-	self.db["accounts"][username]["characters"].append(character)
+	self.db["accounts"][username]["characters"][character["id"]] = character
 	self.save_db()
 	
 def get_characters(self, username):

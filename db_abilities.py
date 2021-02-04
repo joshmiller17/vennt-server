@@ -25,7 +25,7 @@ def get_ability(self, username, character_id, ability):
 
 def get_cached_ability(self, name):
 	for ability in self.db["ability_cache"]:
-		if ability is not None and name == ability.name:
+		if ability is not None and name == ability["name"]:
 			return ability
 	return None
 		

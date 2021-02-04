@@ -167,7 +167,7 @@ class VenntHandler(BaseHTTPRequestHandler):
 			if key_error:
 				return self.respond(key_error)
 				
-			return self.respond({"success":True, "value":self.server.db.get_abilities(username, args[KEY_ID])})
+			return get_abilities(self, args, username)
 			
 		elif path == PATHS["GET_ABILITY"]:
 			key_error = self.check_keys(args, [KEY_AUTH, KEY_ID, KEY_NAME])
@@ -226,26 +226,25 @@ class VenntHandler(BaseHTTPRequestHandler):
 		# ----------  INVENTORY / WEAPONS -----------------------
 		
 		elif path == PATHS["ADD_ITEM"]:
-			key_error = self.check_keys(args, [KEY_AUTH, KEY_NAME, KEY_DESC, KEY_BULK])
+			key_error = self.check_keys(args, [KEY_AUTH, KEY_ID, KEY_NAME, KEY_DESC, KEY_BULK])
 			if key_error:
 				return self.respond(key_error)
 				
 			return add_item(self, args, username)
 			
 		elif path == PATHS["VIEW_ITEMS"]:
-			key_error = self.check_keys(args, [KEY_AUTH])
-			if key_error:
-				return self.respond(key_error)
-				
-			items = self.server.db.view_items(username)
-			return self.respond({"success":True, "value":items})
-			
-		elif path == PATHS["REMOVE_ITEM"]:
 			key_error = self.check_keys(args, [KEY_AUTH, KEY_ID])
 			if key_error:
 				return self.respond(key_error)
 				
-			return self.respond({"success":self.server.db.remove_item(username, args[KEY_ID])})
+			return view_items(self, args, username)
+			
+		elif path == PATHS["REMOVE_ITEM"]:
+			key_error = self.check_keys(args, [KEY_AUTH, KEY_ID, KEY_ID2])
+			if key_error:
+				return self.respond(key_error)
+				
+			return remove_item(self, args, username)
 			
 		elif path == PATHS["ADD_WEAPON"]:
 			key_error = self.check_keys(args, [KEY_AUTH, KEY_NAME, KEY_ATTR, KEY_DMG], keys_opt=[KEY_MODS])
@@ -259,7 +258,7 @@ class VenntHandler(BaseHTTPRequestHandler):
 			if key_error:
 				return self.respond(key_error)
 				
-			return self.respond({"success":self.server.db.remove_weapon(username, args[KEY_NAME])})
+			return remove_weapon(self, args, username)
 			
 		elif path == PATHS["GET_WEAPON"]:
 			key_error = self.check_keys(args, [KEY_AUTH, KEY_NAME])
@@ -296,14 +295,14 @@ class VenntHandler(BaseHTTPRequestHandler):
 			if key_error:
 				return self.respond(key_error)
 				
-			return self.respond({"success":True, "value":str(self.server.db.get_characters(username))})
+			return get_characters(self, args, username)
 			
 		elif path == PATHS["GET_CHARACTER"]:
 			key_error = self.check_keys(args, [KEY_AUTH, KEY_ID])
 			if key_error:
 				return self.respond(key_error)
 				
-			return self.respond({"success":True, "value":str(self.server.db.get_character(username, args[KEY_ID]))})
+			return get_character(self, args, username)
 			
 		# -------------  CAMPAIGNS  -------------------------
 			
@@ -320,7 +319,7 @@ class VenntHandler(BaseHTTPRequestHandler):
 			if key_error:
 				return self.respond(key_error)
 				
-			return self.respond({"success":True, "value":self.server.db.get_campaigns(username)})
+			return get_campaigns(self, args, username)
 			
 		elif path == PATHS["SEND_CAMPAIGN_INVITE"]:
 			key_error = self.check_keys(args, [KEY_AUTH, KEY_USERNAME, KEY_CAMPAIGN_ID])

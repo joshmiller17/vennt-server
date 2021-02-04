@@ -53,6 +53,7 @@ KEY_ATTR = "attr"
 KEY_VAL = "value"
 KEY_NAME = "name"
 KEY_ID = "id"
+KEY_ID2 = "id2"
 KEY_CAMPAIGN_ID = "campaign_id"
 KEY_USERNAME = "username"
 KEY_ROLE = "role"
@@ -61,22 +62,27 @@ KEY_BULK = "bulk"
 KEY_DMG = "dmg"
 KEY_MODS = "mods"
 
-MSG_BAD_AUTH = "Authentication invalid"
 MSG_TOO_MANY_REQ = "Too many requests"
 MSG_REQ_LARGE = "Request too large"
+MSG_INVITE_EXISTS = "User already invited"
+MSG_NAME_LONG = "Name too long"
+MSG_DESC_LONG = "Description too long"
+MSG_NOT_INT = "Key {} should be an integer"
+MSG_DID_JOIN = "User already joined this campaign"
+
+MSG_BAD_AUTH = "Authentication invalid"
+MSG_BAD_CAMP = "Invalid campaign ID"
+MSG_BAD_ROLE = "Invalid role"
+
 MSG_NO_USER = "No such user"
 MSG_NO_CHAR = "No such character"
 MSG_NO_ATTR = "No such attribute"
 MSG_NO_ABI = "No such ability"
 MSG_NO_PERMISSION = "Invalid campaign permissions"
-MSG_BAD_CAMP = "Invalid campaign ID"
-MSG_INVITE_EXISTS = "User already invited"
-MSG_BAD_ROLE = "Invalid role"
-MSG_NAME_LONG = "Name too long"
-MSG_DESC_LONG = "Description too long"
-MSG_NOT_INT = "Key {} should be an integer"
 
-ROLES = ["player","GM"]
+
+ROLES = ["player", "GM", "spectator"]
+
 
 class IDType:
 
@@ -84,3 +90,12 @@ class IDType:
 	CHARACTER = 'C'
 	ITEM = 'I'
 	ENEMY = 'E'
+	
+class Permission:
+	NONE = 0 # no access
+	PUBLIC_VIEW = 1 # can view basic character info
+	COMBAT = 2 # can make modifications to combat stats
+	ADD = 3 # can give resources but not subtract
+	PRIVATE_VIEW = 4 # can see detailed information
+	EDIT = 5 # can edit all details
+	OWN = 6 # owner-only

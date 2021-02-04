@@ -10,6 +10,8 @@ from api_campaigns import has_campaign_permissions
 # Helper funcs
 
 def has_permissions(self, username, campaign_id, gm_only=False, character_id=None):
+	# TODO use new Permission enum (see constants.py)
+
 	if not has_campaign_permissions(self, username, campaign_id):
 		return False
 
@@ -21,7 +23,6 @@ def has_permissions(self, username, campaign_id, gm_only=False, character_id=Non
 		if whose_turn is None or character_id == whose_turn:
 			return True
 	return False
-
 
 
 

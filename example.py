@@ -152,11 +152,11 @@ data = {"auth_token":auth_token,"campaign_id":campaign_id}
 response = requests.get(url + 'decline_campaign_invite?q=%s' % json.dumps(data))
 check_continue(response)
 
-print("Accept campaign invite")
+print("Accept campaign invite (will fail)")
 data = {"auth_token":auth_token,"username":username,"campaign_id":campaign_id}
 response = requests.get(url + 'send_campaign_invite?q=%s' % json.dumps(data))
 check_continue(response)
-data = {"auth_token":auth_token,"id":campaign_id}
+data = {"auth_token":auth_token,"campaign_id":campaign_id}
 response = requests.get(url + 'accept_campaign_invite?q=%s' % json.dumps(data))
 check_continue(response)
 
@@ -171,7 +171,7 @@ response = requests.get(url + 'get_role?q=%s' % json.dumps(data))
 check_continue(response)
 
 print("Add item")
-data = {"auth_token":auth_token,"name":"donut","bulk":"1","desc":"Just a donut"}
+data = {"auth_token":auth_token,"id":my_character_id,"name":"donut","bulk":"1","desc":"Just a donut"}
 response = requests.get(url + 'add_item?q=%s' % json.dumps(data))
 check_continue(response)
 
@@ -179,12 +179,12 @@ response = json.loads(response.text)
 item_id = response["id"]
 
 print("View items")
-data = {"auth_token":auth_token}
+data = {"auth_token":auth_token, "id":my_character_id}
 response = requests.get(url + 'view_items?q=%s' % json.dumps(data))
 check_continue(response)
 
 print("Remove item")
-data = {"auth_token":auth_token,"id":item_id}
+data = {"auth_token":auth_token, "id":my_character_id,"id2":item_id}
 response = requests.get(url + 'remove_item?q=%s' % json.dumps(data))
 check_continue(response)
 

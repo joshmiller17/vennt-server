@@ -6,8 +6,21 @@ from constants import *
 
 # VenntHandler methods
 
+def view_items(self, args, username):
+	# TODO assert username has permissions
+	items = self.server.db.view_items(username, args[KEY_ID])
+	return self.respond({"success":True, "value":items})
+	
+def remove_item(self, args, username):
+	# TODO assert username has permissions
+	return self.respond({"success":self.server.db.remove_item(username, args[KEY_ID], args[KEY_ID2])})
+
+
 def add_item(self, args, username):
+	# TODO assert username has permissions to character
+	
 	name = args[KEY_NAME]
+	
 	if len(name) > MAX_NAME_LENGTH:
 		return self.respond({"success":False, "info":MSG_NAME_LONG})
 		
@@ -22,7 +35,7 @@ def add_item(self, args, username):
 	
 	id = IDType.ITEM + str(uuid.uuid4())
 	item = {"name":name, "id":id, "desc":desc, "bulk":bulk}
-	success = self.server.db.add_item(username, item)
+	success = self.server.db.add_item(username, args[KEY_ID], item)
 	
 	if not success:
 		return self.respond({"success":False, "info":"Max items exceeded"})
@@ -60,3 +73,6 @@ def add_weapon(self, args, username):
 	self.server.db.add_weapon(username, weapon)
 	
 	return self.respond({"success":True})
+	
+def remove_weapon(self, args, username):
+	return self.respond({"success":self.server.db.remove_weapon(username, args[KEY_NAME])})

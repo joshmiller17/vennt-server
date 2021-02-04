@@ -7,19 +7,19 @@ from constants import *
 # VenntDB Methods
 
 def get_role(self, username, campaign_id):
-	campaign = self.db["campaigns"][campaign_id]
-	for member in campaign["members"]:
-		if member["username"] == username:
-			return member["role"]
-	return None
+	return self.db["campaigns"][campaign_id][username]
+	
+def set_role(self, username, campaign_id, role):
+	self.db["campaigns"][campaign_id][username] = role
+	self.save_db()
 
 def create_campaign(self, username, campaign):
 	self.assert_valid("accounts", username, "campaigns")
 	self.db["accounts"][username]["campaigns"].append(campaign)
 	self.db["campaigns"][campaign["id"]] = {}
 	self.db["campaigns"][campaign["id"]]["owner"] = username
-	self.db["campaigns"][campaign["id"]]["members"] = []
-	self.db["campaigns"][campaign["id"]]["members"].append({"username":username,"role":None})
+	self.db["campaigns"][campaign["id"]]["members"] = {}
+	self.db["campaigns"][campaign["id"]]["members"][username] = "spectator"
 	self.save_db()
 
 def get_campaign_invites(self, username):
@@ -48,7 +48,7 @@ def remove_campaign_invite(self, username, campaign_id):
 def add_user_to_campaign(self, username, campaign_id):
 	if username in self.db["campaigns"][campaign_id]["members"]:
 		raise AssertionError(username + " already in campaign.")
-	self.db["campaigns"][campaign_id]["members"].append({"username":username,"role":None})
+	self.db["campaigns"][campaign_id]["members"][username] = spectator
 	self.assert_valid("accounts", username, "joined_campaigns")
 	self.db["accounts"][username]["joined_campaigns"].append(campaign_id)
 	self.save_db()

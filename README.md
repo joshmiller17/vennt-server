@@ -15,7 +15,7 @@ Each method describes additional JSON keys provided, if any.
 
 ## Data Types
 - `attr`: Valid attributes are AGI, CHA, DEX, INT, PER, SPI, STR, TEK, WIS, HP, MAX_HP, MP, MAX_MP, VIM, MAX_VIM, ARMOR, HERO, INIT, SPEED, XP, SP
-- `role`: Valid roles are "player" and "GM"
+- `role`: Valid roles are "player", "GM", and "spectator"
 - `<rollstr>`: Any key marked as `<rollstr>` requires a dice roll in standard die roll notation, e.g. "1d6+6". Comments can go in brackets. For full documentation on possible parses, see the [Python d20 library](https://pypi.org/project/d20/).
 
 ## Meta / Accounts
@@ -258,6 +258,7 @@ venntDB.db is organized in this way:
   - `campaigns`: a list of campaign IDs owned by the user
   - `joined_campaigns`: a list of campaign IDs joined by the user
 - `campaigns`: a map of campaign IDs to campaign dictionaries
+  - 'members': a map of usernames to roles
 - `weapons`: a dictionary of standard weapons read in from `weapons.json`
 - `abilities`: a dictionary of abilities read in from `abilities.json` which is scraped using `scrapePaths.py`
 - `ability_cache`: a storage of ability objects cached on query

@@ -106,19 +106,8 @@ class VenntHandler(BaseHTTPRequestHandler):
 			return self.respond({"success":False, "info":MSG_REQ_LARGE})
 
 		# get the JSON arguments
-		query = parse_qs(parse.query)
+		args = parse_qs(parse.query)
 
-		if 'q' not in query:
-			return self.respond({"success":False, "info":'Missing query q.'})
-
-		if len(query['q']) != 1:
-			return self.respond({"success":False, "info":'Multiple query q.'})
-
-		try:
-			args = json.loads(query['q'][0])
-		except:
-			return self.respond({"success":False, "info":'Error parsing JSON'})
-			
 		logger.log("do_GET", "Args: " + str(args))
 			
 		if KEY_AUTH not in args:

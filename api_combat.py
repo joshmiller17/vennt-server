@@ -10,8 +10,6 @@ from api_campaigns import has_campaign_permissions
 # Helper funcs
 
 def has_permissions(self, username, campaign_id, gm_only=False, character_id=None):
-	# TODO use new Permission enum (see constants.py)
-
 	if not has_campaign_permissions(self, username, campaign_id):
 		return False
 
@@ -38,18 +36,17 @@ def get_undo_history(self, args, username):
 
 
 def attack(self, username, campaign_id, character_id, target_id, weapon_name):
-	#TODO if not has_permissions(self, username, campaign_id)
-	pass
-	# TODO if no permission, error
-	
+	if not has_permissions(self, username, campaign_id, gm_only=False, character_id=character_id):
+		return self.respond({"success":False, "info":MSG_NO_PERMISSION})
+		
 	return # TODO unfinished
 	
 def use(self, username, campaign_id, character_id, ability_name, spell_strength=1):
 	if not has_permissions(self, username, campaign_id, gm_only=False, character_id=character_id):
 		return self.respond({"success":False, "info":MSG_NO_PERMISSION})
 	
-	abiDict = self.server.db.get_ability(username, ability_name)
-	
-	# TODO how to find character if you're not the GM
-	
+	abiDict = self.server.db.get_ability(username, character_id, ability_name)
+		
+		
+		
 	return # TODO unfinished

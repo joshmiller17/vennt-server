@@ -78,7 +78,7 @@ MSG_NO_USER = "No such user"
 MSG_NO_CHAR = "No such character"
 MSG_NO_ATTR = "No such attribute"
 MSG_NO_ABI = "No such ability"
-MSG_NO_PERMISSION = "Invalid campaign permissions"
+MSG_NO_PERMISSION = "Invalid permissions"
 
 
 ROLES = ["player", "GM", "spectator"]
@@ -97,5 +97,5 @@ class Permission:
 	COMBAT = 2 # can make modifications to combat stats
 	ADD = 3 # can give resources but not subtract
 	PRIVATE_VIEW = 4 # can see detailed information
-	EDIT = 5 # can edit all details
+	EDIT = 5 # can edit all details -- UNUSED
 	OWN = 6 # owner-only

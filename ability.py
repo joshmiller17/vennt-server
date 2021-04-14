@@ -10,6 +10,9 @@ logger = logClass.Logger("ability")
 # Input: ability contents
 # Output: Ability dict
 def make_ability(contents):
+	if contents == []:
+		return {"name":"NULL", "contents":[], "activation":"Passive"}
+
 	abiDict = {}
 	abiDict["contents"] = contents
 

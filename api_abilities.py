@@ -13,7 +13,8 @@ def get_abilities(self, args, username):
 def add_ability(self, args, username):
 	ability = args[KEY_NAME]
 	character_id = args[KEY_ID]
-	# TODO assert username has ownership permission to character
+	if self.server.db.permissions(username, character_id) < Permission.EDIT:
+		return self.respond({"success":False, "info":MSG_NO_PERMISSION})
 	
 	abiDict = self.server.db.get_ability(username, character_id, ability)
 	if abiDict is not None:
@@ -30,7 +31,8 @@ def add_ability(self, args, username):
 def get_ability(self, args, username):
 	ability = args[KEY_NAME]
 	
-	# TODO assert username has view permission to character
+	if self.server.db.permissions(username, character_id) < Permission.PRIVATE_VIEW:
+		return self.respond({"success":False, "info":MSG_NO_PERMISSION})
 	
 	abiDict = self.server.db.get_ability(username, args[KEY_ID], ability)
 	if abiDict is None:

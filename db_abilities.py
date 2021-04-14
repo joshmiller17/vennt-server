@@ -1,9 +1,13 @@
 # Josh Aaron Miller 2021
 # VenntDB methods for Abilities
 
-import venntdb, webscraper
+import venntdb, webscraper, time
 import ability as Ability
 from constants import *
+
+import importlib
+logClass = importlib.import_module("logger")
+logger = logClass.Logger("db_abilities")
 
 # VenntDB Methods
 
@@ -25,8 +29,9 @@ def get_ability(self, username, character_id, ability):
 
 def get_cached_ability(self, name):
 	for ability in self.db["ability_cache"]:
-		if ability is not None and name == ability["name"]:
-			return ability
+		if ability is not None:
+			if name == ability["name"]:
+				return ability
 	return None
 		
 def cache_ability(self, abiDict):
@@ -57,6 +62,18 @@ def get_or_make_ability(self, name):
 	
 	approximations, URL = self.find_ability(name)
 	contents = webscraper.get_ability_contents(approximations[0], URL)
+	if contents == []:
+		pass # TODO?
 	new_ability = Ability.make_ability(contents)
 	self.cache_ability(new_ability)
 	return new_ability
+	
+def validate_abilities(self):
+	for a in self.db["abilities"]:
+		ability = a["ability"]
+		logger.log("validate_abilities", ability)
+		abiDict = self.get_or_make_ability(ability)
+		if abiDict["contents"] == []:
+			logger.warn("validate_abilities", "No contents found for " + ability)
+		# TODO check if spendable
+		time.sleep(1)

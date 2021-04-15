@@ -30,8 +30,7 @@ def check_continue(response):
 
 print("New account")
 username = str(uuid.uuid4())
-data = {"register": username, "password": "pw"}
-data = urllib.parse.urlencode(data)
+data = '{"register": "%s", "password": "pw"}' % username
 response = requests.post(url, data=data.encode('utf-8'), verify=do_ssl)
 check_continue(response)
 
@@ -45,8 +44,7 @@ response = requests.get(url + 'logout?%s' % data, verify=do_ssl)
 check_continue(response)
 
 print("Login")
-data = {"login": username, "password": "pw"}
-data = urllib.parse.urlencode(data)
+data = '{"login": "%s", "password": "pw"}' % username
 response = requests.post(url, data=data.encode('utf-8'), verify=do_ssl)
 check_continue(response)
 

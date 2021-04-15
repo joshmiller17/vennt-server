@@ -84,7 +84,7 @@ class VenntHandler(BaseHTTPRequestHandler):
 		post_data = post_data.decode('utf-8')
 		
 		try:	
-			json_data = parse_qs(post_data)
+			json_data = json.loads(post_data)
 		except:
 			self.respond({"success":False,"info":"Bad query"})
 			return

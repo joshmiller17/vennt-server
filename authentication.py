@@ -8,14 +8,14 @@ TIMEOUT = 3600 * 12
 # VenntHandler methods
 def handle_register(self, json_data):
 	result = {}
-	username = json_data["register"]
+	username = json_data["register"][0]
 	if self.server.db.is_valid("accounts", username):
 		result["success"] = False
 		result["info"] = "Username already exists"
 		self.respond(result)
 		return
 	if "password" in json_data:
-		password = json_data["password"]
+		password = json_data["password"][0]
 	else:
 		result["success"] = False
 		result["info"] = "No password key"
@@ -33,7 +33,7 @@ def handle_register(self, json_data):
 
 def handle_login(self, json_data):
 	result = {}
-	username = json_data["login"]
+	username = json_data["login"][0]
 	if not self.server.db.is_valid("accounts", username):
 		result["success"] = False
 		result["info"] = "No such user"
@@ -41,7 +41,7 @@ def handle_login(self, json_data):
 		return
 	else:
 		if "password" in json_data:
-			password = json_data["password"]
+			password = json_data["password"][0]
 		else:
 			result["success"] = False
 			result["info"] = "No password key"

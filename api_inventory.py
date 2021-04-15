@@ -7,18 +7,21 @@ from constants import *
 # VenntHandler methods
 
 def view_items(self, args, username):
+	character_id = args[KEY_ID]
 	if self.server.db.permissions(username, character_id) < Permission.PRIVATE_VIEW:
 		return self.respond({"success":False, "info":MSG_NO_PERMISSION})
 	items = self.server.db.view_items(username, args[KEY_ID])
 	return self.respond({"success":True, "value":items})
 	
 def remove_item(self, args, username):
+	character_id = args[KEY_ID]
 	if self.server.db.permissions(username, character_id) < Permission.EDIT:
 		return self.respond({"success":False, "info":MSG_NO_PERMISSION})
 	return self.respond({"success":self.server.db.remove_item(username, args[KEY_ID], args[KEY_ID2])})
 
 
 def add_item(self, args, username):
+	character_id = args[KEY_ID]
 	if self.server.db.permissions(username, character_id) < Permission.ADD:
 		return self.respond({"success":False, "info":MSG_NO_PERMISSION})
 	

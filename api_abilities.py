@@ -30,7 +30,7 @@ def add_ability(self, args, username):
 	
 def get_ability(self, args, username):
 	ability = args[KEY_NAME]
-	
+	character_id = args[KEY_ID]
 	if self.server.db.permissions(username, character_id) < Permission.PRIVATE_VIEW:
 		return self.respond({"success":False, "info":MSG_NO_PERMISSION})
 	

@@ -22,6 +22,8 @@ import importlib
 logClass = importlib.import_module("logger")
 logger = logClass.Logger("VenntHandler")
 
+NOT_YET_IMPLEMENTED = {"success":False, "info":MSG_NO_IMP}
+
 class VenntHandler(BaseHTTPRequestHandler):
 
 	def log_message(self, format, *args):
@@ -81,11 +83,10 @@ class VenntHandler(BaseHTTPRequestHandler):
 		post_data = self.rfile.read(content_length)
 		post_data = post_data.decode('utf-8')
 		
-		try:
-			logger.log("do_POST", "data: " + str(post_data))
-			json_data = json.loads(post_data)
+		try:	
+			json_data = parse_qs(post_data)
 		except:
-			self.respond({"success":False,"info":"Bad JSON"})
+			self.respond({"success":False,"info":"Bad query"})
 			return
 		
 		if "register" in json_data:
@@ -108,6 +109,10 @@ class VenntHandler(BaseHTTPRequestHandler):
 
 		# get the JSON arguments
 		args = parse_qs(parse.query)
+		
+		# convert key, [val] to key, val
+		for k,v in args.items():
+			args[k] = v[0]
 
 		logger.log("do_GET", "Args: " + str(args))
 			
@@ -160,10 +165,11 @@ class VenntHandler(BaseHTTPRequestHandler):
 			return get_abilities(self, args, username)
 			
 		elif path == PATHS["GET_ABILITY"]:
-			key_error = self.check_keys(args, [KEY_AUTH, KEY_ID, KEY_NAME])
+			key_error = self.check_keys(args, [KEY_AUTH, KEY_CHAR, KEY_ID, KEY_NAME])
 			if key_error:
 				return self.respond(key_error)
-				
+			
+			return self.respond(NOT_YET_IMPLEMENTED)
 			return get_ability(self, args, username)
 			
 		# -------------  COMBAT -------------------------
@@ -196,6 +202,7 @@ class VenntHandler(BaseHTTPRequestHandler):
 			if key_error:
 				return self.respond(key_error)
 				
+			return self.respond(NOT_YET_IMPLEMENTED)
 			return next_turn(self, args, username)
 			
 		elif path == PATHS["GET_TURN_ORDER"]:

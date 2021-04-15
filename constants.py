@@ -54,6 +54,7 @@ KEY_VAL = "value"
 KEY_NAME = "name"
 KEY_ID = "id"
 KEY_ID2 = "id2"
+KEY_CHAR = "character_id"
 KEY_CAMPAIGN_ID = "campaign_id"
 KEY_USERNAME = "username"
 KEY_ROLE = "role"
@@ -79,6 +80,7 @@ MSG_NO_CHAR = "No such character"
 MSG_NO_ATTR = "No such attribute"
 MSG_NO_ABI = "No such ability"
 MSG_NO_PERMISSION = "Invalid permissions"
+MSG_NO_IMP = "Not yet implemented."
 
 
 ROLES = ["player", "GM", "spectator"]

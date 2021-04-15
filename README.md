@@ -3,9 +3,7 @@ A headless server for making API calls to the Vennt database.
 
 
 # API Documentation
-All communications with the server are done via JSON. Authentication is done via POST which gives you an `auth_token` that can be used to make GET calls. Note that all interactions with the API are case-sensitive.
-
-See `example.py` for an example of API calls.
+All communications with the server are done via standard POST and GET calls. Authentication is done via POST which gives you an `auth_token` that can be used to make GET calls. Note that all interactions with the API are case-sensitive. See `example.py` for an example of API calls. Calls follow standard URL parsing, i.e., `<baseurl>/request_type?arg1=val1&arg2=val2...`
 
 All API calls return a JSON with these keys:
 - `success`: whether the operation was successful
@@ -21,19 +19,23 @@ Each method describes additional JSON keys provided, if any.
 ## Meta / Accounts
 
 ### Create an account
-POST: `{"register":"myusername","password":"mypassword"}`
+POST:
+- `register`: desired username
+- `password`: desired password
 
-Additional keys:
+Additional keys returned:
 - `auth_token`: on success, your authentication token for making GET calls
 
 ### Login
-POST: `{"login":"myusername","password":"mypassword"}`
+- `login`: username
+- `password`: password
 
-Additional keys:
+Additional keys returned:
 - `auth_token`: on success, your authentication token for making GET calls
 
 ### Logout
-GET: `<baseURL>/logout?q={"auth_token":"<auth_token>"}`
+GET:
+- `auth_token`: auth token
 
 The operation succeeding means that `auth_token` was valid prior to logout.
 
@@ -41,58 +43,81 @@ The operation succeeding means that `auth_token` was valid prior to logout.
 ## Characters
 
 ### Create a character
-GET: `<baseURL>/create_character?q={"auth_token":"<auth_token>", "name":"myfirstcharacter"[,"ATTR":"<num>"...]}`
+GET:
+- `auth_token`: auth token
+- `name` : desired character name
 
-Setting attribute properties are optional.
 
-Additional keys:
+Optional args:
+- `attr` : attribute value, see Data Types above
+
+
+Additional keys returned:
 -`id`: on success, the unique ID of your new character
 
 ### Get characters
-GET: `<baseURL>/get_characters?q={"auth_token":"<auth_token>"}`
+GET:
+- `auth_token`: auth token
 
-Additional keys:
+Additional keys returned:
 -`value`: on success, returns a list of IDs for your characters
 
 ### Get character details
-GET: `<baseURL>/get_character?q={"auth_token":"<auth_token>"}`
+GET:
+- `auth_token`: auth token
+- `id` : character ID
 
-Additional keys:
+Additional keys returned:
 - `value`: on success, returns your character (JSON)
 
 ### Set an attribute
-GET: `<baseURL>/set_attr?q={"auth_token":"<auth_token>", "char_id":"<character_id>", "attr":"ATTR", "value":"<num>"}`
+GET:
+- `auth_token`: auth token
+- `char_id` : character ID
+- `attr` : attribute name
+- `value` : attribute value
 
 
 ### Get an attribute
-GET: `<baseURL>/get_attr?q={"auth_token":"<auth_token>", "char_id":"<character_id>", "attr":"ATTR"}`
+GET:
+- `auth_token`: auth token
+- `char_id` : character ID
+- `attr` : attribute name
 
-Additional keys:
+Additional keys returned:
 - `value`: the attribute value
 
 ## Abilities
 
 ### Lookup ability
-GET: `<baseURL>/lookup_ability?q={"auth_token":"<auth_token>", "name":"abilityname"}`
+GET:
+- `auth_token`: auth token
+- `name` : ability name
 
 When a partial match is provided, the lookup will succeed if exactly one match is found, by assuming that match.
 
-Additional keys:
+Additional keys returned:
 -`matches` (on failure): The list of abilities which contain your query as a substring.
 
 ### Add ability
-GET: `<baseURL>/add_ability?q={"auth_token":"<auth_token>", "id":"<character_id>", "name":"abilityname"}`
+GET:
+- `auth_token`: auth token
+- `id`: character ID
+- `name` : ability name
+
+
+# TODO FIXME documentation from here and below is out of date, needs to be formatted as above
 
 ### Get abilities
 GET: `<baseURL>/get_abilities?q={"auth_token":"<auth_token>", "id":"<character_id>"}`
 
-Additional keys:
+Additional keys returned:
 -`value` (on success): The list of names of your abilities.
 
 ### Get ability
 GET: `<baseURL>/get_ability?q={"auth_token":"<auth_token>", "id":"<character_id>", "name":"<ability_name>"}`
 
-Additional keys:
+Additional keys returned:
 - `value` (on success): A dictionary describing your ability.
   - `purchase`: The cost to purchase the ability (str)
   - `expedited`: Who the ability is expedited for (str)
@@ -130,13 +155,13 @@ GET: `<baseURL>/next_turn?q={"auth_token":"<auth_token>", "campaign_id":"<campai
 ### Get turn order
 GET: `<baseURL>/get_turn_order?q={"auth_token":"<auth_token>", "campaign_id":"<campaign_id>"}`
 
-Additional keys:
+Additional keys returned:
 -`value` (on success): The dictionary of turns as a mapping of initiative rolls to entity IDs
 
 ### Get current turn
 GET: `<baseURL>/get_current_turn?q={"auth_token":"<auth_token>", "campaign_id":"<campaign_id>"}`
 
-Additional keys:
+Additional keys returned:
 -`value` (on success): The entity ID of whose turn it is
 
 ## Inventory
@@ -144,13 +169,13 @@ Additional keys:
 ### Add an item
 GET: `<baseURL>/add_item?q={"auth_token":"<auth_token>", "name":"itemname", "bulk":"<num>", "desc":"item description"}`
 
-Additional keys:
+Additional keys returned:
 -`id`: on success, the unique ID of your new item
 
 ### View items
 GET: `<baseURL>/view_items?q={"auth_token":"<auth_token>"}`
 
-Additional keys:
+Additional keys returned:
 -`value`: on success, a list of item dictionaries
   - `name`: item name
   - `bulk`: the item's bulk value
@@ -169,7 +194,7 @@ GET: `<baseURL>/get_weapon?q={"auth_token":"<auth_token>", "name":"weapon_name"}
 
 The `get_weapon` call can also retrieve standard Vennt weapons like `Blade` and `Rifle`.
 
-Additional keys:
+Additional keys returned:
 - `weapon`: on success, a weapon dictionary
   - `name`: the weapon's name
   - `attr`: the weapon's attribute
@@ -186,7 +211,7 @@ GET: `<baseURL>/create_enemy?q={"auth_token":"<auth_token>", "name":"myfirstenem
 
 Setting attribute properties are optional.
 
-Additional keys:
+Additional keys returned:
 -`id`: on success, the unique ID of your new enemy
 
 ## Campaigns
@@ -194,13 +219,13 @@ Additional keys:
 ### Create a campaign
 GET: `<baseURL>/create_campaign?q={"auth_token":"<auth_token>", "name":"myfirstcampaign"}`
 
-Additional keys:
+Additional keys returned:
 -`campaign_id`: on success, the unique ID of your new campaign
 
 ### Get campaigns
 GET: `<baseURL>/get_campaigns?q={"auth_token":"<auth_token>"}`
 
-Additional keys:
+Additional keys returned:
 -`value`: on success, returns a list of IDs for your campaigns
 
 ### Invite someone to a campaign
@@ -209,7 +234,7 @@ GET: `<baseURL>/send_campaign_invite?q={"auth_token":"<auth_token>", "campaign_i
 ### View active campaign invites
 GET: `<baseURL>/view_campaign_invites?q={"auth_token":"<auth_token>"}`
 
-Additional keys:
+Additional keys returned:
 - `value`: list of campaign invites
   - `from`: username of inviter
   - `campaign_id`: campaign ID
@@ -230,7 +255,7 @@ GET: `<baseURL>/set_role?q={"auth_token":"<auth_token>","campaign_id":"<campaign
 You must be the campaign owner or a member of the campaign to view someone's role.
 GET: `<baseURL>/set_role?q={"auth_token":"<auth_token>", "campaign_id":"<campaign_id>", "username":"<target>"}`
 
-Additional keys:
+Additional keys returned:
 - `value`: the user's role (GM or player)
 
 

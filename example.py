@@ -2,7 +2,7 @@
 # Vennt API example client
 
 import requests, json, uuid, argparse, urllib
-url = 'https://topazgryphon.org:3004' #'http://localhost:3004/'
+url = 'http://localhost:3004/'
 
 parser = argparse.ArgumentParser(description='Vennt API example client.')
 parser.add_argument('--verify', action='store_true', help="Stop running the example when a failure occurs")

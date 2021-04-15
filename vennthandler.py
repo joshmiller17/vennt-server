@@ -82,6 +82,7 @@ class VenntHandler(BaseHTTPRequestHandler):
 		post_data = post_data.decode('utf-8')
 		
 		try:
+			logger.log("do_POST", "data: " + str(post_data))
 			json_data = json.loads(post_data)
 		except:
 			self.respond({"success":False,"info":"Bad JSON"})

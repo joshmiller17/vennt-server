@@ -7,10 +7,10 @@ from constants import *
 # VenntHandler methods
 
 def get_characters(self, args, username):
-	return self.respond({"success":True, "value":str(self.server.db.get_characters(username))})
+	return self.respond({"success":True, "value":self.server.db.get_characters(username)})
 	
 def get_character(self, args, username):
-	return self.respond({"success":True, "value":str(self.server.db.get_character(username, args[KEY_ID]))})
+	return self.respond({"success":True, "value":self.server.db.get_character(username, args[KEY_ID])})
 
 def create_character(self, args, username):
 	name = args[KEY_NAME]
@@ -52,4 +52,4 @@ def get_attr(self, args, username):
 		return self.respond({"success":False,"info":MSG_NO_CHAR})
 	
 	val = self.server.db.get_attr(username, char_id, attr)
-	return self.respond({"success":True, "value":str(val)})
+	return self.respond({"success":True, "value":val})

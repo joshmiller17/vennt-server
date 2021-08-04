@@ -12,11 +12,9 @@ def has_campaign_permissions(self, username, campaign_id, owner_only=False):
     campaign = self.server.db.get_campaign(campaign_id)
     if campaign is None:
         return False
-    if owner_only and campaign_id not in [c["id"] for c in self.server.db.get_campaigns(username)]:
-        return False
-    if (campaign_id not in [c["id"] for c in self.server.db.get_campaigns(username)]) and campaign_id not in self.server.db.get_joined_campaigns(username):
-        return False
-    return True
+    if owner_only:
+        return campaign_id["owner"] == username
+    return username in campaign["members"].keys()
 
 
 def get_campaigns(self, args, username):

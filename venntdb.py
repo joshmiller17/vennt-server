@@ -15,7 +15,7 @@ logger = logClass.Logger("VenntDB")
 
 class VenntDB:
 
-    from db_campaigns import create_campaign, get_campaign_invites, send_campaign_invite, remove_campaign_invite, add_user_to_campaign, get_campaign, get_campaigns, get_joined_campaigns, get_role, set_role
+    from db_campaigns import create_campaign, get_campaign_invites, send_campaign_invite, remove_campaign_invite, add_user_to_campaign, get_campaign, get_campaigns, get_role, set_role
     from db_characters import character_exists, get_character, create_character, get_characters, get_attr, set_attr
     from db_inventory import get_standard_weapon, get_custom_weapon, get_weapon, remove_weapon, add_weapon, add_item, view_items, remove_item
     from db_abilities import get_cached_ability, cache_ability, find_ability, get_abilities, get_ability, get_or_make_ability, add_ability, validate_abilities
@@ -54,7 +54,7 @@ class VenntDB:
         if self.is_valid("accounts", username, "characters", character_id):
             return Permission.OWN
         else:
-            for campaign_id in self.db["accounts"][username]["joined_campaigns"]:
+            for campaign_id in self.db["accounts"][username]["campaigns"]:
                 campaign = self.db["campaigns"][campaign_id]
                 role = campaign["members"][username]
                 if role == "GM":

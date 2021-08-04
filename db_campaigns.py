@@ -21,7 +21,7 @@ def create_campaign(self, username, campaign_id, name):
     self.db["accounts"][username]["campaigns"].append(
         {"id": campaign_id, "name": name})
     self.db["campaigns"][campaign_id] = {}
-    self.db["campaigns"][campaign_id]["owner"] = name
+    self.db["campaigns"][campaign_id]["name"] = name
     self.db["campaigns"][campaign_id]["owner"] = username
     self.db["campaigns"][campaign_id]["members"] = {}
     self.db["campaigns"][campaign_id]["members"][username] = "spectator"
@@ -59,8 +59,9 @@ def add_user_to_campaign(self, username, campaign_id):
         raise AssertionError(username + " already in campaign.")
     name = self.db["campaigns"][campaign_id]["name"]
     self.db["campaigns"][campaign_id]["members"][username] = "spectator"
-    self.assert_valid("accounts", username, "joined_campaigns")
-    self.db["accounts"][username]["joined_campaigns"].append(campaign_id)
+    self.assert_valid("accounts", username, "campaigns")
+    self.db["accounts"][username]["campaigns"].append(
+        {"id": campaign_id, "name": name})
     self.save_db()
 
 
@@ -74,8 +75,3 @@ def get_campaign(self, campaign_id):
 def get_campaigns(self, username):
     self.assert_valid("accounts", username, "campaigns")
     return self.db["accounts"][username]["campaigns"]
-
-
-def get_joined_campaigns(self, username):
-    self.assert_valid("accounts", username, "joined_campaigns")
-    return self.db["accounts"][username]["joined_campaigns"]

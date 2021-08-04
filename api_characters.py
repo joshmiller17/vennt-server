@@ -22,7 +22,7 @@ def create_character(self, args, username):
         return self.respond({"success": False, "info": MSG_NAME_LONG})
 
     if "GIFT" not in args:
-        args["GIFT"] = "NO GIFT"
+        args["GIFT"] = "None"
     elif args["GIFT"] not in GIFTS:
         return self.respond({"success": False, "info": MSG_INVALID_GIFT})
 

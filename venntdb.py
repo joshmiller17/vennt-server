@@ -88,7 +88,8 @@ class VenntDB:
         self.db["accounts"][username] = {}
         self.db["accounts"][username]["password"] = pass_hash
         self.db["accounts"][username]["characters"] = {}
-        self.db["accounts"][username]["campaigns"] = []  # ids only
+        # ids & campaign names only
+        self.db["accounts"][username]["campaigns"] = []
         self.db["accounts"][username]["campaign_invites"] = []
         self.db["accounts"][username]["weapons"] = []
         self.save_db()

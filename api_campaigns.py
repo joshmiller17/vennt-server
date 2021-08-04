@@ -143,8 +143,9 @@ entities = [{
     }
 }]
 
+# maintain as ordered list
 initiative = {
-    "uuid of entity": "number"
+    "init number": ["uuid of entities"]
 }
 
 combat = [{
@@ -155,8 +156,8 @@ combat = [{
     "damage": 12,  # full damage number
     "damage_type": "fire",
     "accuracy": 30,
-    "status_effects": "type of status effect this attack causes",
-    "cause": "text description of cause for display"
+    "status_effects": ["status effect caused"],
+    "desc": "text description of cause for display"
 }]
 
 # need to move campaign name to campaigns section - not character section

@@ -54,7 +54,7 @@ ATTRIBUTES = [
 GIFTS = [
     "Alertness", "Craft", "Alacrity",
     "Finesse", "Mind", "Magic", "Rage",
-    "Science", "Charm", "No Gift"
+    "Science", "Charm", "None"
 ]
 
 KEY_AUTH = "auth_token"

@@ -8,11 +8,11 @@ from constants import *
 
 
 def get_role(self, username, campaign_id):
-    return self.db["campaigns"][campaign_id][username]
+    return self.db["campaigns"][campaign_id]["members"][username]
 
 
 def set_role(self, username, campaign_id, role):
-    self.db["campaigns"][campaign_id][username] = role
+    self.db["campaigns"][campaign_id]["members"][username] = role
     self.save_db()
 
 

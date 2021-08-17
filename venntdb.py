@@ -32,19 +32,17 @@ class VenntDB:
             self.db = {}
             self.db["accounts"] = {}
             self.db["campaigns"] = {}
-            self.db["weapons"] = {}
-            if os.path.exists("weapons.json"):
-                with open("weapons.json") as f:
-                    self.db["weapons"] = json.load(f)
-            self.db["abilities"] = {}
             self.db["ability_cache"] = [None] * \
                 (MAX_ABILITY_CACHE + 1)  # list of Ability dicts
             self.db["ability_cache_index"] = 0
-            # TODO: Do not include static abilties json files in the database for efficiency
-            if os.path.exists("abilities.json"):
-                with open("abilities.json", encoding="utf8") as f:  # encoding for smart quotes
-                    self.db["abilities"] = json.load(f)
-                    # self.validate_abilities() # TODO continue
+        # Not including static json files in DB for efficiency
+        if os.path.exists("weapons.json"):
+            with open("weapons.json") as f:
+                self.weapons = json.load(f)
+        if os.path.exists("abilities.json"):
+            with open("abilities.json", encoding="utf8") as f:  # encoding for smart quotes
+                self.abilities = json.load(f)
+                # self.validate_abilities() # TODO continue
 
     def dump(self):
         print(json.dumps(self.db, indent=4, separators=(',', ': '), sort_keys=True))

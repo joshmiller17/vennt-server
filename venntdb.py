@@ -84,8 +84,9 @@ class VenntDB:
         else:
             return args[0] in dict and self.is_valid(*args[1:], dict=dict[args[0]])
 
-    def create_account(self, username, pass_hash):
+    def create_account(self, username, salt, pass_hash):
         self.db["accounts"][username] = {}
+        self.db["accounts"][username]["salt"] = salt
         self.db["accounts"][username]["password"] = pass_hash
         self.db["accounts"][username]["characters"] = {}
         # ids & campaign names only
@@ -93,6 +94,16 @@ class VenntDB:
         self.db["accounts"][username]["campaign_invites"] = []
         self.db["accounts"][username]["weapons"] = []
         self.save_db()
+
+    def get_account_salt(self, username):
+        if not self.is_valid("accounts", username):
+            return False
+        return self.db["accounts"][username]["salt"]
+
+    def does_password_match(self, username, pass_hash):
+        if not self.is_valid("accounts", username):
+            raise AssertionError("Tried to access non-existent user")
+        return pass_hash == self.db["accounts"][username]["password"]
 
     def create_enemy(self, username, enemy):
         if not "enemies" in self.db["accounts"][username]:
@@ -102,11 +113,6 @@ class VenntDB:
                 enemy[attr] = 0
         self.db["accounts"][username]["enemies"].append(enemy)
         self.save_db()
-
-    def does_password_match(self, username, pass_hash):
-        if not self.is_valid("accounts", username):
-            raise AssertionError("Tried to access non-existent user")
-        return pass_hash == self.db["accounts"][username]["password"]
 
     def save_db(self):
         cPickle.dump((self.db), open(self.filename, 'wb'))

@@ -13,7 +13,7 @@ def has_campaign_permissions(self, username, campaign_id, owner_only=False):
     if campaign is None:
         return False
     if owner_only:
-        return campaign_id["owner"] == username
+        return campaign["owner"] == username
     return username in campaign["members"].keys()
 
 
@@ -33,11 +33,13 @@ def create_campaign(self, args, username):
 def send_campaign_invite(self, args, username):
     user_to = args[KEY_USERNAME]
     user_from = username
-    users_campaigns = self.server.db.get_campaigns(user_from)
     campaign_id = args[KEY_CAMPAIGN_ID]
 
-    if campaign_id not in [c["id"] for c in users_campaigns]:
+    if not has_campaign_permissions(self, user_from, campaign_id, owner_only=True):
         return self.respond({"success": False, "info": MSG_BAD_CAMP})
+
+    if has_campaign_permissions(self, user_to, campaign_id):
+        return self.respond({"success": False, "info": MSG_DID_JOIN})
 
     if not self.server.db.is_valid("accounts", user_to):
         return self.respond({"success": False, "info": MSG_NO_USER})
@@ -61,6 +63,9 @@ def accept_campaign_invite(self, args, username):
             campaign_owner = inv["from"]
     if campaign_owner is None:
         return self.respond({"success": False, "info": MSG_BAD_CAMP})
+
+    # Clear campaign invite even if adding the user fails
+    self.server.db.remove_campaign_invite(username, campaign_id)
 
     if self.server.db.is_valid("campaigns", campaign_id, "members", username):
         return self.respond({"success": False, "info": MSG_DID_JOIN})

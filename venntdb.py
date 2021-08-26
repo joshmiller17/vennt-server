@@ -15,12 +15,12 @@ logger = logClass.Logger("VenntDB")
 
 class VenntDB:
 
-    from db_campaigns import create_campaign, get_campaign_invites, send_campaign_invite, remove_campaign_invite, add_user_to_campaign, get_campaign, get_campaigns, get_role, set_role
+    from db_campaigns import create_campaign, get_campaign_invites, send_campaign_invite, remove_campaign_invite, add_user_to_campaign, get_campaign, get_campaigns, get_role, set_role, add_to_campaign, remove_from_campaign
     from db_characters import character_exists, get_character, create_character, get_characters, get_attr, set_attr
     from db_inventory import get_standard_weapon, get_custom_weapon, get_weapon, remove_weapon, add_weapon, add_item, view_items, remove_item
     from db_abilities import get_cached_ability, cache_ability, find_ability, get_abilities, get_ability, get_or_make_ability, add_ability, validate_abilities
-    from db_initiative import reset_turn_order, add_turn, next_turn, get_turn_order, get_current_turn
-    from db_combat import push_undo, pop_undo, get_undo_history
+    from db_initiative import add_to_combat, remove_from_combat, start_combat, end_combat, next_turn
+    #from db_combat import push_undo, pop_undo, get_undo_history
 
     def __init__(self, filename):
         self.filename = filename
@@ -91,6 +91,7 @@ class VenntDB:
         self.db["accounts"][username]["campaigns"] = []
         self.db["accounts"][username]["campaign_invites"] = []
         self.db["accounts"][username]["weapons"] = []
+        self.db["accounts"][username]["enemies"] = []
         self.save_db()
 
     def get_account_salt(self, username):
@@ -102,15 +103,6 @@ class VenntDB:
         if not self.is_valid("accounts", username):
             raise AssertionError("Tried to access non-existent user")
         return pass_hash == self.db["accounts"][username]["password"]
-
-    def create_enemy(self, username, enemy):
-        if not "enemies" in self.db["accounts"][username]:
-            self.db["accounts"][username]["enemies"] = []
-        for attr in ATTRIBUTES:
-            if attr not in enemy:
-                enemy[attr] = 0
-        self.db["accounts"][username]["enemies"].append(enemy)
-        self.save_db()
 
     def save_db(self):
         cPickle.dump((self.db), open(self.filename, 'wb'))

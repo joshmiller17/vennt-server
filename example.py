@@ -5,7 +5,6 @@ import requests
 import json
 import uuid
 import argparse
-import urllib
 url = 'http://localhost:3004/'
 
 parser = argparse.ArgumentParser(description='Vennt API example client.')
@@ -50,10 +49,10 @@ response = requests.post(
 check_continue(response)
 
 response = json.loads(response.text)
-auth_token = response["auth_token"]
+old_auth_token = response["auth_token"]
 
 print("Logout")
-data = {"auth_token": auth_token}
+data = {"auth_token": old_auth_token}
 response = requests.get(
     url + 'logout?', params=data, verify=do_ssl)
 check_continue(response)
@@ -66,6 +65,7 @@ check_continue(response)
 
 response = json.loads(response.text)
 auth_token = response["auth_token"]
+assert(not args.verify or old_auth_token != auth_token)
 
 print("New account 2")
 username2 = str(uuid.uuid4())
@@ -77,32 +77,56 @@ check_continue(response)
 
 response = json.loads(response.text)
 auth_token2 = response["auth_token"]
+assert(not args.verify or auth_token2 != auth_token)
 
 #################### CHARACTER APIS ####################
 
 print("create character")
-data = {"auth_token": auth_token, "name": "myfirstcharacter", "PER": "3"}
+random_name = str(uuid.uuid4())
+data = {"auth_token": auth_token, "name": random_name, "PER": 3, "gift": "Mind"}
 response = requests.get(url + 'create_character', params=data, verify=do_ssl)
 check_continue(response)
 
 response = json.loads(response.text)
 my_character_id = response["id"]
 
+print("create character - invalid gift value - will fail")
+data = {"auth_token": auth_token, "name": "bad character", "gift": "fake gift"}
+response = requests.get(url + 'create_character', params=data, verify=do_ssl)
+check_continue(response, expectError=True)
+
+print("create character - invalid attribute value - will fail")
+data = {"auth_token": auth_token,
+        "name": "bad character", "INT": "not a number"}
+response = requests.get(url + 'create_character', params=data, verify=do_ssl)
+check_continue(response, expectError=True)
+
 print("Get characters")
 data = {"auth_token": auth_token}
 response = requests.get(url + 'get_characters', params=data, verify=do_ssl)
 check_continue(response)
+response = json.loads(response.text)
+assert(not args.verify or len(response["value"]) == 1)
+assert(not args.verify or response["value"]
+       [my_character_id]["name"] == random_name)
+assert(not args.verify or response["value"][my_character_id]["PER"] == 3)
+assert(not args.verify or response["value"][my_character_id]["INT"] == 0)
+assert(not args.verify or response["value"][my_character_id]["gift"] == "Mind")
+assert(not args.verify or response["value"]
+       [my_character_id]["is_enemy"] == False)
 
 print("Get character")
 data = {"auth_token": auth_token, "id": my_character_id}
 response = requests.get(url + 'get_character', params=data, verify=do_ssl)
 check_continue(response)
+response = json.loads(response.text)
+assert(not args.verify or response["value"]["name"] == random_name)
 
 # ATTRIBUTES
 
 print("set attribute")
 data = {"auth_token": auth_token,
-        "id": my_character_id, "attr": "STR", "value": "3"}
+        "id": my_character_id, "attr": "STR", "value": 3}
 response = requests.get(url + 'set_attr', params=data, verify=do_ssl)
 check_continue(response)
 
@@ -110,6 +134,8 @@ print("get attribute")
 data = {"auth_token": auth_token, "id": my_character_id, "attr": "STR"}
 response = requests.get(url + 'get_attr', params=data, verify=do_ssl)
 check_continue(response)
+response = json.loads(response.text)
+assert(not args.verify or response["value"] == 3)
 
 # ABILITIES
 
@@ -130,7 +156,6 @@ response = requests.get(url + 'get_abilities',
                         params=data, verify=do_ssl)
 check_continue(response)
 
-# TODO: This test is broken because this API doesn't work
 print("get ability")
 data = {"auth_token": auth_token,
         "name": "Basic Cooking", "id": my_character_id}
@@ -179,9 +204,22 @@ check_continue(response)
 # ENEMIES
 
 print("create enemy")
-data = {"auth_token": auth_token, "name": "myfirstenemy", "WIS": "3"}
+data = {"auth_token": auth_token, "name": "myfirstenemy", "WIS": 3}
 response = requests.get(url + 'create_enemy', params=data, verify=do_ssl)
 check_continue(response)
+
+response = json.loads(response.text)
+enemy_id = response["id"]
+
+data = {"auth_token": auth_token, "id": enemy_id}
+response = requests.get(url + 'get_character', params=data, verify=do_ssl)
+check_continue(response)
+response = json.loads(response.text)
+assert(not args.verify or response["value"]["name"] == "myfirstenemy")
+assert(not args.verify or response["value"]["WIS"] == 3)
+assert(not args.verify or response["value"]["INT"] == 0)
+assert(not args.verify or response["value"]["is_enemy"] == True)
+
 
 #################### CAMPAIGN APIS ####################
 
@@ -192,42 +230,6 @@ check_continue(response)
 
 response = json.loads(response.text)
 campaign_id = response["campaign_id"]
-
-# INITIATIVE
-
-print("reset turn order")
-data = {"auth_token": auth_token, "campaign_id": campaign_id}
-response = requests.get(url + 'reset_turn_order', params=data, verify=do_ssl)
-check_continue(response)
-
-print("add turn")
-data = {"auth_token": auth_token, "campaign_id": campaign_id,
-        "id": my_character_id, "value": 20}
-response = requests.get(url + 'add_turn', params=data, verify=do_ssl)
-check_continue(response)
-
-print("next turn (not implemented - will fail)")
-data = {"auth_token": auth_token, "campaign_id": campaign_id}
-response = requests.get(url + 'next_turn', params=data, verify=do_ssl)
-check_continue(response, expectError=True)
-
-print("get turn order")
-data = {"auth_token": auth_token, "campaign_id": campaign_id}
-response = requests.get(url + 'get_turn_order', params=data, verify=do_ssl)
-check_continue(response)
-
-print("get current turn")
-data = {"auth_token": auth_token, "campaign_id": campaign_id}
-response = requests.get(url + 'get_current_turn', params=data, verify=do_ssl)
-check_continue(response)
-
-print("Get campaigns")
-data = {"auth_token": auth_token}
-response = requests.get(url + 'get_campaigns', params=data, verify=do_ssl)
-check_continue(response)
-
-response = json.loads(response.text)
-campaign_id = response["value"][0]["id"]
 
 # CAMPAIGN INVITES
 
@@ -286,3 +288,24 @@ data = {"auth_token": auth_token,
         "campaign_id": campaign_id, "username": username}
 response = requests.get(url + 'get_role', params=data, verify=do_ssl)
 check_continue(response)
+
+print("Get campaigns")
+data = {"auth_token": auth_token2, "name": "mySecondCampaign"}
+response = requests.get(url + 'create_campaign?', params=data, verify=do_ssl)
+check_continue(response)
+
+response = json.loads(response.text)
+campaign_id_2 = response["campaign_id"]
+
+data = {"auth_token": auth_token2}
+response = requests.get(url + 'get_campaigns', params=data, verify=do_ssl)
+check_continue(response)
+
+response = json.loads(response.text)
+assert(not args.verify or len(response["value"]) == 2)
+assert(not args.verify or response["value"][0]["id"] == campaign_id)
+assert(not args.verify or response["value"][0]["name"] == "myfirstcampaign")
+assert(not args.verify or response["value"][1]["id"] == campaign_id_2)
+assert(not args.verify or response["value"][1]["name"] == "mySecondCampaign")
+
+# INITIATIVE

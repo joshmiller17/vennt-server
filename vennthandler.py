@@ -175,56 +175,43 @@ class VenntHandler(BaseHTTPRequestHandler):
             if key_error:
                 return self.respond(key_error)
 
-            # return self.respond(NOT_YET_IMPLEMENTED)
             return get_ability(self, args, username)
 
         # -------------  COMBAT -------------------------
 
-        elif path == PATHS["GET_UNDO_HISTORY"]:
-            key_error = self.check_keys(args, [KEY_AUTH, KEY_CAMPAIGN_ID])
-            if key_error:
-                return self.respond(key_error)
-
-            return get_undo_history(self, args, username)
-
         # -------------  INITIATIVE -------------------------
 
-        elif path == PATHS["ADD_TURN"]:
+        elif path == PATHS["ADD_TO_COMBAT"]:
             key_error = self.check_keys(
-                args, [KEY_AUTH, KEY_CAMPAIGN_ID, KEY_ID, KEY_VAL])
+                args, [KEY_AUTH, KEY_CAMPAIGN_ID, KEY_ID, KEY_ROLL])
             if key_error:
                 return self.respond(key_error)
 
-            return add_turn(self, args, username)
+            return add_entity_to_combat(self, args, username)
 
-        elif path == PATHS["RESET_TURN_ORDER"]:
-            key_error = self.check_keys(args, [KEY_AUTH, KEY_CAMPAIGN_ID])
+        elif path == PATHS["REMOVE_FROM_COMBAT"]:
+            key_error = self.check_keys(
+                args, [KEY_AUTH, KEY_CAMPAIGN_ID, KEY_ID])
             if key_error:
                 return self.respond(key_error)
 
-            return reset_turn_order(self, args, username)
+            return remove_entity_from_combat(self, args, username)
 
-        elif path == PATHS["NEXT_TURN"]:
-            key_error = self.check_keys(args, [KEY_AUTH, KEY_CAMPAIGN_ID])
+        elif path == PATHS["START_COMBAT"]:
+            key_error = self.check_keys(
+                args, [KEY_AUTH, KEY_CAMPAIGN_ID])
             if key_error:
                 return self.respond(key_error)
 
-            return self.respond(NOT_YET_IMPLEMENTED)
-            return next_turn(self, args, username)
+            return start_combat(self, args, username)
 
-        elif path == PATHS["GET_TURN_ORDER"]:
-            key_error = self.check_keys(args, [KEY_AUTH, KEY_CAMPAIGN_ID])
+        elif path == PATHS["END_COMBAT"]:
+            key_error = self.check_keys(
+                args, [KEY_AUTH, KEY_CAMPAIGN_ID])
             if key_error:
                 return self.respond(key_error)
 
-            return get_turn_order(self, args, username)
-
-        elif path == PATHS["GET_CURRENT_TURN"]:
-            key_error = self.check_keys(args, [KEY_AUTH, KEY_CAMPAIGN_ID])
-            if key_error:
-                return self.respond(key_error)
-
-            return get_current_turn(self, args, username)
+            return end_combat(self, args, username)
 
         # ----------  INVENTORY / WEAPONS -----------------------
 
@@ -276,7 +263,7 @@ class VenntHandler(BaseHTTPRequestHandler):
 
         elif path == PATHS["CREATE_CHARACTER"]:
             key_error = self.check_keys(
-                args, [KEY_AUTH, KEY_NAME], keys_opt=ATTRIBUTES)
+                args, [KEY_AUTH, KEY_NAME], keys_opt=ATTRIBUTES + [KEY_GIFT])
             if key_error:
                 return self.respond(key_error)
 
@@ -374,6 +361,30 @@ class VenntHandler(BaseHTTPRequestHandler):
 
             return get_role(self, args, username)
 
+        elif path == PATHS["GET_CAMPAIGN"]:
+            key_error = self.check_keys(
+                args, [KEY_AUTH, KEY_CAMPAIGN_ID])
+            if key_error:
+                return self.respond(key_error)
+
+            return get_campaign(self, args, username)
+
+        elif path == PATHS["ADD_TO_CAMPAIGN"]:
+            key_error = self.check_keys(
+                args, [KEY_AUTH, KEY_CAMPAIGN_ID, KEY_ID])
+            if key_error:
+                return self.respond(key_error)
+
+            return add_entity_to_campaign(self, args, username)
+
+        elif path == PATHS["REMOVE_FROM_CAMPAIGN"]:
+            key_error = self.check_keys(
+                args, [KEY_AUTH, KEY_CAMPAIGN_ID, KEY_ID])
+            if key_error:
+                return self.respond(key_error)
+
+            return remove_entity_from_campaign(self, args, username)
+
         # -------------  ENEMIES  -------------------------
 
         elif path == PATHS["CREATE_ENEMY"]:
@@ -385,7 +396,7 @@ class VenntHandler(BaseHTTPRequestHandler):
             return create_enemy(self, args, username)
 
         elif path in PATHS:
-            self.respond({"success": False, "info": "Not yet implemented"})
+            self.respond({"success": False, "info": MSG_NO_IMP})
 
         else:
             # return error for unrecognized request

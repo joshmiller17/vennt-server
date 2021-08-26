@@ -21,16 +21,20 @@ def create_character(self, args, username):
     if len(name) > MAX_NAME_LENGTH:
         return self.respond({"success": False, "info": MSG_NAME_LONG})
 
-    if "GIFT" not in args:
-        args["GIFT"] = "None"
-    elif args["GIFT"] not in GIFTS:
+    if KEY_GIFT not in args:
+        args[KEY_GIFT] = "None"
+    elif args[KEY_GIFT] not in GIFTS:
         return self.respond({"success": False, "info": MSG_INVALID_GIFT})
 
     id = IDType.CHARACTER + str(uuid.uuid4())
     character = {"name": name, "id": id}
     for key in args:
         if key in ATTRIBUTES:
-            character[key] = args[key]
+            try:
+                character[key] = int(args[key])
+            except ValueError:
+                return self.respond({"success": False, "info": MSG_INVALID_ATTRIBUTE})
+    character[KEY_GIFT] = args[KEY_GIFT]
     self.server.db.create_character(username, character)
 
     ret = {"success": True, "id": id}
@@ -40,7 +44,10 @@ def create_character(self, args, username):
 def set_attr(self, args, username):
     char_id = args[KEY_ID]
     attr = args[KEY_ATTR]
-    val = args[KEY_VAL]
+    try:
+        val = int(args[KEY_VAL])
+    except ValueError:
+        return self.respond({"success": False, "info": MSG_INVALID_ATTRIBUTE})
 
     if attr not in ATTRIBUTES:
         return self.respond({"success": False, "info": MSG_NO_ATTR})

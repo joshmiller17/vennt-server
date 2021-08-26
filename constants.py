@@ -6,38 +6,41 @@ MAX_ABILITY_CACHE = 100
 MAX_INIT = 100
 MAX_UNDO_HISTORY = 100
 
+FULL_UUID_LEN = 37  # uuid is 36 + prefix
+
 PATHS = {
+    "LOGOUT": "/logout",
+    "CREATE_CHARACTER": "/create_character",
     "GET_ATTR": '/get_attr',
     "SET_ATTR": '/set_attr',
-    "CREATE_CHARACTER": "/create_character",
-    "CREATE_CAMPAIGN": "/create_campaign",
-    "LOGOUT": "/logout",
-    "GET_CAMPAIGNS": "/get_campaigns",
     "GET_CHARACTERS": "/get_characters",
     "GET_CHARACTER": "/get_character",
-    "SEND_CAMPAIGN_INVITE": "/send_campaign_invite",
-    "VIEW_CAMPAIGN_INVITES": "/view_campaign_invites",
-    "ACCEPT_CAMPAIGN_INVITE": "/accept_campaign_invite",
-    "DECLINE_CAMPAIGN_INVITE": "/decline_campaign_invite",
-    "SET_ROLE": "/set_role",
-    "GET_ROLE": "/get_role",
     "ADD_ITEM": "/add_item",
     "VIEW_ITEMS": "/view_items",
     "REMOVE_ITEM": "/remove_item",
     "ADD_WEAPON": "/add_weapon",
     "REMOVE_WEAPON": "/remove_weapon",
     "GET_WEAPON": "/get_weapon",
-    "CREATE_ENEMY": "/create_enemy",
     "LOOKUP_ABILITY": "/lookup_ability",
-    "ADD_TURN": "/add_turn",
-    "RESET_TURN_ORDER": "/reset_turn_order",
-    "NEXT_TURN": "/next_turn",
-    "GET_TURN_ORDER": "/get_turn_order",
-    "GET_CURRENT_TURN": "/get_current_turn",
     "ADD_ABILITY": "/add_ability",
     "GET_ABILITIES": "/get_abilities",
     "GET_ABILITY": "/get_ability",
-    "GET_UNDO_HISTORY": "/get_undo_history",
+    "CREATE_ENEMY": "/create_enemy",
+    "CREATE_CAMPAIGN": "/create_campaign",
+    "GET_CAMPAIGNS": "/get_campaigns",
+    "SEND_CAMPAIGN_INVITE": "/send_campaign_invite",
+    "VIEW_CAMPAIGN_INVITES": "/view_campaign_invites",
+    "ACCEPT_CAMPAIGN_INVITE": "/accept_campaign_invite",
+    "DECLINE_CAMPAIGN_INVITE": "/decline_campaign_invite",
+    "SET_ROLE": "/set_role",
+    "GET_ROLE": "/get_role",
+    "GET_CAMPAIGN": "/get_campaign",
+    "ADD_TO_CAMPAIGN": "/add_to_campaign",
+    "REMOVE_FROM_CAMPAIGN": "/remove_from_campaign",
+    "ADD_TO_COMBAT": "/add_to_combat",
+    "REMOVE_FROM_COMBAT": "/remove_from_combat",
+    "START_COMBAT": "/start_combat",
+    "END_COMBAT": "/end_combat",
 }
 
 ATTRIBUTES = [
@@ -45,7 +48,7 @@ ATTRIBUTES = [
     "STR", "TEK", "WIS", "HP", "MAX_HP", "MP",
     "MAX_MP", "VIM", "MAX_VIM", "ARMOR", "HERO",
     "MAX_HERO", "INIT", "SPEED", "XP", "SP",
-    "MAX_BULK", "GIFT"
+    "MAX_BULK"
 ]
 
 # Need to add combat attributes here:
@@ -71,12 +74,15 @@ KEY_DESC = "desc"
 KEY_BULK = "bulk"
 KEY_DMG = "dmg"
 KEY_MODS = "mods"
+KEY_ROLL = "roll"
+KEY_GIFT = "gift"
 
 MSG_TOO_MANY_REQ = "Too many requests"
 MSG_REQ_LARGE = "Request too large"
 MSG_INVITE_EXISTS = "User already invited"
 MSG_NAME_LONG = "Name too long"
 MSG_INVALID_GIFT = "Invalid gift"
+MSG_INVALID_ATTRIBUTE = "Invalid attribute value"
 MSG_DESC_LONG = "Description too long"
 MSG_NOT_INT = "Key {} should be an integer"
 MSG_DID_JOIN = "User already joined this campaign"
@@ -87,13 +93,21 @@ MSG_BAD_ROLE = "Invalid role"
 
 MSG_NO_USER = "No such user"
 MSG_NO_CHAR = "No such character"
+MSG_NO_ENTITY = "No such entity"
 MSG_NO_ATTR = "No such attribute"
 MSG_NO_ABI = "No such ability"
 MSG_NO_PERMISSION = "Invalid permissions"
 MSG_NO_IMP = "Not yet implemented."
 
+ROLE_PLAYER = "player"
+ROLE_GM = "GM"
+ROLE_SPECTATOR = "spectator"
+ROLES = [ROLE_PLAYER, ROLE_GM, ROLE_SPECTATOR]
 
-ROLES = ["player", "GM", "spectator"]
+# traditional campaign style - Each player should use all of their actions before the next player can go (unless they choose to delay)
+INIT_TRADITIONAL = "traditional"
+INIT_ASYNC = "async"  # groups of players can all go at the same time
+INIT_STYLES = [INIT_TRADITIONAL, INIT_ASYNC]
 
 
 class IDType:

@@ -24,7 +24,14 @@ def create_campaign(self, username, campaign_id, name):
     self.db["campaigns"][campaign_id]["name"] = name
     self.db["campaigns"][campaign_id]["owner"] = username
     self.db["campaigns"][campaign_id]["members"] = {}
-    self.db["campaigns"][campaign_id]["members"][username] = "spectator"
+    self.db["campaigns"][campaign_id]["members"][username] = ROLE_SPECTATOR
+    self.db["campaigns"][campaign_id]["entities"] = {}
+    # set initial flags
+    self.db["campaigns"][campaign_id]["init_styles"] = INIT_TRADITIONAL
+    self.db["campaigns"][campaign_id]["init"] = []
+    self.db["campaigns"][campaign_id]["init_index"] = 0
+    self.db["campaigns"][campaign_id]["init_round"] = 0
+    self.db["campaigns"][campaign_id]["in_combat"] = False
     self.save_db()
 
 
@@ -58,7 +65,7 @@ def add_user_to_campaign(self, username, campaign_id):
     if username in self.db["campaigns"][campaign_id]["members"]:
         raise AssertionError(username + " already in campaign.")
     name = self.db["campaigns"][campaign_id]["name"]
-    self.db["campaigns"][campaign_id]["members"][username] = "spectator"
+    self.db["campaigns"][campaign_id]["members"][username] = ROLE_SPECTATOR
     self.assert_valid("accounts", username, "campaigns")
     self.db["accounts"][username]["campaigns"].append(
         {"id": campaign_id, "name": name})
@@ -75,3 +82,21 @@ def get_campaign(self, campaign_id):
 def get_campaigns(self, username):
     self.assert_valid("accounts", username, "campaigns")
     return self.db["accounts"][username]["campaigns"]
+
+
+def add_to_campaign(self, campaign_id, username, entity_id, gm_only=False):
+    name = self.db["accounts"][username]["characters"][entity_id]["name"]
+    self.db["campaigns"][campaign_id]["entities"][entity_id] = {
+        # info that should be shared with everyone in the campaign
+        "owner": username,
+        "name": name,
+        "gm_only": gm_only,
+        "actions": 0,
+        "reactions": 0}
+    self.save_db()
+
+
+def remove_from_campaign(self, campaign_id, entity_id):
+    # TODO: Need to check all places eneity could be in campaign and remove from all places - should maybe fail unless actually gone from everywhere
+    self.db["campaigns"][campaign_id]["entities"].pop(entity_id)
+    self.save_db()

@@ -2,6 +2,7 @@
 # VenntDB methods for Campaigns
 
 import venntdb
+import stats
 from constants import *
 
 # VenntDB Methods
@@ -26,12 +27,12 @@ def create_campaign(self, username, campaign_id, name):
     self.db["campaigns"][campaign_id]["members"] = {}
     self.db["campaigns"][campaign_id]["members"][username] = ROLE_SPECTATOR
     self.db["campaigns"][campaign_id]["entities"] = {}
-    # set initial flags
     self.db["campaigns"][campaign_id]["init_styles"] = INIT_TRADITIONAL
     self.db["campaigns"][campaign_id]["init"] = []
     self.db["campaigns"][campaign_id]["init_index"] = 0
     self.db["campaigns"][campaign_id]["init_round"] = 0
     self.db["campaigns"][campaign_id]["in_combat"] = False
+    self.db["campaigns"][campaign_id]["attacks"] = {}
     self.save_db()
 
 
@@ -85,14 +86,17 @@ def get_campaigns(self, username):
 
 
 def add_to_campaign(self, campaign_id, username, entity_id, gm_only=False):
-    name = self.db["accounts"][username]["characters"][entity_id]["name"]
+    character = self.db["accounts"][username]["characters"][entity_id]
     self.db["campaigns"][campaign_id]["entities"][entity_id] = {
         # info that should be shared with everyone in the campaign
         "owner": username,
-        "name": name,
+        "name": character["name"],
         "gm_only": gm_only,
         "actions": 0,
-        "reactions": 0}
+        "reactions": 0,
+        "health": stats.compare_hp(character["HP"], character["MAX_HP"]),
+        "delayed_actions": False,
+        "pending_attacks": []}
     self.save_db()
 
 

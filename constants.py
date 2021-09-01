@@ -41,6 +41,14 @@ PATHS = {
     "REMOVE_FROM_COMBAT": "/remove_from_combat",
     "START_COMBAT": "/start_combat",
     "END_COMBAT": "/end_combat",
+    "UPDATE_INITIATIVE_STYLE": "/update_initiative_style",
+    "END_TURN": "/end_turn",
+    "COMBAT_MOVE": "/combat_move",
+    "COMBAT_DELAY": "/combat_delay",
+    "ATTACK": "/attack",
+    "RESOLVE_ATTACK": "resolve_attack",
+    "USE_ABILITY": "use_ability",
+    "USE_ITEM": "use_item",
 }
 
 ATTRIBUTES = [
@@ -76,6 +84,7 @@ KEY_DMG = "dmg"
 KEY_MODS = "mods"
 KEY_ROLL = "roll"
 KEY_GIFT = "gift"
+KEY_STYLE = "style"
 
 MSG_TOO_MANY_REQ = "Too many requests"
 MSG_REQ_LARGE = "Request too large"
@@ -96,6 +105,7 @@ MSG_NO_CHAR = "No such character"
 MSG_NO_ENTITY = "No such entity"
 MSG_NO_ATTR = "No such attribute"
 MSG_NO_ABI = "No such ability"
+MSG_NO_INIT_STYLE = "No such initiative style"
 MSG_NO_PERMISSION = "Invalid permissions"
 MSG_NO_IMP = "Not yet implemented."
 

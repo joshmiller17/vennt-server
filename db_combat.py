@@ -2,13 +2,11 @@
 # VenntDB methods for Combat
 
 import venntdb
-import webscraper
 from constants import *
 
 # VenntDB Methods
 
-
-def push_undo(self, campaign_id, changeDict):
+'''def push_undo(self, campaign_id, changeDict):
     self.assert_valid("campaigns", campaign_id)
     if not "undo" in self.db["campaigns"][campaign_id]:
         self.db["campaigns"][campaign_id]["undo"] = [
@@ -44,4 +42,4 @@ def get_undo_history(self, campaign_id):
             done = True
         else:
             ret.append(next)
-    return ret
+    return ret'''

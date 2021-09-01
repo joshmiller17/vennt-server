@@ -17,6 +17,13 @@ def has_campaign_permissions(self, username, campaign_id, owner_only=False):
     return username in campaign["members"]
 
 
+def has_gm_permissions(self, username, campaign_id):
+    campaign = self.server.db.get_campaign(campaign_id)
+    if campaign is None:
+        return False
+    return username in campaign["members"] and campaign["members"][username] == "GM"
+
+
 def get_campaigns(self, args, username):
     return self.respond({"success": True, "value": self.server.db.get_campaigns(username)})
 
@@ -125,13 +132,18 @@ def get_role(self, args, username):
 def get_campaign(self, args, username):
     campaign_id = args[KEY_CAMPAIGN_ID]
 
-    campaign = self.server.db.get_campaign(campaign_id)
+    campaign = self.server.db.get_campaign(campaign_id).copy()
+    if campaign is None or not username in campaign["members"]:
+        return self.respond({"success": False, "info": MSG_BAD_CAMP})
     role = campaign["members"][username]
 
     if role == ROLE_GM:
         return self.respond({"success": True, "value": campaign})
     elif role in [ROLE_PLAYER, ROLE_SPECTATOR]:
-        # TODO: need to filter out gm only items
+        # Filter out gm_only entities (mostly enemies to allow GMs to plan easily)
+        filtered_entities = {id: entity for id,
+                             entity in campaign["entities"].items() if not entity["gm_only"]}
+        campaign["entities"] = filtered_entities
         return self.respond({"success": True, "value": campaign})
     return self.respond({"success": False, "info": MSG_BAD_CAMP})
 
@@ -144,33 +156,19 @@ def add_entity_to_campaign(self, args, username):
         return self.respond({"success": False, "info": MSG_NO_ENTITY})
 
     campaign = self.server.db.get_campaign(campaign_id)
+    if campaign is None or not username in campaign["members"]:
+        return self.respond({"success": False, "info": MSG_BAD_CAMP})
     role = campaign["members"][username]
 
-    if (entity_id[0] == IDType.CHARACTER):
-        # adding character
+    if entity_id[0] == IDType.CHARACTER and not role in [ROLE_PLAYER, ROLE_GM]:
+        return self.respond({"success": False, "info": MSG_NO_PERMISSION})
+    elif entity_id[0] == IDType.ENEMY and role != ROLE_GM:
+        return self.respond({"success": False, "info": MSG_NO_PERMISSION})
 
-        if not role in [ROLE_PLAYER, ROLE_GM]:
-            return self.respond({"success": False, "info": MSG_NO_PERMISSION})
-        if not self.server.db.is_valid("accounts", username, "characters", entity_id):
-            return self.respond({"success": False, "info": MSG_NO_ENTITY})
-
-        self.server.db.add_to_campaign(campaign_id, username, entity_id)
-
-    elif (entity_id[0] == IDType.ENEMY):
-        # adding enemy
-
-        if role != ROLE_GM:
-            return self.respond({"success": False, "info": MSG_NO_PERMISSION})
-        if not self.server.db.is_valid("accounts", username, "enemies", entity_id):
-            return self.respond({"success": False, "info": MSG_NO_ENTITY})
-
-        self.server.db.add_to_campaign(
-            campaign_id, username, entity_id, gm_only=True)
-
-    else:
-        # invalid entity type
+    if not self.server.db.is_valid("accounts", username, "characters", entity_id):
         return self.respond({"success": False, "info": MSG_NO_ENTITY})
-
+    self.server.db.add_to_campaign(
+        campaign_id, username, entity_id, gm_only=(entity_id[0] == IDType.ENEMY))
     return self.respond({"success": True})
 
 
@@ -182,11 +180,10 @@ def remove_entity_from_campaign(self, args, username):
         return self.respond({"success": False, "info": MSG_NO_ENTITY})
 
     campaign = self.server.db.get_campaign(campaign_id)
+    if campaign is None or not username in campaign["members"] or not entity_id in campaign["entities"]:
+        return self.respond({"success": False, "info": MSG_BAD_CAMP})
     role = campaign["members"][username]
     entity = campaign["entities"][entity_id]
-
-    if not entity:
-        return self.respond({"success": False, "info": MSG_NO_ENTITY})
 
     if (role == ROLE_PLAYER and entity["owner"] == username and not entity["gm_only"]) or role == ROLE_GM:
         # players can only remove their own entities - GMs can remove any entity

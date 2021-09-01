@@ -19,7 +19,7 @@ class VenntDB:
     from db_characters import character_exists, get_character, create_character, get_characters, get_attr, set_attr
     from db_inventory import get_standard_weapon, get_custom_weapon, get_weapon, remove_weapon, add_weapon, add_item, view_items, remove_item
     from db_abilities import get_cached_ability, cache_ability, find_ability, get_abilities, get_ability, get_or_make_ability, add_ability, validate_abilities
-    from db_initiative import add_to_combat, remove_from_combat, start_combat, end_combat, next_turn
+    from db_initiative import add_to_combat, remove_from_combat, start_combat, end_combat, next_turn, update_initiative_style, reset_actions
     #from db_combat import push_undo, pop_undo, get_undo_history
 
     def __init__(self, filename):

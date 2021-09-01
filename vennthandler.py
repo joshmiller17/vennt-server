@@ -179,11 +179,59 @@ class VenntHandler(BaseHTTPRequestHandler):
 
         # -------------  COMBAT -------------------------
 
+        elif path == PATHS["COMBAT_MOVE"]:
+            key_error = self.check_keys(
+                args, [KEY_AUTH, KEY_CAMPAIGN_ID, KEY_ID])
+            if key_error:
+                return self.respond(key_error)
+
+            return combat_move(self, args, username)
+
+        elif path == PATHS["COMBAT_DELAY"]:
+            key_error = self.check_keys(
+                args, [KEY_AUTH, KEY_CAMPAIGN_ID, KEY_ID])
+            if key_error:
+                return self.respond(key_error)
+
+            return combat_delay(self, args, username)
+
+        elif path == PATHS["ATTACK"]:
+            key_error = self.check_keys(
+                args, [KEY_AUTH, KEY_CAMPAIGN_ID, KEY_ID])
+            if key_error:
+                return self.respond(key_error)
+
+            return attack(self, args, username)
+
+        elif path == PATHS["RESOLVE_ATTACK"]:
+            key_error = self.check_keys(
+                args, [KEY_AUTH, KEY_CAMPAIGN_ID, KEY_ID])
+            if key_error:
+                return self.respond(key_error)
+
+            return resolve_attack(self, args, username)
+
+        elif path == PATHS["USE_ABILITY"]:
+            key_error = self.check_keys(
+                args, [KEY_AUTH, KEY_CAMPAIGN_ID, KEY_ID])
+            if key_error:
+                return self.respond(key_error)
+
+            return use_ability(self, args, username)
+
+        elif path == PATHS["USE_ITEM"]:
+            key_error = self.check_keys(
+                args, [KEY_AUTH, KEY_CAMPAIGN_ID, KEY_ID])
+            if key_error:
+                return self.respond(key_error)
+
+            return use_item(self, args, username)
+
         # -------------  INITIATIVE -------------------------
 
         elif path == PATHS["ADD_TO_COMBAT"]:
             key_error = self.check_keys(
-                args, [KEY_AUTH, KEY_CAMPAIGN_ID, KEY_ID, KEY_ROLL])
+                args, [KEY_AUTH, KEY_CAMPAIGN_ID, KEY_ID], keys_opt=[KEY_ROLL])
             if key_error:
                 return self.respond(key_error)
 
@@ -212,6 +260,22 @@ class VenntHandler(BaseHTTPRequestHandler):
                 return self.respond(key_error)
 
             return end_combat(self, args, username)
+
+        elif path == PATHS["UPDATE_INITIATIVE_STYLE"]:
+            key_error = self.check_keys(
+                args, [KEY_AUTH, KEY_CAMPAIGN_ID, KEY_STYLE])
+            if key_error:
+                return self.respond(key_error)
+
+            return update_initiative_style(self, args, username)
+
+        elif path == PATHS["END_TURN"]:
+            key_error = self.check_keys(
+                args, [KEY_AUTH, KEY_CAMPAIGN_ID, KEY_ID])
+            if key_error:
+                return self.respond(key_error)
+
+            return end_turn(self, args, username)
 
         # ----------  INVENTORY / WEAPONS -----------------------
 
@@ -389,7 +453,7 @@ class VenntHandler(BaseHTTPRequestHandler):
 
         elif path == PATHS["CREATE_ENEMY"]:
             key_error = self.check_keys(
-                args, [KEY_AUTH, KEY_NAME], keys_opt=ATTRIBUTES)
+                args, [KEY_AUTH, KEY_NAME], keys_opt=ATTRIBUTES + [KEY_CAMPAIGN_ID])
             if key_error:
                 return self.respond(key_error)
 

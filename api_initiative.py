@@ -110,8 +110,6 @@ def update_initiative_style(self, args, username):
     return self.respond({"success": False, "info": MSG_NO_PERMISSION})
 
 
-# This endpoint basically just serves as an easy way to end an entity's turn.
-# Generally, entity's turns should be ended automatically after using all of their actions.
 def end_turn(self, args, username):
     campaign_id = args[KEY_CAMPAIGN_ID]
     entity_id = args[KEY_ID]
@@ -121,16 +119,13 @@ def end_turn(self, args, username):
         return self.respond({"success": False, "info": MSG_BAD_CAMP})
     role = campaign["members"][username]
 
-    if not entity_id in campaign["entities"] or not len(list(filter(lambda init: init["entity_id"] == entity_id, campaign["init"]))) > 0:
+    if not entity_id in campaign["entities"] or not entity_in_init_list(campaign, entity_id):
         # the entity needs to be in the init list in order for us to be able to end its turn!
         return self.respond({"success": False, "info": MSG_NO_ENTITY})
     entity = campaign["entities"][entity_id]
 
     if (role == ROLE_PLAYER and entity_id[0] == IDType.CHARACTER and entity["owner"] == username) or role == ROLE_GM:
-        if entity["actions"] > 0:
-            # if the user doesn't have any pending actions, then it's probably not actually this users turn,
-            # but we try incrementing the turn anyway in case something got stuck.
-            self.server.db.reset_actions(campaign_id, entity_id)
+        self.server.db.reset_actions(campaign_id, entity_id)
         self.server.db.next_turn(campaign_id)
         return self.respond({"success": True})
 

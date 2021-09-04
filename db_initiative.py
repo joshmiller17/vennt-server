@@ -52,11 +52,29 @@ def remove_from_combat(self, campaign_id, entity_id):
     if len(self.db["campaigns"][campaign_id]["init"]) == 0:
         return False
     init_list = self.db["campaigns"][campaign_id]["init"]
-    self.db["campaigns"][campaign_id]["init"] = list(
-        filter(lambda entity: entity["entity_id"] == entity_id, init_list))
+    filtered_init_list = []
+    init_list_len = len(init_list)
+    removed_count = 0
+    for index, init in enumerate(init_list):
+        if init["entity_id"] != entity_id:
+            filtered_init_list.append(init)
+        else:
+            removed_count += 1
+            # need to update the init_index accordingly
+            if index == 0 and self.db["campaigns"][campaign_id]["init_index"] == 0:
+                # need to wrap around backwards
+                self.db["campaigns"][campaign_id]["init_index"] = init_list_len - \
+                    1 - removed_count
+                self.db["campaigns"][campaign_id]["init_round"] -= 1
+            elif index <= self.db["campaigns"][campaign_id]["init_index"]:
+                self.db["campaigns"][campaign_id]["init_index"] -= 1
+    if len(filtered_init_list) == 0:
+        # If the initiative order is empty, we can automatically end combat
+        return self.end_combat(campaign_id)
+    self.db["campaigns"][campaign_id]["init"] = filtered_init_list
     # Increment turn if needed
-    if not next_turn(self, campaign_id):
-        self.save_db()
+    next_turn(self, campaign_id, save_db=False)
+    self.save_db()
     return True
 
 
@@ -69,8 +87,7 @@ def start_combat(self, campaign_id):
     # grab iniative from the top of the order
     entity = self.db["campaigns"][campaign_id]["init"][0]
     entity_id = entity["entity_id"]
-    self.db["campaigns"][campaign_id]["entities"][entity_id]["actions"] = 3
-    self.db["campaigns"][campaign_id]["entities"][entity_id]["reactions"] = 1
+    __give_entity_actions(self, campaign_id, entity_id)
     # increment additional times following init style rules
     while __should_keep_incrementing_init(self, campaign_id, entity):
         __increment_init_index(self, campaign_id)
@@ -131,6 +148,7 @@ def __get_next_init(self, campaign_id):
 
 
 def __should_keep_incrementing_init(self, campaign_id, starting_init_details):
+    # TODO: Should keep incrementing init if the entity is dead (maybe in this case it should just get removed from combat init though)
     next_init = __get_next_init(self, campaign_id)
     next_init_details = self.db["campaigns"][campaign_id]["init"][next_init]
 
@@ -151,11 +169,17 @@ def __increment_init_index(self, campaign_id):
         # wrap around
         self.db["campaigns"][campaign_id]["init_round"] += 1
     self.db["campaigns"][campaign_id]["init_index"] = next_init
-    # TODO: Do not reset actions / reactions if stunned / paralyzed
     entity_id = self.db["campaigns"][campaign_id]["init"][next_init]["entity_id"]
+    __give_entity_actions(self, campaign_id, entity_id)
+    return next_init
+
+
+def __give_entity_actions(self, campaign_id, entity_id):
+    # TODO: Do not reset actions / reactions if stunned / paralyzed
+    # TODO: Do not reset actions if the entity is dead
+    # TODO: Reset only 1 action / 1 reaction is the entity is dying
     # Do not reset actions of users who delayed actions
     if self.db["campaigns"][campaign_id]["entities"][entity_id]["actions"] > 1 and self.db["campaigns"][campaign_id]["entities"][entity_id]["delayed_actions"]:
-        return next_init
+        return
     self.db["campaigns"][campaign_id]["entities"][entity_id]["actions"] = 3
     self.db["campaigns"][campaign_id]["entities"][entity_id]["reactions"] = 1
-    return next_init

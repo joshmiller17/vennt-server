@@ -6,6 +6,21 @@ from constants import *
 
 # VenntDB Methods
 
+# Shape of combat table as Jack imagines it - entities should have a list of pending attacks aimed at them so its easy to see what needs to be resolved
+
+# combat = {
+#    "uuid of attack": {
+#       "attacker": "uuid of attacking entity",
+#       "receiver": "uuid of receiving entity",
+#       "state": "PENDING or COMPLETE",
+#       "damage": 12,  # full damage number
+#       "damage_type": "fire",
+#       "accuracy": 30,
+#       "status_effects": ["status effect caused"],
+#       "desc": "text description of cause for display"
+#   }
+# }
+
 '''def push_undo(self, campaign_id, changeDict):
     self.assert_valid("campaigns", campaign_id)
     if not "undo" in self.db["campaigns"][campaign_id]:

@@ -697,6 +697,55 @@ assert(not args.verify or response["value"]
 assert(not args.verify or response["value"]
        ["entities"][enemy_id]["reactions"] == 1)
 
+print("Remove from combat - GM")
+data = {"auth_token": gm_token,
+        "campaign_id": campaign_id, "id": player_second_character_id}
+response = requests.get(url + 'remove_from_combat', params=data, verify=do_ssl)
+check_continue(response)
+
+data = {"auth_token": spectator_token, "campaign_id": campaign_id}
+response = requests.get(url + 'get_campaign', params=data, verify=do_ssl)
+check_continue(response)
+
+response = json.loads(response.text)
+assert(not args.verify or response["value"]["init_index"] == 0)
+assert(not args.verify or response["value"]["init_round"] == 1)
+assert(not args.verify or response["value"]["in_combat"] == True)
+assert(not args.verify or len(list(filter(
+    lambda init: init["entity_id"] == player_second_character_id, response["value"]["init"]))) == 0)
+
+print("Remove from combat - GM - init_index remains the same")
+data = {"auth_token": gm_token,
+        "campaign_id": campaign_id, "id": second_enemy_id}
+response = requests.get(url + 'remove_from_combat', params=data, verify=do_ssl)
+check_continue(response)
+
+data = {"auth_token": spectator_token, "campaign_id": campaign_id}
+response = requests.get(url + 'get_campaign', params=data, verify=do_ssl)
+check_continue(response)
+
+response = json.loads(response.text)
+assert(not args.verify or response["value"]["init_index"] == 0)
+assert(not args.verify or response["value"]["init_round"] == 1)
+assert(not args.verify or response["value"]["in_combat"] == True)
+assert(not args.verify or len(list(filter(
+    lambda init: init["entity_id"] == second_enemy_id, response["value"]["init"]))) == 0)
+
+print("End combat")
+data = {"auth_token": gm_token, "campaign_id": campaign_id}
+response = requests.get(url + 'end_combat', params=data, verify=do_ssl)
+check_continue(response)
+
+data = {"auth_token": spectator_token, "campaign_id": campaign_id}
+response = requests.get(url + 'get_campaign', params=data, verify=do_ssl)
+check_continue(response)
+
+response = json.loads(response.text)
+assert(not args.verify or response["value"]["init_index"] == 0)
+assert(not args.verify or response["value"]["init_round"] == 0)
+assert(not args.verify or response["value"]["in_combat"] == False)
+assert(not args.verify or len(response["value"]["init"]) == 0)
+
 # Print user information for further testing purposes
 print("----------------------------------------------------------------------------------")
 print("GM username: '{}' password: '{}' auth_token: '{}'".format(

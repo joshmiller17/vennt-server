@@ -19,7 +19,7 @@ Each method describes additional JSON keys provided, if any.
 
 ### Create an account
 
-POST:
+POST: `<baseURL>`
 
 - `register`: desired username
 - `password`: desired password
@@ -30,6 +30,8 @@ Additional keys returned:
 
 ### Login
 
+POST: `<baseURL>`
+
 - `login`: username
 - `password`: password
 
@@ -39,7 +41,7 @@ Additional keys returned:
 
 ### Logout
 
-GET:
+GET: `<baseURL>/logout`
 
 - `auth_token`: auth token
 
@@ -49,20 +51,21 @@ The operation succeeding means that `auth_token` was valid prior to logout.
 
 ### Create a character
 
-GET:
+GET: `<baseURL>/create_character`
 
 - `auth_token`: auth token
-- `name` : desired character name
+- `name`: desired character name
 
 Optional args:
 
-- `attr` : attribute value, see Data Types above
+- `attr`: attribute value, see Data Types above
+- `gift`: one of "Alertness", "Craft", "Alacrity", "Finesse", "Mind", "Magic", "Rage", "Science", "Charm", or "None". If not provided, we default to "None"
 
 Additional keys returned: -`id`: on success, the unique ID of your new character
 
-### Get characters
+### List characters
 
-GET:
+GET: `<baseURL>/get_characters`
 
 - `auth_token`: auth token
 
@@ -70,10 +73,10 @@ Additional keys returned: -`value`: on success, returns a list of IDs for your c
 
 ### Get character details
 
-GET:
+GET: `<baseURL>/get_character`
 
 - `auth_token`: auth token
-- `id` : character ID
+- `id`: character ID
 
 Additional keys returned:
 
@@ -81,20 +84,20 @@ Additional keys returned:
 
 ### Set an attribute
 
-GET:
+GET: `<baseURL>/set_attr`
 
 - `auth_token`: auth token
-- `char_id` : character ID
-- `attr` : attribute name
-- `value` : attribute value
+- `char_id`: character ID
+- `attr`: attribute name
+- `value`: attribute value
 
 ### Get an attribute
 
-GET:
+GET: `<baseURL>/get_attr`
 
 - `auth_token`: auth token
-- `char_id` : character ID
-- `attr` : attribute name
+- `char_id`: character ID
+- `attr`: attribute name
 
 Additional keys returned:
 
@@ -104,10 +107,10 @@ Additional keys returned:
 
 ### Lookup ability
 
-GET:
+GET: `<baseURL>/lookup_ability`
 
 - `auth_token`: auth token
-- `name` : ability name
+- `name`: ability name
 
 When a partial match is provided, the lookup will succeed if exactly one match is found, by assuming that match.
 
@@ -115,23 +118,28 @@ Additional keys returned: -`matches` (on failure): The list of abilities which c
 
 ### Add ability
 
-GET:
+GET: `<baseURL>/add_ability`
 
 - `auth_token`: auth token
 - `id`: character ID
-- `name` : ability name
-
-# TODO FIXME documentation from here and below is out of date, needs to be formatted as above
+- `name`: ability name
 
 ### Get abilities
 
-GET: `<baseURL>/get_abilities?q={"auth_token":"<auth_token>", "id":"<character_id>"}`
+GET: `<baseURL>/get_abilities`
+
+- `auth_token`: auth token
+- `id`: character ID
 
 Additional keys returned: -`value` (on success): The list of names of your abilities.
 
 ### Get ability
 
-GET: `<baseURL>/get_ability?q={"auth_token":"<auth_token>", "id":"<character_id>", "name":"<ability_name>"}`
+GET: `<baseURL>/get_ability`
+
+- `auth_token`: auth token
+- `id`: character ID
+- `name` : ability name
 
 Additional keys returned:
 
@@ -157,43 +165,26 @@ Additional keys returned:
     - `Passive`: If key is present, this ability is passive
     - `Special`: Anything which cannot be currently parsed, e.g. "3\* Actions" or "X Vim"
 
-## Initiative
-
-### Reset turn order
-
-GET: `<baseURL>/reset_turn_order?q={"auth_token":"<auth_token>", "campaign_id":"<campaign_id>"}`
-
-### Add a turn
-
-GET: `<baseURL>/add_turn?q={"auth_token":"<auth_token>", "campaign_id":"<campaign_id>", "id":"<entity_id>", "value":"<num>"}`
-
-### Advance turn order
-
-GET: `<baseURL>/next_turn?q={"auth_token":"<auth_token>", "campaign_id":"<campaign_id>"}`
-
-### Get turn order
-
-GET: `<baseURL>/get_turn_order?q={"auth_token":"<auth_token>", "campaign_id":"<campaign_id>"}`
-
-Additional keys returned: -`value` (on success): The dictionary of turns as a mapping of initiative rolls to entity IDs
-
-### Get current turn
-
-GET: `<baseURL>/get_current_turn?q={"auth_token":"<auth_token>", "campaign_id":"<campaign_id>"}`
-
-Additional keys returned: -`value` (on success): The entity ID of whose turn it is
-
 ## Inventory
 
 ### Add an item
 
-GET: `<baseURL>/add_item?q={"auth_token":"<auth_token>", "name":"itemname", "bulk":"<num>", "desc":"item description"}`
+GET: `<baseURL>/add_item`
+
+- `auth_token`: auth token
+- `id`: character ID
+- `name`: item name
+- `bulk`: item bulk
+- `desc`: item description
 
 Additional keys returned: -`id`: on success, the unique ID of your new item
 
 ### View items
 
-GET: `<baseURL>/view_items?q={"auth_token":"<auth_token>"}`
+GET: `<baseURL>/view_items`
+
+- `auth_token`: auth token
+- `id`: character ID
 
 Additional keys returned: -`value`: on success, a list of item dictionaries
 
@@ -203,17 +194,33 @@ Additional keys returned: -`value`: on success, a list of item dictionaries
 
 ### Remove item
 
-GET: `<baseURL>/remove_item?q={"auth_token":"<auth_token>", "id":"<item_id>"}`
+GET: `<baseURL>/remove_item`
+
+- `auth_token`: auth token
+- `id`: character ID
+- `id2`: item ID to remove
 
 ### Add weapon
 
 GET: `<baseURL>/add_weapon?q={"auth_token":"<auth_token>", "name":"weapon_name", "attr":"ATTR", "dmg": "<rollstr>" [, "mods" : { "key" : value } }`
+
+- `auth_token`: auth token
+- `name`: weapon name
+- `attr`: attribute for the owner's entity to use
+- `dmg`: \<rollstr\>
+
+Optional args:
+
+- `mods`:
 
 Modifiers go in the `mods` dict, such as `"burning" : "1d6"`. Weapons added are account-specific.
 
 ### Get weapon
 
 GET: `<baseURL>/get_weapon?q={"auth_token":"<auth_token>", "name":"weapon_name"}`
+
+- `auth_token`: auth token
+- `name`: ability name
 
 The `get_weapon` call can also retrieve standard Vennt weapons like `Blade` and `Rifle`.
 
@@ -227,7 +234,10 @@ Additional keys returned:
 
 ### Remove weapon
 
-GET: `<baseURL>/remove_weapon?q={"auth_token":"<auth_token>", "name":"weapon_name"}`
+GET: `<baseURL>/remove_weapon`
+
+- `auth_token`: auth token
+- `name`: weapon name
 
 ## Enemies
 
@@ -235,7 +245,13 @@ GET: `<baseURL>/remove_weapon?q={"auth_token":"<auth_token>", "name":"weapon_nam
 
 GET: `<baseURL>/create_enemy?q={"auth_token":"<auth_token>", "name":"myfirstenemy"[,"ATTR":"<num>"...]}`
 
-Setting attribute properties are optional.
+- `auth_token`: auth token
+- `name`: enemy name
+
+Optional args:
+
+- `attr`: attribute value, see Data Types above
+- `campaign_id`: if this user is a GM in the given campaign, this enemy will be automatically added to the campaign and hidden to users.
 
 Additional keys returned: -`id`: on success, the unique ID of your new enemy
 
@@ -243,23 +259,45 @@ Additional keys returned: -`id`: on success, the unique ID of your new enemy
 
 ### Create a campaign
 
-GET: `<baseURL>/create_campaign?q={"auth_token":"<auth_token>", "name":"myfirstcampaign"}`
+GET: `<baseURL>/create_campaign`
+
+- `auth_token`: auth token
+- `name`: campaign name
 
 Additional keys returned: -`campaign_id`: on success, the unique ID of your new campaign
 
-### Get campaigns
+### List campaigns
 
-GET: `<baseURL>/get_campaigns?q={"auth_token":"<auth_token>"}`
+GET: `<baseURL>/get_campaigns`
+
+- `auth_token`: auth token
 
 Additional keys returned: -`value`: on success, returns a list of IDs for your campaigns
 
+### Get campaign info
+
+GET: `<baseURL>/get_campaign`
+
+- `auth_token`: auth token
+- `campaign_id`: campaign ID
+
+Additional keys returned: -`value`: on success, returns all relavent campaign information, including campaign members and roles, entities, initiative, etc.
+
 ### Invite someone to a campaign
 
-GET: `<baseURL>/send_campaign_invite?q={"auth_token":"<auth_token>", "campaign_id": "<campaign_id>", "username":"<recipient>"}`
+GET: `<baseURL>/send_campaign_invite`
+
+- `auth_token`: auth token
+- `campaign_id`: campaign ID
+- `username`: recipient's username
+
+You need to be the owner of the campaign in order to call this API.
 
 ### View active campaign invites
 
-GET: `<baseURL>/view_campaign_invites?q={"auth_token":"<auth_token>"}`
+GET: `<baseURL>/view_campaign_invites`
+
+- `auth_token`: auth token
 
 Additional keys returned:
 
@@ -269,22 +307,107 @@ Additional keys returned:
 
 ### Accept campaign invite
 
-GET: `<baseURL>/accept_campaign_invite?q={"auth_token":"<auth_token>","campaign_id":"<campaign_id>"}`
+GET: `<baseURL>/accept_campaign_invite`
+
+- `auth_token`: auth token
+- `campaign_id`: campaign ID
 
 ### Decline campaign invite
 
-GET: `<baseURL>/decline_campaign_invite?q={"auth_token":"<auth_token>","campaign_id":"<campaign_id>"}`
+GET: `<baseURL>/decline_campaign_invite`
+
+- `auth_token`: auth token
+- `campaign_id`: campaign ID
 
 ### Set campaign role
 
-You must be the campaign owner to set a role.
-GET: `<baseURL>/set_role?q={"auth_token":"<auth_token>","campaign_id":"<campaign_id>", "username":"<target>","role":"[GM/player]"}`
+GET: `<baseURL>/set_role`
+
+- `auth_token`: auth token
+- `campaign_id`: campaign ID
+- `username`: target's username
+- `role`: One of "player", "GM", "spectator"
+
+You need to be the owner of the campaign in order to call this API.
 
 ### Get campaign role
 
-You must be the campaign owner or a member of the campaign to view someone's role.
-GET: `<baseURL>/set_role?q={"auth_token":"<auth_token>", "campaign_id":"<campaign_id>", "username":"<target>"}`
+GET: `<baseURL>/set_role`
+
+- `auth_token`: auth token
+- `campaign_id`: campaign ID
+- `username`: target's username
 
 Additional keys returned:
 
 - `value`: the user's role (GM or player)
+
+You need to be a member of the campaign in order to call this API.
+
+### Add entity to campaign
+
+GET: `<baseURL>/add_to_campaign`
+
+- `auth_token`: auth token
+- `campaign_id`: campaign ID
+- `id`: entity ID
+
+Note: if adding an enemy, it will not be visible to non-GM campaign members.
+
+### Remove entity from campaign
+
+GET: `<baseURL>/remove_from_campaign`
+
+- `auth_token`: auth token
+- `campaign_id`: campaign ID
+- `id`: entity ID
+
+## Initiative
+
+### Add entity to combat
+
+GET: `<baseURL>/add_to_combat`
+
+- `auth_token`: auth token
+- `campaign_id`: campaign ID
+- `id`: entity ID
+
+Optional args:
+
+- `roll`: your roll + attribute bonus. If not provided, the server will roll 3d6 and add your bonus automatically.
+
+Note: if adding an enemy, it will automatically become visible to all campaign members.
+
+### Remove entity from combat
+
+GET: `<baseURL>/remove_from_combat`
+
+- `auth_token`: auth token
+- `campaign_id`: campaign ID
+- `id`: entity ID
+
+### Start combat
+
+GET: `<baseURL>/start_combat`
+
+- `auth_token`: auth token
+- `campaign_id`: campaign ID
+
+You need to be the owner of the campaign in order to call this API.
+
+### End combat
+
+GET: `<baseURL>/end_combat`
+
+- `auth_token`: auth token
+- `campaign_id`: campaign ID
+
+You need to be the owner of the campaign in order to call this API.
+
+### End turn
+
+GET: `<baseURL>/end_turn`
+
+- `auth_token`: auth token
+- `campaign_id`: campaign ID
+- `id`: entity ID

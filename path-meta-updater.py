@@ -1,10 +1,9 @@
 # Josh Aaron Miller 2021 + path scraping by Ryan Muther 2020
 # Vennt Path metadata scraper
 
-import time, requests, datetime, re, sys, json
+import time, requests, datetime, re, sys, json, os, pickle
 from bs4 import BeautifulSoup
-
-import os, pickle, time
+from collections import defaultdict
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
@@ -61,15 +60,10 @@ def getPaths():
     
     return list(zip(names,URLs))
     
-#given a URL to a path's page,
+#given a soup
 # gets all the ability names from that path
 # returns a list of strings
-def getAbilities(url):
-    #get the page
-    page = requests.get(url).content
-    page = BeautifulSoup(page, 'html.parser') #features="lxml")
-    #soup = BeautifulSoup(page.content, 'html.parser')
-
+def getAbilities(page):
     #get the abilities section and pull out the text of each
     # <p> tag in it, removing the non-completion requirement descriptors,
     # prereq descriptors, and activation costs
@@ -109,17 +103,67 @@ def getAbilities(url):
             #   if found and (text.isspace() or (text.startswith('\n') and last_had_newline)):
 
 
+# Returns contents of ability as list of lines
+def getAbilityContents(ability, soup, smartquotes = False):
+    found = False
+    contents = []
+    last_had_newline = False
+    best_match = 999
+    for hit in soup.find_all('p'):
+        text = hit.get_text()
+        if (smartquotes):
+            text = text.replace("'", "’")
+        else:
+            text = text.replace("’", "'")
+        if ability in text and len(text) < best_match: # Goes through the whole page, takes the *shortest* valid line which matches the given description
+            found = True
+            best_match = len(text)
+            contents = []
+        if found and (text.isspace() or (text.startswith('\n') and last_had_newline)):
+            found = False
+        if found:
+            contents.append(text)
+            if text.endswith('\n'):
+                last_had_newline = True
+            else:
+                last_had_newline = False
+    if (not smartquotes and contents == []):
+        return getAbilityContents(ability, soup, True) # if we failed, try with smartquotes
+    return contents
 
+def countExpedited(line):
+    m = re.match("Expedited for: (.*)", line)
+    print(m)
+    result = m.group(1)
+    print(result)
+    gifts = result.split(", ")
+    counts = defaultdict(int)
+    for g in gifts:
+        counts[g] += 1
+    return counts
+    
+    
 
 if __name__ == "__main__":
     paths = getPaths()
     for i,(name,url) in enumerate(paths):
         print("(%d/%d) Scraping %s"%(i+1,len(paths),url))
         
-        abilities = getAbilities(url)
+        #get the page
+        page = requests.get(url).content
+        soup = BeautifulSoup(page, 'html.parser') #features="lxml")
+        #soup = BeautifulSoup(page.content, 'html.parser')
+        
+        abilities = getAbilities(soup)
         
         for ability in abilities:
-            
+            contents = getAbilityContents(ability, soup)
+            if contents == []:
+                print("WARNING: " + ability + " not found")
+            else:
+                for line in contents:
+                    if line.startswith("Expedited"):
+                        print(countExpedited(line))
         
         
         exit(0) # test

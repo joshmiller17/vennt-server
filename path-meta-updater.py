@@ -10,9 +10,14 @@ from google.auth.transport.requests import Request
 
 pathsURL = "https://vennt.fandom.com/wiki/List_of_Paths"
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
+VALID_GIFTS = ['Alertness', 'Craft', 'Alacrity', 'Charm', 'Finesse', 'Magic', 'Mind', 'Rage', 'Science']
 
+SPREADSHEET_ID = open('sheet.txt').read()
+
+g_Service = None
 
 def loginToGoogleSheets():
+    global g_Service
     creds = None
     if os.path.exists('token.pickle'):
         with open('token.pickle', 'rb') as token:
@@ -26,14 +31,15 @@ def loginToGoogleSheets():
             creds = flow.run_local_server(port=0)
         with open('token.pickle', 'wb') as token:
             pickle.dump(creds, token)
-    service = build('sheets', 'v4', credentials=creds)
-    sheet = service.spreadsheets()
+    g_Service = build('sheets', 'v4', credentials=creds)
+    sheet = g_Service.spreadsheets()
     
     
-def update_to_sheets(spreadsheet_id, sheet_range, vs):
+def updateSheet(spreadsheet_id, sheet_range, vs):
+    global g_Service
     print("update_to_sheets: updating {0} in {1} with {2}".format(sheet_range, spreadsheet_id, vs))
     body = {'values' : vs}
-    result = service.spreadsheets().values().update(
+    result = g_Service.spreadsheets().values().update(
     spreadsheetId=spreadsheet_id, range=sheet_range,
     valueInputOption='RAW', body=body).execute()
 
@@ -93,16 +99,6 @@ def getAbilities(page):
     return abilities
 
 
-
-
-
-    # for hit in soup.find_all('p'):
-        # text = hit.get_text()
-        # text = text.replace("’", "'") # I hate smart quotes
-        
-            #   if found and (text.isspace() or (text.startswith('\n') and last_had_newline)):
-
-
 # Returns contents of ability as list of lines
 def getAbilityContents(ability, soup, smartquotes = False):
     found = False
@@ -133,28 +129,48 @@ def getAbilityContents(ability, soup, smartquotes = False):
 
 def countExpedited(line):
     m = re.match("Expedited for: (.*)", line)
-    print(m)
     result = m.group(1)
-    print(result)
     gifts = result.split(", ")
-    counts = defaultdict(int)
-    for g in gifts:
-        counts[g] += 1
-    return counts
-    
+    return gifts
     
 
 if __name__ == "__main__":
+
+    print("Logging into Google Sheets...")
+    loginToGoogleSheets()
+    headers = ["Path", "Requirements", "Completion Bonus", "Num Abilities", "Total XP Cost"]
+    for g in VALID_GIFTS:
+        headers.append("Expedited for " + g)
+    
+    print("Fetching paths...")
     paths = getPaths()
     for i,(name,url) in enumerate(paths):
         print("(%d/%d) Scraping %s"%(i+1,len(paths),url))
         
-        #get the page
+        #get the pa]ge
         page = requests.get(url).content
         soup = BeautifulSoup(page, 'html.parser') #features="lxml")
-        #soup = BeautifulSoup(page.content, 'html.parser')
         
         abilities = getAbilities(soup)
+        expedited_count = defaultdict(int)
+        XP_sum = 0  
+        requirements = ""
+        completion_bonus = ""
+        
+        for b in soup.body:
+            if "Requirements:" in b:
+                m = re.match("Requirements: (.*)", b)
+                result = m.group(1)
+                requirements = result
+            if "Path Completion Bonus:" in b:
+                m = re.match("Path Completion Bonus: (.*)", b)
+                result = m.group(1)
+                completion_bonus = result
+        
+        if requirements == "":
+            print("WARNING: " + name + " has bad Requirements")
+        if completion_bonus == "":
+            print("WARNING: " + name + " has bad Path Completion Bonus")
         
         for ability in abilities:
             contents = getAbilityContents(ability, soup)
@@ -163,10 +179,35 @@ if __name__ == "__main__":
             else:
                 for line in contents:
                     if line.startswith("Expedited"):
-                        print(countExpedited(line))
+                        gifts = countExpedited(line)
+                        for key in gifts:
+                            if key not in VALID_GIFTS:
+                                print("WARNING: " + key + " is not a valid Expedited for " + ability)
+                            expedited_count[key] += 1
+                    if line.startswith("Cost"):
+                            m = re.match("Cost: (.*) XP", line)
+                            if not m:
+                                print("WARNING: No Cost found for " + line + " in " + ability)
+                            else:
+                                cost = m.group(1)
+                                if not cost.isnumeric():
+                                    print("WARNING: " + cost + " is not a valid XP Cost for " + ability)
+                                else:
+                                    XP_sum += int(cost)
+        
+        # rquirements, completion bonus, num abilities
+        row = [name, requirements, completion_bonus, len(abilities), XP_sum]
+        for g in VALID_GIFTS:
+            row.append(expedited_count[g])
+        updateSheet(SPREADSHEET_ID, "Paths!A%d:N%d"%(i+2,i+2), [row])
+        #print(expedited_count)
+        #print(XP_sum)
         
         
         exit(0) # test
         
         #sleep to be polite to the server
         time.sleep(1)
+        
+    # add header last
+    updateSheet(SPREADSHEET_ID, "Paths!A1:N1", [headers])

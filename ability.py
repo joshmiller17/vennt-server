@@ -9,7 +9,7 @@ logger = logClass.Logger("ability")
 	
 # Input: ability contents
 # Output: Ability dict
-def make_ability(contents):
+def make_ability(contents, path):
 	if contents == []:
 		return {"name":"NULL", "contents":[], "activation":"Passive"}
 
@@ -23,6 +23,8 @@ def make_ability(contents):
 			abiDict["expedited"] = parse_expedited(line)
 		elif line.startswith("Unlocks:"):
 			abiDict["unlocks"] = parse_unlocks(line)
+		elif line.startswith("Partially Unlocks:"):
+			abiDict["partial_unlocks"] = parse_partial_unlocks(line)
 		elif line.startswith("Prereq"):
 			abiDict["prereq"] = parse_prereq(line)
 		elif line.startswith("MP Cost:"):
@@ -38,22 +40,32 @@ def make_ability(contents):
 			abiDict["activation"] = line[12:-1]
 		elif line.startswith("Range:"):
 			abiDict["range"] = parse_range(line)
+		elif "This ability is not required for the Path Completion Bonus." in line:
+			abiDict["not_required"] = True
+		elif line.startswith("Flavor:"):
+			abiDict["flavor"] = parse_flavor(line)
 		elif "name" in abiDict:
 			if "effect" not in abiDict:
 				abiDict["effect"] = ""
 			abiDict["effect"] += line
-		
-		if not "name" in abiDict:
-			abiDict["name"] = line[:-1] # chop off \n
+
+		if "name" not in abiDict:
+			abiDict["name"] = line.replace("\n", "") # chop off all \n
+
+	if "cost" not in abiDict and "activation" not in abiDict:
+		abiDict["cost"] = {"Passive": True} # default to Passive if nothing given
+		abiDict["activation"] = "Passive"
+
+	abiDict["path"] = path
 			
 	logger.log("make_ability", str(abiDict))
 	return abiDict
 
 def parse_dc(line):
-	return line[4:-1] # just get string for now	
+	return line[4:-1] # just get string for now
 
 def parse_build_time(line):
-	return line[12:-1] # just get string for now	
+	return line[12:-1] # just get string for now
 
 def parse_purchase_cost(line):
 	return line[6:-1] # just get string for now
@@ -63,13 +75,16 @@ def parse_expedited(line):
 	
 def parse_unlocks(line):
 	return line[9:-1] # just get string for now
+
+def parse_partial_unlocks(line):
+	return line[19:-1] # just get string for now
 	
 def parse_prereq(line):
 	logger.log("parse_prereq", line[12:14])
 	if line[12] == 's':
-		return line[16:-1] # just get string for now
-	else:
 		return line[15:-1] # just get string for now
+	else:
+		return line[14:-1] # just get string for now
 
 def parse_mp_costs(line):
 	matches = re.findall("\[ ?(\d*) ?\/ ?(\d*) ?\/ ?(\d*) ?\]", line)
@@ -108,6 +123,9 @@ def parse_activation_cost(line):
 
 def parse_range(line):
 	return line[7:-1] # just get string for now
+
+def parse_flavor(line):
+	return line[8:-1] # just get string for now
 
 
 def is_valid(abiDict):

@@ -150,6 +150,7 @@ Additional keys returned:
   - `partial_unlocks`: What is partially unlocked by this ability (str)
   - `not_required`: True if this ability is not required for the path completion bonus (boolean)
   - `prereq`: What is listed as prerequisites for this ability (str)
+  - `path`: The path this ability is a part of (str)
   - `mp_cost`: For spells, the MP costs for this ability as a list of 3 numbers (half, normal, double)
   - `cast_dl`: For spells, the DL to cast this ability as a list of 3 numbers (half, normal, double)
   - `range`: For spells, the spell's range (str)

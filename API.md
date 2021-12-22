@@ -147,6 +147,8 @@ Additional keys returned:
   - `purchase`: The cost to purchase the ability (str)
   - `expedited`: Who the ability is expedited for (str)
   - `unlocks`: What is unlocked by this ability (str)
+  - `partial_unlocks`: What is partially unlocked by this ability (str)
+  - `not_required`: True if this ability is not required for the path completion bonus (boolean)
   - `prereq`: What is listed as prerequisites for this ability (str)
   - `mp_cost`: For spells, the MP costs for this ability as a list of 3 numbers (half, normal, double)
   - `cast_dl`: For spells, the DL to cast this ability as a list of 3 numbers (half, normal, double)
@@ -154,6 +156,7 @@ Additional keys returned:
   - `build_dc`: For tinker devices, the DC to build (str)
   - `build_time`: For tinker devices, the time to build (str)
   - `effect`: The description of the ability (str)
+  - `flavor`: Flavor text for the ability (str)
   - `activation`: The human-readable cost to activate this ability (str)
   - `cost`: The Activation cost parsed into a dict
     - `A`: Actions

@@ -54,30 +54,31 @@ def cache_ability(self, abiDict):
 def find_ability(self, ability_name):
     approximations = []
     URL = ""
+    path = ""
     for a in self.abilities:
         if ability_name.lower() in a["ability"].lower():  # approximate
             if a["ability"].lower() == ability_name.lower():
                 URL = a["url"]
-                return [a["ability"]], URL
+                path = a["path"]
+                return [a["ability"]], URL, path
             else:
                 approximations.append(a["ability"])
                 URL = a["url"]
-    return approximations, URL
+                path = a["path"]
+    return approximations, URL, path
 
 
 def get_or_make_ability(self, name):
     cached = self.get_cached_ability(name)
     if cached is not None:
         return cached
-    if not webscraper.ability_exists(self, name):
-        raise AssertionError("Bad call to db_abilities.get_or_make_ability, incorrect number of approximations (" +
-                             str(len(approximations)) + "): " + ", ".join(approximations))
-
-    approximations, URL = self.find_ability(name)
+    approximations, URL, path = self.find_ability(name)
+    if len(approximations) != 1:
+        raise AssertionError("Bad call to db_abilities.get_or_make_ability, incorrect number of approximations")
     contents = webscraper.get_ability_contents(approximations[0], URL)
     if contents == []:
         pass  # TODO?
-    new_ability = Ability.make_ability(contents)
+    new_ability = Ability.make_ability(contents, path)
     self.cache_ability(new_ability)
     return new_ability
 

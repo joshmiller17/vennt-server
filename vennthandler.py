@@ -147,13 +147,6 @@ class VenntHandler(BaseHTTPRequestHandler):
             if key_error:
                 return self.respond(key_error)
 
-            return lookup_ability(self, args)
-
-        elif path == PATHS["LOOKUP_ABILITY"]:
-            key_error = self.check_keys(args, [KEY_AUTH, KEY_NAME])
-            if key_error:
-                return self.respond(key_error)
-
             return lookup_ability(self, args)  # webscraper
 
         elif path == PATHS["ADD_ABILITY"]:

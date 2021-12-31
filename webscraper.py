@@ -35,7 +35,6 @@ def lookup_ability(self, args):
 
 # Returns list of matches and URL string (if found)
 def find_ability(self, name):
-	name = name.replace("'", "’") # Wiki uses smart quotes
 	logger.log("find_ability", "Looking for " + name)
 	approximations, URL, _ = self.server.db.find_ability(name)
 	return approximations, URL
@@ -61,7 +60,6 @@ def get_ability_contents(ability, URL):
 		if found_match:
 			# special case to try to pull out flavor text in italic
 			if hit.i != None and hit.i.get_text() == text.replace("\n", ""):
-				logger.log("get_ability_contents", hit.i.get_text())
 				contents.append("Flavor: " + text)
 			else:
 				contents.append(text)

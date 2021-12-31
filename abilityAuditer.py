@@ -110,7 +110,8 @@ if __name__ == "__main__":
 
 		#write each ability name as well as its path and URL to the file
 		for ability in abilities:
-			entry = {"path":name,"ability":ability,"url":url}
+			cleaned_ability = ability.replace("’", "'")
+			entry = {"path":name,"ability":cleaned_ability,"url":url}
 			all_entries.append(entry)
 			
 		#sleep to be polite to the server
@@ -123,6 +124,21 @@ if __name__ == "__main__":
 	vals = set(totalExclusives.values())
 	for val in vals:
 		print(val + ":", sum(v == val for v in totalExclusives.values()))
+
+	duplicate_search = {}
+	for ability in all_entries:
+		if ability["ability"] in duplicate_search:
+			duplicate_search[ability["ability"]].append(ability)
+		else:
+			duplicate_search[ability["ability"]] = [ability]
+
+	print("------------------------------------------------------------------\nDuplicates:")
+	
+	for name, abilities in duplicate_search.items():
+		if len(abilities) >= 2:
+			print("Duplicate Ability: " + name + "\nLocations:")
+			for ability in abilities:
+				dict_print(ability)
 	
 	#open the output file
 	out = open(args.out,"w",encoding="utf8")

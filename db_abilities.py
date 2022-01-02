@@ -52,6 +52,7 @@ def cache_ability(self, abiDict):
 
 
 def find_ability(self, ability_name):
+    ability_name = ability_name.replace("’", "'") # webscaper replaces any smart quotes
     approximations = []
     URL = ""
     path = ""

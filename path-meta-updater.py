@@ -129,6 +129,8 @@ def getAbilityContents(ability, soup, smartquotes = False):
 
 def countExpedited(line):
     m = re.match("Expedited for: (.*)", line)
+    if not m:
+        return "ERROR"
     result = m.group(1)
     gifts = result.split(", ")
     return gifts
@@ -202,10 +204,7 @@ if __name__ == "__main__":
         updateSheet(SPREADSHEET_ID, "Paths!A%d:N%d"%(i+2,i+2), [row])
         #print(expedited_count)
         #print(XP_sum)
-        
-        
-        exit(0) # test
-        
+                
         #sleep to be polite to the server
         time.sleep(1)
         

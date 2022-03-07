@@ -7,7 +7,10 @@ from constants import *
 # VenntHandler methods
 
 def get_abilities(self, args, username):
-	# TODO assert username has view permission to character
+	character_id = args[KEY_ID]
+	if self.server.db.permissions(username, character_id) < Permission.PRIVATE_VIEW:
+		return self.respond({"success":False, "info":MSG_NO_PERMISSION})
+	
 	return self.respond({"success":True, "value":self.server.db.get_abilities(username, args[KEY_ID])})
 
 def add_ability(self, args, username):

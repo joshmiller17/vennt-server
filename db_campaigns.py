@@ -33,6 +33,7 @@ def create_campaign(self, username, campaign_id, name):
     self.db["campaigns"][campaign_id]["init_round"] = 0
     self.db["campaigns"][campaign_id]["in_combat"] = False
     self.db["campaigns"][campaign_id]["attacks"] = {}
+	self.db["campaigns"][campaign_id]["courses"] = {}
     #self.db["campaigns"][campaign_id]["logs"] = []
     #self.db["campaigns"][campaign_id]["rolls"] = {}
     self.save_db()
@@ -109,3 +110,13 @@ def remove_from_campaign(self, campaign_id, entity_id):
     # fail unless actually gone from everywhere
     self.db["campaigns"][campaign_id]["entities"].pop(entity_id)
     self.save_db()
+
+
+def set_course(self, campaign_id, course, enable):
+    self.db["campaigns"][campaign_id]["courses"][course] = enable
+    self.save_db()
+    
+def get_course(self, campaign_id, course):
+    if not course in self.db["campaigns"][campaign_id]["courses"]:
+        return False
+    return self.db["campaigns"][campaign_id]["courses"][course]

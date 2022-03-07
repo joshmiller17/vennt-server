@@ -191,3 +191,27 @@ def remove_entity_from_campaign(self, args, username):
         return self.respond({"success": True})
 
     return self.respond({"success": False, "info": MSG_NO_PERMISSION})
+
+
+
+def set_course(self, args, username):
+
+    course = args[KEY_COURSE]
+    campaign_id = args[KEY_CAMPAIGN_ID]
+    enable = args[KEY_VAL]
+
+    if not has_campaign_permissions(self, username, campaign_id, owner_only=True):
+        return self.respond({"success": False, "info": MSG_BAD_CAMP})
+
+    self.server.db.set_course(campaign_id, course, enable)
+    return self.respond({"success": True})
+    
+
+def get_course(self, args, username):
+    campaign_id = args[KEY_CAMPAIGN_ID]
+
+    if not has_campaign_permissions(self, username, campaign_id):
+        return self.respond({"success": False, "info": MSG_BAD_CAMP})
+
+    enable = self.server.db.get_course(campaign_id, args[KEY_COURSE])
+    return self.respond({"success": True, "value": enable})

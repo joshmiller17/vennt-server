@@ -146,14 +146,16 @@ assert(not args.verify or response["value"] == 3)
 
 # ABILITIES
 
+example_ability = "Basic Cooking"
+
 print("Lookup ability")
-data = {"auth_token": gm_token, "name": "Basic Cooking"}
+data = {"auth_token": gm_token, "name": example_ability}
 response = requests.get(url + 'lookup_ability', params=data, verify=do_ssl)
 check_continue(response)
 
 print("add ability")
 data = {"auth_token": gm_token,
-        "name": "Basic Cooking", "id": my_character_id}
+        "name": example_ability, "id": my_character_id}
 response = requests.get(url + 'add_ability', params=data, verify=do_ssl)
 check_continue(response)
 
@@ -165,7 +167,7 @@ check_continue(response)
 
 print("get ability")
 data = {"auth_token": gm_token,
-        "name": "Basic Cooking", "id": my_character_id}
+        "name": example_ability, "id": my_character_id}
 response = requests.get(url + 'get_ability', params=data, verify=do_ssl)
 check_continue(response)
 

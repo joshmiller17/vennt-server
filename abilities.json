@@ -36,11 +36,6 @@
     },
     {
         "path": "Path of the Beginner",
-        "ability": "Threatening Stature",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Beginner"
-    },
-    {
-        "path": "Path of the Beginner",
         "ability": "Light Attack",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Beginner"
     },
@@ -56,33 +51,333 @@
     },
     {
         "path": "Path of the Beginner",
-        "ability": "Story of the Hero",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Beginner"
-    },
-    {
-        "path": "Path of the Beginner",
         "ability": "Novice Calling",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Beginner"
     },
     {
         "path": "Path of the Beginner",
-        "ability": "Guild Bedroom",
+        "ability": "Small Creature",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Beginner"
     },
     {
         "path": "Path of the Beginner",
+        "ability": "Large Creature",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Beginner"
+    },
+    {
+        "path": "Path of the Gifted Fighter",
+        "ability": "Bull's Blood",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Fighter"
+    },
+    {
+        "path": "Path of the Gifted Fighter",
+        "ability": "Incredible Grip",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Fighter"
+    },
+    {
+        "path": "Path of the Gifted Fighter",
+        "ability": "Weaponmaster",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Fighter"
+    },
+    {
+        "path": "Path of the Gifted Fighter",
+        "ability": "Fortitude of the Somnolent",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Fighter"
+    },
+    {
+        "path": "Path of the Gifted Fighter",
+        "ability": "Hero's Fury",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Fighter"
+    },
+    {
+        "path": "Path of the Gifted Fighter",
+        "ability": "Staunch",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Fighter"
+    },
+    {
+        "path": "Path of the Gifted Fighter",
+        "ability": "Untiring",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Fighter"
+    },
+    {
+        "path": "Path of the Gifted Fighter",
+        "ability": "Tenacious",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Fighter"
+    },
+    {
+        "path": "Path of the Gifted Craftsman",
+        "ability": "Tinker's Utility Kit",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Craftsman"
+    },
+    {
+        "path": "Path of the Gifted Craftsman",
+        "ability": "Exquisite!",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Craftsman"
+    },
+    {
+        "path": "Path of the Gifted Craftsman",
+        "ability": "Memory Palace",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Craftsman"
+    },
+    {
+        "path": "Path of the Gifted Craftsman",
+        "ability": "Jack of Tinkertech",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Craftsman"
+    },
+    {
+        "path": "Path of the Gifted Craftsman",
+        "ability": "Ingenious Inventor",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Craftsman"
+    },
+    {
+        "path": "Path of the Gifted Craftsman",
+        "ability": "Quick Construction",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Craftsman"
+    },
+    {
+        "path": "Path of the Gifted Scout",
+        "ability": "Impressive Reactions",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Scout"
+    },
+    {
+        "path": "Path of the Gifted Scout",
+        "ability": "Impressive Precision",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Scout"
+    },
+    {
+        "path": "Path of the Gifted Scout",
+        "ability": "Boon of the Nightwatch",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Scout"
+    },
+    {
+        "path": "Path of the Gifted Scout",
+        "ability": "Never Lost",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Scout"
+    },
+    {
+        "path": "Path of the Gifted Scout",
+        "ability": "Efficient Scavenger",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Scout"
+    },
+    {
+        "path": "Path of the Gifted Scout",
+        "ability": "Spotter",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Scout"
+    },
+    {
+        "path": "Path of the Gifted Scout",
+        "ability": "Find the Opening",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Scout"
+    },
+    {
+        "path": "Path of the Gifted Scout",
+        "ability": "Perfect Senses",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Scout"
+    },
+    {
+        "path": "Path of the Gifted Scout",
+        "ability": "Hunter of the Six Senses",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Scout"
+    },
+    {
+        "path": "Path of the Gifted Duelist",
+        "ability": "Snake Strike",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Duelist"
+    },
+    {
+        "path": "Path of the Gifted Duelist",
+        "ability": "Twist the Dagger",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Duelist"
+    },
+    {
+        "path": "Path of the Gifted Duelist",
+        "ability": "Steady Hand",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Duelist"
+    },
+    {
+        "path": "Path of the Gifted Duelist",
+        "ability": "Perfect Throw",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Duelist"
+    },
+    {
+        "path": "Path of the Gifted Duelist",
+        "ability": "Top Notch",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Duelist"
+    },
+    {
+        "path": "Path of the Gifted Duelist",
+        "ability": "Expert Disarm",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Duelist"
+    },
+    {
+        "path": "Path of the Gifted Duelist",
+        "ability": "Omnidextrous",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Duelist"
+    },
+    {
+        "path": "Path of the Gifted Duelist",
+        "ability": "Sticky Fingers",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Duelist"
+    },
+    {
+        "path": "Path of the Gifted Researcher",
+        "ability": "True Understanding",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Researcher"
+    },
+    {
+        "path": "Path of the Gifted Researcher",
+        "ability": "Will and Wit",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Researcher"
+    },
+    {
+        "path": "Path of the Gifted Researcher",
+        "ability": "Inquisitive Experimentation",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Researcher"
+    },
+    {
+        "path": "Path of the Gifted Researcher",
+        "ability": "Astute Observation",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Researcher"
+    },
+    {
+        "path": "Path of the Gifted Researcher",
+        "ability": "Balanced Soul",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Researcher"
+    },
+    {
+        "path": "Path of the Gifted Researcher",
+        "ability": "Innovator",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Researcher"
+    },
+    {
+        "path": "Path of the Gifted Researcher",
+        "ability": "Perfect Analysis",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Researcher"
+    },
+    {
+        "path": "Path of the Gifted Heart",
+        "ability": "Perfect Persuasion",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Heart"
+    },
+    {
+        "path": "Path of the Gifted Heart",
+        "ability": "Helpful Heart",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Heart"
+    },
+    {
+        "path": "Path of the Gifted Heart",
+        "ability": "Judge of Character",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Heart"
+    },
+    {
+        "path": "Path of the Gifted Heart",
+        "ability": "Wholly Supportive",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Heart"
+    },
+    {
+        "path": "Path of the Gifted Heart",
+        "ability": "Charismatic Resolve",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Heart"
+    },
+    {
+        "path": "Path of the Gifted Loremaster",
+        "ability": "Bookworm",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Loremaster"
+    },
+    {
+        "path": "Path of the Gifted Loremaster",
+        "ability": "Vast Knowledge",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Loremaster"
+    },
+    {
+        "path": "Path of the Gifted Loremaster",
+        "ability": "Eidetic Memory",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Loremaster"
+    },
+    {
+        "path": "Path of the Gifted Loremaster",
+        "ability": "Strategist",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Loremaster"
+    },
+    {
+        "path": "Path of the Gifted Magician",
+        "ability": "The hidden Path of the Gifted Magician is available only to those with the Gift of Magic and teaches the way of exceptional casting.",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Magician"
+    },
+    {
+        "path": "Path of the Gifted Magician",
+        "ability": "Inner Sanctum of the Mind",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Magician"
+    },
+    {
+        "path": "Path of the Gifted Magician",
+        "ability": "Top Caster",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Magician"
+    },
+    {
+        "path": "Path of the Gifted Magician",
+        "ability": "Projected Spirit",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Magician"
+    },
+    {
+        "path": "Path of the Gifted Magician",
+        "ability": "Spirit Word",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Magician"
+    },
+    {
+        "path": "Path of the Gifted Magician",
+        "ability": "Mage Prestige",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Magician"
+    },
+    {
+        "path": "Path of the Gifted Ninja",
+        "ability": "Sprightly Vigor",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Ninja"
+    },
+    {
+        "path": "Path of the Gifted Ninja",
+        "ability": "Expert Evasion",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Ninja"
+    },
+    {
+        "path": "Path of the Gifted Ninja",
+        "ability": "Swift",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Ninja"
+    },
+    {
+        "path": "Path of the Gifted Ninja",
+        "ability": "Light-Footed",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Ninja"
+    },
+    {
+        "path": "Path of the Gifted Ninja",
+        "ability": "Dash",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Ninja"
+    },
+    {
+        "path": "Path of the Gifted Ninja",
+        "ability": "Double Dash",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Ninja"
+    },
+    {
+        "path": "Path of the Gifted Ninja",
+        "ability": "Professional Ninja",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Ninja"
+    },
+    {
+        "path": "Path of the Colorful",
         "ability": "Fight or Flight",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Beginner"
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Colorful"
     },
     {
-        "path": "Path of the Beginner",
+        "path": "Path of the Colorful",
         "ability": "Courage and Wisdom",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Beginner"
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Colorful"
     },
     {
-        "path": "Path of the Beginner",
+        "path": "Path of the Colorful",
         "ability": "Discord and Harmony",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Beginner"
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Colorful"
     },
     {
         "path": "Path of the Blue",
@@ -113,6 +408,16 @@
         "path": "Path of the Yellow",
         "ability": "Yellow Specialization",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Yellow"
+    },
+    {
+        "path": "Path of the White",
+        "ability": "Well-Rounded",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_White"
+    },
+    {
+        "path": "Path of the White",
+        "ability": "Second Gift",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_White"
     },
     {
         "path": "Path of the Green",
@@ -155,14 +460,9 @@
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Purple"
     },
     {
-        "path": "Path of the White",
-        "ability": "Well-Rounded",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_White"
-    },
-    {
-        "path": "Path of the White",
-        "ability": "Second Gift",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_White"
+        "path": "Path of the Black",
+        "ability": "Flawed",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Black"
     },
     {
         "path": "Path of the Black",
@@ -206,7 +506,42 @@
     },
     {
         "path": "Path of the Black",
+        "ability": "Weak",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Black"
+    },
+    {
+        "path": "Path of the Black",
+        "ability": "Uninspired",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Black"
+    },
+    {
+        "path": "Path of the Black",
+        "ability": "Unmagical",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Black"
+    },
+    {
+        "path": "Path of the Black",
         "ability": "Feeble",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Black"
+    },
+    {
+        "path": "Path of the Black",
+        "ability": "Easily Bruised",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Black"
+    },
+    {
+        "path": "Path of the Black",
+        "ability": "Trained at the Black Academy",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Black"
+    },
+    {
+        "path": "Path of the Black",
+        "ability": "Easily Manipulated",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Black"
+    },
+    {
+        "path": "Path of the Black",
+        "ability": "Beholden to Grates",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Black"
     },
     {
@@ -271,6 +606,11 @@
     },
     {
         "path": "Path of the Defender",
+        "ability": "Take a Hit",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Defender"
+    },
+    {
+        "path": "Path of the Defender",
         "ability": "Shield Block",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Defender"
     },
@@ -305,26 +645,6 @@
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Defender"
     },
     {
-        "path": "Path of the Defender",
-        "ability": "Balanced Specialist",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Defender"
-    },
-    {
-        "path": "Path of the Defender",
-        "ability": "Polearm Specialist",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Defender"
-    },
-    {
-        "path": "Path of the Defender",
-        "ability": "Protector Specialist",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Defender"
-    },
-    {
-        "path": "Path of the Engineer",
-        "ability": "Fix",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Engineer"
-    },
-    {
         "path": "Path of the Engineer",
         "ability": "Bear Trap",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Engineer"
@@ -336,7 +656,7 @@
     },
     {
         "path": "Path of the Engineer",
-        "ability": "Magnetic Slugs",
+        "ability": "Magnetic Slug",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Engineer"
     },
     {
@@ -355,18 +675,8 @@
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Engineer"
     },
     {
-        "path": "Path of the Engineer",
-        "ability": "Cannon Specialist",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Engineer"
-    },
-    {
-        "path": "Path of the Engineer",
-        "ability": "Shotgun Specialist",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Engineer"
-    },
-    {
         "path": "Path of the Explorer",
-        "ability": "Notice (Beginner)",
+        "ability": "Requirements: Notice (Beginner)",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Explorer"
     },
     {
@@ -392,21 +702,6 @@
     {
         "path": "Path of the Explorer",
         "ability": "Study",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Explorer"
-    },
-    {
-        "path": "Path of the Explorer",
-        "ability": "Blade Specialist",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Explorer"
-    },
-    {
-        "path": "Path of the Explorer",
-        "ability": "Sidearm Specialist",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Explorer"
-    },
-    {
-        "path": "Path of the Explorer",
-        "ability": "Whip Specialist",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Explorer"
     },
     {
@@ -545,71 +840,6 @@
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Magician"
     },
     {
-        "path": "Path of the Magician",
-        "ability": "Arcane Specialist",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Magician"
-    },
-    {
-        "path": "Path of the Protagonist",
-        "ability": "Passion",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Protagonist"
-    },
-    {
-        "path": "Path of the Protagonist",
-        "ability": "Declare Attack",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Protagonist"
-    },
-    {
-        "path": "Path of the Protagonist",
-        "ability": "Blessing in Disguise",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Protagonist"
-    },
-    {
-        "path": "Path of the Protagonist",
-        "ability": "Hero's Mentorship",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Protagonist"
-    },
-    {
-        "path": "Path of the Protagonist",
-        "ability": "Aspect of the Hero",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Protagonist"
-    },
-    {
-        "path": "Path of the Protagonist",
-        "ability": "Hero of the Tides",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Protagonist"
-    },
-    {
-        "path": "Path of the Protagonist",
-        "ability": "Lesson Learned",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Protagonist"
-    },
-    {
-        "path": "Path of the Protagonist",
-        "ability": "Heroic Flourish",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Protagonist"
-    },
-    {
-        "path": "Path of the Protagonist",
-        "ability": "Hero in Flux",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Protagonist"
-    },
-    {
-        "path": "Path of the Protagonist",
-        "ability": "Naturally Awesome",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Protagonist"
-    },
-    {
-        "path": "Path of the Protagonist",
-        "ability": "Exceptional Training",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Protagonist"
-    },
-    {
-        "path": "Path of the Protagonist",
-        "ability": "Change of Heart",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Protagonist"
-    },
-    {
         "path": "Path of the Recruit",
         "ability": "Take a Breather",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Recruit"
@@ -670,11 +900,6 @@
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Recruit"
     },
     {
-        "path": "Path of the Recruit",
-        "ability": "Improvised Weapon Proficiency",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Recruit"
-    },
-    {
         "path": "Path of the Armor Specialist",
         "ability": "Enduring Defender",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Armor_Specialist"
@@ -707,6 +932,11 @@
     {
         "path": "Path of the Bard",
         "ability": "Wanderer of Many Paths",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Bard"
+    },
+    {
+        "path": "Path of the Bard",
+        "ability": "Take Two!",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Bard"
     },
     {
@@ -795,11 +1025,6 @@
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Bard"
     },
     {
-        "path": "Path of the Bard",
-        "ability": "Take Two!",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Bard"
-    },
-    {
         "path": "Path of the Blacksmith",
         "ability": "Toolkit",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Blacksmith"
@@ -881,7 +1106,7 @@
     },
     {
         "path": "Path of the Guardian",
-        "ability": "Defensive Stance",
+        "ability": "Defensive Posture",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Guardian"
     },
     {
@@ -951,12 +1176,12 @@
     },
     {
         "path": "Path of the Gunslinger",
-        "ability": "Twin Shot",
+        "ability": "Gun Show",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Gunslinger"
     },
     {
         "path": "Path of the Gunslinger",
-        "ability": "Gun Show",
+        "ability": "The Shot Heard Around the World",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Gunslinger"
     },
     {
@@ -1146,6 +1371,11 @@
     },
     {
         "path": "Path of the Rogue",
+        "ability": "Double-Team",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Rogue"
+    },
+    {
+        "path": "Path of the Rogue",
         "ability": "Curious Picklock",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Rogue"
     },
@@ -1171,6 +1401,11 @@
     },
     {
         "path": "Path of the Rogue",
+        "ability": "Evasive Strike",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Rogue"
+    },
+    {
+        "path": "Path of the Rogue",
         "ability": "Improved Sleight of Hand",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Rogue"
     },
@@ -1182,11 +1417,6 @@
     {
         "path": "Path of the Rogue",
         "ability": "Roguish Luck",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Rogue"
-    },
-    {
-        "path": "Path of the Rogue",
-        "ability": "Thrown Specialist",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Rogue"
     },
     {
@@ -1206,7 +1436,7 @@
     },
     {
         "path": "Path of the Scholar",
-        "ability": "Level-Headed",
+        "ability": "Well-Read",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Scholar"
     },
     {
@@ -1227,6 +1457,21 @@
     {
         "path": "Path of the Scholar",
         "ability": "Fast Learner I",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Scholar"
+    },
+    {
+        "path": "Path of the Scholar",
+        "ability": "Lore Specialization I",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Scholar"
+    },
+    {
+        "path": "Path of the Scholar",
+        "ability": "Lore Specialization II",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Scholar"
+    },
+    {
+        "path": "Path of the Scholar",
+        "ability": "Lore Specialization III",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Scholar"
     },
     {
@@ -1271,6 +1516,11 @@
     },
     {
         "path": "Path of the Shield Expert",
+        "ability": "Shield Bash",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Shield_Expert"
+    },
+    {
+        "path": "Path of the Shield Expert",
         "ability": "Throw Shield",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Shield_Expert"
     },
@@ -1302,6 +1552,11 @@
     {
         "path": "Path of the Soldier",
         "ability": "Soldier's Training",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Soldier"
+    },
+    {
+        "path": "Path of the Soldier",
+        "ability": "Call to Attention",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Soldier"
     },
     {
@@ -1371,11 +1626,6 @@
     },
     {
         "path": "Path of the Spellcaster",
-        "ability": "Force Blast",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Spellcaster"
-    },
-    {
-        "path": "Path of the Spellcaster",
         "ability": "Foresight",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Spellcaster"
     },
@@ -1391,16 +1641,6 @@
     },
     {
         "path": "Path of the Spellcaster",
-        "ability": "Rock Blast",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Spellcaster"
-    },
-    {
-        "path": "Path of the Spellcaster",
-        "ability": "Ice Blast",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Spellcaster"
-    },
-    {
-        "path": "Path of the Spellcaster",
         "ability": "Look Ahead",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Spellcaster"
     },
@@ -1412,11 +1652,6 @@
     {
         "path": "Path of the Spellcaster",
         "ability": "Guidance",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Spellcaster"
-    },
-    {
-        "path": "Path of the Spellcaster",
-        "ability": "Wind Hand",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Spellcaster"
     },
     {
@@ -1451,22 +1686,12 @@
     },
     {
         "path": "Path of the Spellcaster",
-        "ability": "Shadow Bolt",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Spellcaster"
-    },
-    {
-        "path": "Path of the Spellcaster",
         "ability": "Summon Jellies",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Spellcaster"
     },
     {
         "path": "Path of the Spellcaster",
         "ability": "Sap",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Spellcaster"
-    },
-    {
-        "path": "Path of the Spellcaster",
-        "ability": "Singe",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Spellcaster"
     },
     {
@@ -1492,6 +1717,11 @@
     {
         "path": "Path of the Spellcaster",
         "ability": "Spell Hand III: Spellcaster",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Spellcaster"
+    },
+    {
+        "path": "Path of the Spellcaster",
+        "ability": "Arcane Duelist",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Spellcaster"
     },
     {
@@ -1526,11 +1756,6 @@
     },
     {
         "path": "Path of the Tinker",
-        "ability": "Sterling Particle Blaster",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Tinker"
-    },
-    {
-        "path": "Path of the Tinker",
         "ability": "Wheeled Heel Exercise Enhancers Located Inside External Shoes (W.H.E.E.L.I.E.S)",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Tinker"
     },
@@ -1541,7 +1766,12 @@
     },
     {
         "path": "Path of the Tinker",
-        "ability": "Tinkertech Specialist",
+        "ability": "Unreliable Ricochet Grenade",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Tinker"
+    },
+    {
+        "path": "Path of the Tinker",
+        "ability": "Sterling Particle Blaster",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Tinker"
     },
     {
@@ -1591,12 +1821,12 @@
     },
     {
         "path": "Path of the Trapper",
-        "ability": "Crushing Trap",
+        "ability": "Trap Magnetism I",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Trapper"
     },
     {
         "path": "Path of the Trapper",
-        "ability": "Blood Trap",
+        "ability": "Crushing Trap",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Trapper"
     },
     {
@@ -1607,6 +1837,11 @@
     {
         "path": "Path of the Trapper",
         "ability": "Improve Hide Trap",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Trapper"
+    },
+    {
+        "path": "Path of the Trapper",
+        "ability": "Trap Magnetism II",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Trapper"
     },
     {
@@ -1631,6 +1866,11 @@
     },
     {
         "path": "Path of the Trapper",
+        "ability": "Trap Magnetism III",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Trapper"
+    },
+    {
+        "path": "Path of the Trapper",
         "ability": "Improved Traps",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Trapper"
     },
@@ -1641,7 +1881,7 @@
     },
     {
         "path": "Path of the Vanguard",
-        "ability": "",
+        "ability": "Requirements: Aim (Recruit)",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Vanguard"
     },
     {
@@ -1652,6 +1892,11 @@
     {
         "path": "Path of the Vanguard",
         "ability": "Counter",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Vanguard"
+    },
+    {
+        "path": "Path of the Vanguard",
+        "ability": "Tracking Aim",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Vanguard"
     },
     {
@@ -1676,12 +1921,7 @@
     },
     {
         "path": "Path of the Vanguard",
-        "ability": "Rifle Specialist",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Vanguard"
-    },
-    {
-        "path": "Path of the Vanguard",
-        "ability": "Bow Specialist",
+        "ability": "Critical Strike",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Vanguard"
     },
     {
@@ -1696,17 +1936,17 @@
     },
     {
         "path": "Path of the Wizard",
-        "ability": "Requirements: Replenish (Magician)",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Wizard"
-    },
-    {
-        "path": "Path of the Wizard",
         "ability": "Arcane Lore Novice",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Wizard"
     },
     {
         "path": "Path of the Wizard",
-        "ability": "Conjure Arcane Weapon",
+        "ability": "Arcane Lore Expert",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Wizard"
+    },
+    {
+        "path": "Path of the Wizard",
+        "ability": "Ha'proof to Healing",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Wizard"
     },
     {
@@ -1716,7 +1956,7 @@
     },
     {
         "path": "Path of the Wizard",
-        "ability": "Arcane Burst",
+        "ability": "Starfire",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Wizard"
     },
     {
@@ -1731,17 +1971,172 @@
     },
     {
         "path": "Path of the Wizard",
-        "ability": "Arcane Thunder",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Wizard"
-    },
-    {
-        "path": "Path of the Wizard",
         "ability": "Conjure Barrier",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Wizard"
     },
     {
+        "path": "Path of the Arcane Duelist",
+        "ability": "Conjure Arcane Weapon",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Arcane_Duelist"
+    },
+    {
+        "path": "Path of the Arcane Duelist",
+        "ability": "Arcane Burst",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Arcane_Duelist"
+    },
+    {
+        "path": "Path of the Arcane Duelist",
+        "ability": "Force Blast",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Arcane_Duelist"
+    },
+    {
+        "path": "Path of the Arcane Duelist",
+        "ability": "Ice Blast",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Arcane_Duelist"
+    },
+    {
+        "path": "Path of the Arcane Duelist",
+        "ability": "Rock Blast",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Arcane_Duelist"
+    },
+    {
+        "path": "Path of the Arcane Duelist",
+        "ability": "Shadow Bolt",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Arcane_Duelist"
+    },
+    {
+        "path": "Path of the Arcane Duelist",
+        "ability": "Singe",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Arcane_Duelist"
+    },
+    {
+        "path": "Path of the Arcane Duelist",
+        "ability": "Wind Hand",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Arcane_Duelist"
+    },
+    {
+        "path": "Path of the Arcane Duelist",
+        "ability": "Arcane Thunder",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Arcane_Duelist"
+    },
+    {
+        "path": "Path of the Armed",
+        "ability": "Aggressive Specialist",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Armed"
+    },
+    {
+        "path": "Path of the Armed",
+        "ability": "Arcane Specialist",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Armed"
+    },
+    {
+        "path": "Path of the Armed",
+        "ability": "Balanced Specialist",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Armed"
+    },
+    {
+        "path": "Path of the Armed",
+        "ability": "Blade Specialist",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Armed"
+    },
+    {
+        "path": "Path of the Armed",
+        "ability": "Bow Specialist",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Armed"
+    },
+    {
+        "path": "Path of the Armed",
+        "ability": "Brawling Specialist",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Armed"
+    },
+    {
+        "path": "Path of the Armed",
+        "ability": "Brutal Specialist",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Armed"
+    },
+    {
+        "path": "Path of the Armed",
+        "ability": "Cannon Specialist",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Armed"
+    },
+    {
+        "path": "Path of the Armed",
+        "ability": "Great Specialist",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Armed"
+    },
+    {
+        "path": "Path of the Armed",
+        "ability": "Grenade Specialist",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Armed"
+    },
+    {
+        "path": "Path of the Armed",
+        "ability": "Hookwhip Specialist",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Armed"
+    },
+    {
+        "path": "Path of the Armed",
+        "ability": "Improvised Weapon Proficiency",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Armed"
+    },
+    {
+        "path": "Path of the Armed",
+        "ability": "Polearm Specialist",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Armed"
+    },
+    {
+        "path": "Path of the Armed",
+        "ability": "Protector Specialist",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Armed"
+    },
+    {
+        "path": "Path of the Armed",
+        "ability": "Rifle Specialist",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Armed"
+    },
+    {
+        "path": "Path of the Armed",
+        "ability": "Shotgun Specialist",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Armed"
+    },
+    {
+        "path": "Path of the Armed",
+        "ability": "Sidearm Specialist",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Armed"
+    },
+    {
+        "path": "Path of the Armed",
+        "ability": "Thrown Specialist",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Armed"
+    },
+    {
+        "path": "Path of the Armed",
+        "ability": "Tinkertech Specialist",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Armed"
+    },
+    {
+        "path": "Path of the Armed",
+        "ability": "Unarmed Specialist",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Armed"
+    },
+    {
+        "path": "Path of the Armed",
+        "ability": "Whip Specialist",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Armed"
+    },
+    {
+        "path": "Path of the Attacker",
+        "ability": "Threatening Stature",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Attacker"
+    },
+    {
         "path": "Path of the Attacker",
         "ability": "Twice Ready",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Attacker"
+    },
+    {
+        "path": "Path of the Attacker",
+        "ability": "Gibe",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Attacker"
     },
     {
@@ -1762,11 +2157,6 @@
     {
         "path": "Path of the Attacker",
         "ability": "Quick Attack",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Attacker"
-    },
-    {
-        "path": "Path of the Attacker",
-        "ability": "Critical Strike",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Attacker"
     },
     {
@@ -1796,16 +2186,6 @@
     },
     {
         "path": "Path of the Attacker",
-        "ability": "Aggressive Specialist",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Attacker"
-    },
-    {
-        "path": "Path of the Attacker",
-        "ability": "All-Angle Attacker",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Attacker"
-    },
-    {
-        "path": "Path of the Attacker",
         "ability": "Great Initiative",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Attacker"
     },
@@ -1816,7 +2196,22 @@
     },
     {
         "path": "Path of the Nimble",
+        "ability": "On Your Toes",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Nimble"
+    },
+    {
+        "path": "Path of the Nimble",
+        "ability": "Level-Headed",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Nimble"
+    },
+    {
+        "path": "Path of the Nimble",
         "ability": "Sand Specialist",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Nimble"
+    },
+    {
+        "path": "Path of the Nimble",
+        "ability": "Nimble Swap",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Nimble"
     },
     {
@@ -1941,6 +2336,11 @@
     },
     {
         "path": "Path of the Urgent",
+        "ability": "Rapid Disabling",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Urgent"
+    },
+    {
+        "path": "Path of the Urgent",
         "ability": "Trace Back",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Urgent"
     },
@@ -1986,53 +2386,8 @@
     },
     {
         "path": "Path of the First Responder",
-        "ability": "Surge",
+        "ability": "Swell",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_First_Responder"
-    },
-    {
-        "path": "Path of the Byronic Hero",
-        "ability": "Down But Not Out",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Byronic_Hero"
-    },
-    {
-        "path": "Path of the Byronic Hero",
-        "ability": "Gratefully Flawed",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Byronic_Hero"
-    },
-    {
-        "path": "Path of the Byronic Hero",
-        "ability": "Critical Growth",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Byronic_Hero"
-    },
-    {
-        "path": "Path of the Byronic Hero",
-        "ability": "Strong Grates",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Byronic_Hero"
-    },
-    {
-        "path": "Path of the Byronic Hero",
-        "ability": "Tempered Mettle",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Byronic_Hero"
-    },
-    {
-        "path": "Path of the Byronic Hero",
-        "ability": "Byronic Warrior",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Byronic_Hero"
-    },
-    {
-        "path": "Path of the Heroic Deeds",
-        "ability": "Warm Fuzzy Feelings",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Heroic_Deeds"
-    },
-    {
-        "path": "Path of the Heroic Deeds",
-        "ability": "Heroic Epic",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Heroic_Deeds"
-    },
-    {
-        "path": "Path of the Heroic Deeds",
-        "ability": "The Assistant",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Heroic_Deeds"
     },
     {
         "path": "Path of the Supporter",
@@ -2080,78 +2435,8 @@
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Supporter"
     },
     {
-        "path": "Path of the Supportive Leader",
-        "ability": "Command Ally",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Supportive_Leader"
-    },
-    {
-        "path": "Path of the Supportive Leader",
-        "ability": "Rally",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Supportive_Leader"
-    },
-    {
-        "path": "Path of the Supportive Leader",
-        "ability": "Wingman",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Supportive_Leader"
-    },
-    {
-        "path": "Path of the Supportive Leader",
-        "ability": "Lasting Encouragement",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Supportive_Leader"
-    },
-    {
-        "path": "Path of the Supportive Leader",
-        "ability": "Love and Support",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Supportive_Leader"
-    },
-    {
-        "path": "Path of the Supportive Leader",
-        "ability": "You Have My Command",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Supportive_Leader"
-    },
-    {
-        "path": "Path of the Supportive Leader",
-        "ability": "You Have My Words",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Supportive_Leader"
-    },
-    {
-        "path": "Path of the Supportive Engineer",
-        "ability": "Handy Friend",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Supportive_Engineer"
-    },
-    {
-        "path": "Path of the Supportive Engineer",
-        "ability": "Reforge",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Supportive_Engineer"
-    },
-    {
-        "path": "Path of the Supportive Engineer",
-        "ability": "Like Clockwork",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Supportive_Engineer"
-    },
-    {
-        "path": "Path of the Supportive Engineer",
-        "ability": "You Have My Trap",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Supportive_Engineer"
-    },
-    {
-        "path": "Path of the Supportive Engineer",
-        "ability": "You Have My Spanner",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Supportive_Engineer"
-    },
-    {
-        "path": "Path of the Supportive Engineer",
-        "ability": "You Have My Hammer",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Supportive_Engineer"
-    },
-    {
         "path": "Path of the Supportive Adventurer",
         "ability": "Tactical Insight",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Supportive_Adventurer"
-    },
-    {
-        "path": "Path of the Supportive Adventurer",
-        "ability": "Aggressive Shout",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Supportive_Adventurer"
     },
     {
@@ -2190,8 +2475,78 @@
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Supportive_Adventurer"
     },
     {
+        "path": "Path of the Supportive Engineer",
+        "ability": "Handy Friend",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Supportive_Engineer"
+    },
+    {
+        "path": "Path of the Supportive Engineer",
+        "ability": "Reforge",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Supportive_Engineer"
+    },
+    {
+        "path": "Path of the Supportive Engineer",
+        "ability": "Like Clockwork",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Supportive_Engineer"
+    },
+    {
+        "path": "Path of the Supportive Engineer",
+        "ability": "You Have My Trap",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Supportive_Engineer"
+    },
+    {
+        "path": "Path of the Supportive Engineer",
+        "ability": "You Have My Spanner",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Supportive_Engineer"
+    },
+    {
+        "path": "Path of the Supportive Engineer",
+        "ability": "You Have My Hammer",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Supportive_Engineer"
+    },
+    {
+        "path": "Path of the Supportive Leader",
+        "ability": "Command Ally",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Supportive_Leader"
+    },
+    {
+        "path": "Path of the Supportive Leader",
+        "ability": "Rally",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Supportive_Leader"
+    },
+    {
+        "path": "Path of the Supportive Leader",
+        "ability": "Wingman",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Supportive_Leader"
+    },
+    {
+        "path": "Path of the Supportive Leader",
+        "ability": "Lasting Encouragement",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Supportive_Leader"
+    },
+    {
+        "path": "Path of the Supportive Leader",
+        "ability": "Love and Support",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Supportive_Leader"
+    },
+    {
+        "path": "Path of the Supportive Leader",
+        "ability": "You Have My Command",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Supportive_Leader"
+    },
+    {
+        "path": "Path of the Supportive Leader",
+        "ability": "You Have My Words",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Supportive_Leader"
+    },
+    {
         "path": "Path of the Supported",
         "ability": "So Much Love",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Supported"
+    },
+    {
+        "path": "Path of the Supported",
+        "ability": "With a Little Help From My Friends",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Supported"
     },
     {
@@ -2212,6 +2567,16 @@
     {
         "path": "Path of the Supported",
         "ability": "I'll Take a Hit for You",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Supported"
+    },
+    {
+        "path": "Path of the Supported",
+        "ability": "Thanks For the Hand",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Supported"
+    },
+    {
+        "path": "Path of the Supported",
+        "ability": "You Trust the Rogue?",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Supported"
     },
     {
@@ -2258,6 +2623,36 @@
         "path": "Path of the Supported",
         "ability": "Impressive Critical Strike",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Supported"
+    },
+    {
+        "path": "Path of the Supported Explorer",
+        "ability": "Bullet Time",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Supported_Explorer"
+    },
+    {
+        "path": "Path of the Supported Explorer",
+        "ability": "Friendly Boost",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Supported_Explorer"
+    },
+    {
+        "path": "Path of the Supported Explorer",
+        "ability": "Expedience",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Supported_Explorer"
+    },
+    {
+        "path": "Path of the Supported Explorer",
+        "ability": "Deceitful Duel",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Supported_Explorer"
+    },
+    {
+        "path": "Path of the Supported Explorer",
+        "ability": "En Garde",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Supported_Explorer"
+    },
+    {
+        "path": "Path of the Supported Explorer",
+        "ability": "Close Call",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Supported_Explorer"
     },
     {
         "path": "Path of the Supported Mage",
@@ -2310,39 +2705,109 @@
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Supported_Scholar"
     },
     {
-        "path": "Path of the Supported Explorer",
-        "ability": "Bullet Time",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Supported_Explorer"
+        "path": "Path of the Byronic Hero",
+        "ability": "Down But Not Out",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Byronic_Hero"
     },
     {
-        "path": "Path of the Supported Explorer",
-        "ability": "Friendly Boost",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Supported_Explorer"
+        "path": "Path of the Byronic Hero",
+        "ability": "Gratefully Flawed",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Byronic_Hero"
     },
     {
-        "path": "Path of the Supported Explorer",
-        "ability": "Expedience",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Supported_Explorer"
+        "path": "Path of the Byronic Hero",
+        "ability": "Critical Growth",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Byronic_Hero"
     },
     {
-        "path": "Path of the Supported Explorer",
-        "ability": "Deceitful Duel",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Supported_Explorer"
+        "path": "Path of the Byronic Hero",
+        "ability": "Strong Grates",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Byronic_Hero"
     },
     {
-        "path": "Path of the Supported Explorer",
-        "ability": "En Garde",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Supported_Explorer"
+        "path": "Path of the Byronic Hero",
+        "ability": "Tempered Mettle",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Byronic_Hero"
     },
     {
-        "path": "Path of the Supported Explorer",
-        "ability": "Close Call",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Supported_Explorer"
+        "path": "Path of the Byronic Hero",
+        "ability": "Byronic Warrior",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Byronic_Hero"
     },
     {
-        "path": "Path of the Supported Explorer",
-        "ability": "Taunt",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Supported_Explorer"
+        "path": "Path of the Protagonist",
+        "ability": "Story of the Hero",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Protagonist"
+    },
+    {
+        "path": "Path of the Protagonist",
+        "ability": "Declare Attack",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Protagonist"
+    },
+    {
+        "path": "Path of the Protagonist",
+        "ability": "Blessing in Disguise",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Protagonist"
+    },
+    {
+        "path": "Path of the Protagonist",
+        "ability": "Hero's Mentorship",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Protagonist"
+    },
+    {
+        "path": "Path of the Protagonist",
+        "ability": "Aspect of the Hero",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Protagonist"
+    },
+    {
+        "path": "Path of the Protagonist",
+        "ability": "Hero of the Tides",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Protagonist"
+    },
+    {
+        "path": "Path of the Protagonist",
+        "ability": "Lesson Learned",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Protagonist"
+    },
+    {
+        "path": "Path of the Protagonist",
+        "ability": "Heroic Flourish",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Protagonist"
+    },
+    {
+        "path": "Path of the Protagonist",
+        "ability": "Hero in Flux",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Protagonist"
+    },
+    {
+        "path": "Path of the Protagonist",
+        "ability": "Naturally Awesome",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Protagonist"
+    },
+    {
+        "path": "Path of the Protagonist",
+        "ability": "Exceptional Training",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Protagonist"
+    },
+    {
+        "path": "Path of the Protagonist",
+        "ability": "Change of Heart",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Protagonist"
+    },
+    {
+        "path": "Path of the Heroic Deeds",
+        "ability": "Warm Fuzzy Feelings",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Heroic_Deeds"
+    },
+    {
+        "path": "Path of the Heroic Deeds",
+        "ability": "Heroic Epic",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Heroic_Deeds"
+    },
+    {
+        "path": "Path of the Heroic Deeds",
+        "ability": "The Assistant",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Heroic_Deeds"
     },
     {
         "path": "Path of the Commander",
@@ -2586,6 +3051,11 @@
     },
     {
         "path": "Path of the Fluke",
+        "ability": "Can't Escape Fate",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Fluke"
+    },
+    {
+        "path": "Path of the Fluke",
         "ability": "Oblivious Dodge",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Fluke"
     },
@@ -2728,6 +3198,11 @@
         "path": "Path of the Hero",
         "ability": "Hardy Hero",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Hero"
+    },
+    {
+        "path": "Path of the Squad",
+        "ability": "Interdisciplinary Assist",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Squad"
     },
     {
         "path": "Path of the Squad",
@@ -3046,6 +3521,11 @@
     },
     {
         "path": "Path of the Marksman",
+        "ability": "Spotter",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Marksman"
+    },
+    {
+        "path": "Path of the Marksman",
         "ability": "Focus",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Marksman"
     },
@@ -3166,7 +3646,7 @@
     },
     {
         "path": "Path of the Acrobat",
-        "ability": "Requirements: Drop Prone (Nimble)",
+        "ability": "Requirements: Drop Prone (Nimble), Course of Surroundings",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Acrobat"
     },
     {
@@ -3228,6 +3708,61 @@
         "path": "Path of the Acrobat",
         "ability": "Hidden In Plain Sight",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Acrobat"
+    },
+    {
+        "path": "Path of the Builder",
+        "ability": "Combat Fortifications",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Builder"
+    },
+    {
+        "path": "Path of the Builder",
+        "ability": "Slip Spread",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Builder"
+    },
+    {
+        "path": "Path of the Builder",
+        "ability": "Bag of Nuts",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Builder"
+    },
+    {
+        "path": "Path of the Builder",
+        "ability": "Wind Turbine",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Builder"
+    },
+    {
+        "path": "Path of the Builder",
+        "ability": "Tarball",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Builder"
+    },
+    {
+        "path": "Path of the Builder",
+        "ability": "Pump Gun",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Builder"
+    },
+    {
+        "path": "Path of the Builder",
+        "ability": "Pea Turret",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Builder"
+    },
+    {
+        "path": "Path of the Builder",
+        "ability": "Bang Turret",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Builder"
+    },
+    {
+        "path": "Path of the Builder",
+        "ability": "Puppet Parrier",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Builder"
+    },
+    {
+        "path": "Path of the Builder",
+        "ability": "Violet Ray Turret",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Builder"
+    },
+    {
+        "path": "Path of the Builder",
+        "ability": "Arcanoelectric Dome",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Builder"
     },
     {
         "path": "Path of the Environmentalist",
@@ -3460,6 +3995,91 @@
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Assassin"
     },
     {
+        "path": "Path of the Chef",
+        "ability": "Mise en Place",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Chef"
+    },
+    {
+        "path": "Path of the Chef",
+        "ability": "Big Dinner",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Chef"
+    },
+    {
+        "path": "Path of the Chef",
+        "ability": "Slow-Cooked Lunch",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Chef"
+    },
+    {
+        "path": "Path of the Chef",
+        "ability": "Hearty Supper",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Chef"
+    },
+    {
+        "path": "Path of the Chef",
+        "ability": "Cooling Juice",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Chef"
+    },
+    {
+        "path": "Path of the Chef",
+        "ability": "Blood Booster",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Chef"
+    },
+    {
+        "path": "Path of the Chef",
+        "ability": "Green and Orange Salad",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Chef"
+    },
+    {
+        "path": "Path of the Chef",
+        "ability": "Protein Bar",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Chef"
+    },
+    {
+        "path": "Path of the Chef",
+        "ability": "Soothing Drink",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Chef"
+    },
+    {
+        "path": "Path of the Chef",
+        "ability": "Invigorating Drink",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Chef"
+    },
+    {
+        "path": "Path of the Chef",
+        "ability": "Go Juice",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Chef"
+    },
+    {
+        "path": "Path of the Chef",
+        "ability": "Light Snack",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Chef"
+    },
+    {
+        "path": "Path of the Chef",
+        "ability": "Spicy Add-on",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Chef"
+    },
+    {
+        "path": "Path of the Chef",
+        "ability": "Food for Thought",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Chef"
+    },
+    {
+        "path": "Path of the Chef",
+        "ability": "Soul Food",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Chef"
+    },
+    {
+        "path": "Path of the Chef",
+        "ability": "Improve Food",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Chef"
+    },
+    {
+        "path": "Path of the Chef",
+        "ability": "Well-Fed Course",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Chef"
+    },
+    {
         "path": "Path of the Dungeon Delver",
         "ability": "Dark Eyes",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Dungeon_Delver"
@@ -3510,9 +4130,64 @@
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Dungeon_Delver"
     },
     {
-        "path": "Path of the Dungeon Delver",
-        "ability": "Hookwhip Specialist",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Dungeon_Delver"
+        "path": "Path of the Greatest Resistance",
+        "ability": "Supple Fighter",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Greatest_Resistance"
+    },
+    {
+        "path": "Path of the Greatest Resistance",
+        "ability": "Stout",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Greatest_Resistance"
+    },
+    {
+        "path": "Path of the Greatest Resistance",
+        "ability": "Heat Resistant",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Greatest_Resistance"
+    },
+    {
+        "path": "Path of the Greatest Resistance",
+        "ability": "Thick Skin",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Greatest_Resistance"
+    },
+    {
+        "path": "Path of the Greatest Resistance",
+        "ability": "Resilient",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Greatest_Resistance"
+    },
+    {
+        "path": "Path of the Greatest Resistance",
+        "ability": "Loyal",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Greatest_Resistance"
+    },
+    {
+        "path": "Path of the Greatest Resistance",
+        "ability": "Strong Intentions",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Greatest_Resistance"
+    },
+    {
+        "path": "Path of the Greatest Resistance",
+        "ability": "Hardy",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Greatest_Resistance"
+    },
+    {
+        "path": "Path of the Greatest Resistance",
+        "ability": "Stalwart",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Greatest_Resistance"
+    },
+    {
+        "path": "Path of the Greatest Resistance",
+        "ability": "Tenacious",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Greatest_Resistance"
+    },
+    {
+        "path": "Path of the Greatest Resistance",
+        "ability": "Steadfast",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Greatest_Resistance"
+    },
+    {
+        "path": "Path of the Greatest Resistance",
+        "ability": "Immovable",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Greatest_Resistance"
     },
     {
         "path": "Path of the Fighter",
@@ -3552,21 +4227,6 @@
     {
         "path": "Path of the Fighter",
         "ability": "Mighty Blow",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Fighter"
-    },
-    {
-        "path": "Path of the Fighter",
-        "ability": "Great Specialist",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Fighter"
-    },
-    {
-        "path": "Path of the Fighter",
-        "ability": "Brutal Specialist",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Fighter"
-    },
-    {
-        "path": "Path of the Fighter",
-        "ability": "Unarmed Specialist",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Fighter"
     },
     {
@@ -3622,6 +4282,41 @@
     {
         "path": "Path of the Inquisitor",
         "ability": "Analytical Focus",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Inquisitor"
+    },
+    {
+        "path": "Path of the Inquisitor",
+        "ability": "Inquisitor's Examination",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Inquisitor"
+    },
+    {
+        "path": "Path of the Inquisitor",
+        "ability": "Dissect and Inspect",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Inquisitor"
+    },
+    {
+        "path": "Path of the Inquisitor",
+        "ability": "Knew Where To Look",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Inquisitor"
+    },
+    {
+        "path": "Path of the Inquisitor",
+        "ability": "Inquisitor's Influence I",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Inquisitor"
+    },
+    {
+        "path": "Path of the Inquisitor",
+        "ability": "Inquisitor's Influence II",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Inquisitor"
+    },
+    {
+        "path": "Path of the Inquisitor",
+        "ability": "Always Vigilant",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Inquisitor"
+    },
+    {
+        "path": "Path of the Inquisitor",
+        "ability": "Identify the Openings",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Inquisitor"
     },
     {
@@ -3891,6 +4586,11 @@
     },
     {
         "path": "Path of the Armor Tinker",
+        "ability": "Armor Repair",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Armor_Tinker"
+    },
+    {
+        "path": "Path of the Armor Tinker",
         "ability": "Bracer Mount",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Armor_Tinker"
     },
@@ -3977,6 +4677,11 @@
     {
         "path": "Path of the Automaton Tinker",
         "ability": "Construct Automaton III",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Automaton_Tinker"
+    },
+    {
+        "path": "Path of the Automaton Tinker",
+        "ability": "Emergency Repairs",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Automaton_Tinker"
     },
     {
@@ -4206,6 +4911,11 @@
     },
     {
         "path": "Path of the Firearm Tinker",
+        "ability": "T.F.M. 33: Napalm Cannon",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Firearm_Tinker"
+    },
+    {
+        "path": "Path of the Firearm Tinker",
         "ability": "Spark Gun",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Firearm_Tinker"
     },
@@ -4411,6 +5121,11 @@
     },
     {
         "path": "Path of the Transport Tinker",
+        "ability": "Lead Foot",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Transport_Tinker"
+    },
+    {
+        "path": "Path of the Transport Tinker",
         "ability": "Steamboard",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Transport_Tinker"
     },
@@ -4452,6 +5167,11 @@
     {
         "path": "Path of the Transport Tinker",
         "ability": "Hellcopter",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Transport_Tinker"
+    },
+    {
+        "path": "Path of the Transport Tinker",
+        "ability": "Armored Hellcopter",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Transport_Tinker"
     },
     {
@@ -4791,7 +5511,7 @@
     },
     {
         "path": "Path of the Fire Arcana",
-        "ability": "Cross Fire",
+        "ability": "Hex Fire",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Fire_Arcana"
     },
     {
@@ -4997,6 +5717,76 @@
     {
         "path": "Path of the Lightning Arcana",
         "ability": "Static Charge",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Lightning_Arcana"
+    },
+    {
+        "path": "Path of the Lightning Arcana",
+        "ability": "Surge",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Lightning_Arcana"
+    },
+    {
+        "path": "Path of the Lightning Arcana",
+        "ability": "Flaring Sparks",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Lightning_Arcana"
+    },
+    {
+        "path": "Path of the Lightning Arcana",
+        "ability": "Thunder Strike",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Lightning_Arcana"
+    },
+    {
+        "path": "Path of the Lightning Arcana",
+        "ability": "Mass Static Charge",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Lightning_Arcana"
+    },
+    {
+        "path": "Path of the Lightning Arcana",
+        "ability": "Shocking Paralysis",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Lightning_Arcana"
+    },
+    {
+        "path": "Path of the Lightning Arcana",
+        "ability": "Shockwave",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Lightning_Arcana"
+    },
+    {
+        "path": "Path of the Lightning Arcana",
+        "ability": "Bolt",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Lightning_Arcana"
+    },
+    {
+        "path": "Path of the Lightning Arcana",
+        "ability": "Lightning Trap",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Lightning_Arcana"
+    },
+    {
+        "path": "Path of the Lightning Arcana",
+        "ability": "Lightning Infusion",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Lightning_Arcana"
+    },
+    {
+        "path": "Path of the Lightning Arcana",
+        "ability": "Bottled Lightning",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Lightning_Arcana"
+    },
+    {
+        "path": "Path of the Lightning Arcana",
+        "ability": "Lightning Longsword",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Lightning_Arcana"
+    },
+    {
+        "path": "Path of the Lightning Arcana",
+        "ability": "Improved Surge",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Lightning_Arcana"
+    },
+    {
+        "path": "Path of the Lightning Arcana",
+        "ability": "Chain Lightning",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Lightning_Arcana"
+    },
+    {
+        "path": "Path of the Lightning Arcana",
+        "ability": "Bulwark of the Storm",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Lightning_Arcana"
     },
     {
@@ -5691,6 +6481,11 @@
     },
     {
         "path": "Path of the Universalist Arcana",
+        "ability": "Improved Warp",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Universalist_Arcana"
+    },
+    {
+        "path": "Path of the Universalist Arcana",
         "ability": "Missile Barrage",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Universalist_Arcana"
     },
@@ -5945,11 +6740,6 @@
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Brawler"
     },
     {
-        "path": "Path of the Brawler",
-        "ability": "Brawling Specialist",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Brawler"
-    },
-    {
         "path": "Path of the Cantrips",
         "ability": "Enwilden",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Cantrips"
@@ -6176,12 +6966,7 @@
     },
     {
         "path": "Path of the Grenadier",
-        "ability": "Blast Powder",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Grenadier"
-    },
-    {
-        "path": "Path of the Grenadier",
-        "ability": "Unreliable Ricochet Grenade",
+        "ability": "Grenadier's Blasting Powder",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Grenadier"
     },
     {
@@ -6196,7 +6981,7 @@
     },
     {
         "path": "Path of the Grenadier",
-        "ability": "Full to Bursting",
+        "ability": "Really Loaded",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Grenadier"
     },
     {
@@ -6216,12 +7001,17 @@
     },
     {
         "path": "Path of the Grenadier",
-        "ability": "Huge Grenades",
+        "ability": "Precision Launcher",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Grenadier"
     },
     {
         "path": "Path of the Grenadier",
-        "ability": "Precision Launcher",
+        "ability": "Craft Grenades",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Grenadier"
+    },
+    {
+        "path": "Path of the Grenadier",
+        "ability": "O.R.A.M.",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Grenadier"
     },
     {
@@ -6297,6 +7087,11 @@
     {
         "path": "Path of the Magus",
         "ability": "Relaxed Cast",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Magus"
+    },
+    {
+        "path": "Path of the Magus",
+        "ability": "Team Cast",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Magus"
     },
     {
@@ -6426,6 +7221,11 @@
     },
     {
         "path": "Path of the Sniper",
+        "ability": "Hold Breath",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Sniper"
+    },
+    {
+        "path": "Path of the Sniper",
         "ability": "Sniper's Assurance",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Sniper"
     },
@@ -6436,12 +7236,22 @@
     },
     {
         "path": "Path of the Sniper",
+        "ability": "Tripod",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Sniper"
+    },
+    {
+        "path": "Path of the Sniper",
         "ability": "Long Distance Professional",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Sniper"
     },
     {
         "path": "Path of the Sniper",
         "ability": "Long Distance Natural",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Sniper"
+    },
+    {
+        "path": "Path of the Sniper",
+        "ability": "The Perfect Shot",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Sniper"
     },
     {
@@ -6506,7 +7316,27 @@
     },
     {
         "path": "Path of the Biological Tinker",
+        "ability": "Anesthetizing Serum",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Biological_Tinker"
+    },
+    {
+        "path": "Path of the Biological Tinker",
+        "ability": "Overloaded Anesthetizing Serum",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Biological_Tinker"
+    },
+    {
+        "path": "Path of the Biological Tinker",
         "ability": "Arcane Resistance Serum",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Biological_Tinker"
+    },
+    {
+        "path": "Path of the Biological Tinker",
+        "ability": "Godfire",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Biological_Tinker"
+    },
+    {
+        "path": "Path of the Biological Tinker",
+        "ability": "Fortifying Serum",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Biological_Tinker"
     },
     {
@@ -6517,6 +7347,36 @@
     {
         "path": "Path of the Biological Tinker",
         "ability": "Sour Blessing",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Biological_Tinker"
+    },
+    {
+        "path": "Path of the Biological Tinker",
+        "ability": "Elixir of Love",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Biological_Tinker"
+    },
+    {
+        "path": "Path of the Biological Tinker",
+        "ability": "Elixir of Haste",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Biological_Tinker"
+    },
+    {
+        "path": "Path of the Biological Tinker",
+        "ability": "Elixir of Life",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Biological_Tinker"
+    },
+    {
+        "path": "Path of the Biological Tinker",
+        "ability": "Elixir of Focus",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Biological_Tinker"
+    },
+    {
+        "path": "Path of the Biological Tinker",
+        "ability": "Elixir of Energy",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Biological_Tinker"
+    },
+    {
+        "path": "Path of the Biological Tinker",
+        "ability": "Tonic of Everliving",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Biological_Tinker"
     },
     {
@@ -6812,6 +7672,11 @@
     {
         "path": "Path of the Titan Tinker",
         "ability": "Colossus",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Titan_Tinker"
+    },
+    {
+        "path": "Path of the Titan Tinker",
+        "ability": "Titan Mastery",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Titan_Tinker"
     },
     {
@@ -7150,281 +8015,6 @@
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Healer"
     },
     {
-        "path": "Path of the Gifted Fighter",
-        "ability": "Defensive Tackle",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Fighter"
-    },
-    {
-        "path": "Path of the Gifted Fighter",
-        "ability": "Bull's Blood",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Fighter"
-    },
-    {
-        "path": "Path of the Gifted Fighter",
-        "ability": "Incredible Grip",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Fighter"
-    },
-    {
-        "path": "Path of the Gifted Fighter",
-        "ability": "Weaponmaster",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Fighter"
-    },
-    {
-        "path": "Path of the Gifted Fighter",
-        "ability": "Tenacious",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Fighter"
-    },
-    {
-        "path": "Path of the Gifted Fighter",
-        "ability": "Fortitude of the Somnolent",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Fighter"
-    },
-    {
-        "path": "Path of the Gifted Fighter",
-        "ability": "Fighting Spirit",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Fighter"
-    },
-    {
-        "path": "Path of the Gifted Craftsman",
-        "ability": "Memory Palace",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Craftsman"
-    },
-    {
-        "path": "Path of the Gifted Craftsman",
-        "ability": "Jack of Tinkertech",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Craftsman"
-    },
-    {
-        "path": "Path of the Gifted Craftsman",
-        "ability": "Quick Construction",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Craftsman"
-    },
-    {
-        "path": "Path of the Gifted Craftsman",
-        "ability": "Tinker's Utility Kit",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Craftsman"
-    },
-    {
-        "path": "Path of the Gifted Scout",
-        "ability": "Impressive Reactions",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Scout"
-    },
-    {
-        "path": "Path of the Gifted Scout",
-        "ability": "Boon of the Nightwatch",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Scout"
-    },
-    {
-        "path": "Path of the Gifted Scout",
-        "ability": "Never Lost",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Scout"
-    },
-    {
-        "path": "Path of the Gifted Scout",
-        "ability": "Efficient Scavenger",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Scout"
-    },
-    {
-        "path": "Path of the Gifted Scout",
-        "ability": "Find the Opening",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Scout"
-    },
-    {
-        "path": "Path of the Gifted Scout",
-        "ability": "Perfect Senses",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Scout"
-    },
-    {
-        "path": "Path of the Gifted Scout",
-        "ability": "Hunter of the Six Senses",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Scout"
-    },
-    {
-        "path": "Path of the Gifted Duelist",
-        "ability": "Snake Strike",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Duelist"
-    },
-    {
-        "path": "Path of the Gifted Duelist",
-        "ability": "Twist the Dagger",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Duelist"
-    },
-    {
-        "path": "Path of the Gifted Duelist",
-        "ability": "Steady Hand",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Duelist"
-    },
-    {
-        "path": "Path of the Gifted Duelist",
-        "ability": "Perfect Throw",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Duelist"
-    },
-    {
-        "path": "Path of the Gifted Duelist",
-        "ability": "Top Notch",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Duelist"
-    },
-    {
-        "path": "Path of the Gifted Duelist",
-        "ability": "Expert Disarm",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Duelist"
-    },
-    {
-        "path": "Path of the Gifted Researcher",
-        "ability": "True Understanding",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Researcher"
-    },
-    {
-        "path": "Path of the Gifted Researcher",
-        "ability": "Will and Wit",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Researcher"
-    },
-    {
-        "path": "Path of the Gifted Researcher",
-        "ability": "Perfect Analysis",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Researcher"
-    },
-    {
-        "path": "Path of the Gifted Researcher",
-        "ability": "Inquisitive Experimentation",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Researcher"
-    },
-    {
-        "path": "Path of the Gifted Researcher",
-        "ability": "Astute Observation",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Researcher"
-    },
-    {
-        "path": "Path of the Gifted Heart",
-        "ability": "Judge of Character",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Heart"
-    },
-    {
-        "path": "Path of the Gifted Heart",
-        "ability": "Perfect Persuasion",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Heart"
-    },
-    {
-        "path": "Path of the Gifted Heart",
-        "ability": "Charismatic Resolve",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Heart"
-    },
-    {
-        "path": "Path of the Gifted Heart",
-        "ability": "Never Alone",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Heart"
-    },
-    {
-        "path": "Path of the Gifted Loremaster",
-        "ability": "Bookworm",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Loremaster"
-    },
-    {
-        "path": "Path of the Gifted Loremaster",
-        "ability": "Eidetic Memory",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Loremaster"
-    },
-    {
-        "path": "Path of the Gifted Loremaster",
-        "ability": "Strategist",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Loremaster"
-    },
-    {
-        "path": "Path of the Gifted Magician",
-        "ability": "The hidden Path of the Gifted Magician is available only to those with the Gift of Magic and teaches the way of exceptional casting.",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Magician"
-    },
-    {
-        "path": "Path of the Gifted Magician",
-        "ability": "Inner Sanctum of the Mind",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Magician"
-    },
-    {
-        "path": "Path of the Gifted Magician",
-        "ability": "Top Caster",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Magician"
-    },
-    {
-        "path": "Path of the Gifted Magician",
-        "ability": "Mage Prestige",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Magician"
-    },
-    {
-        "path": "Path of the Gifted Magician",
-        "ability": "Projected Spirit",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Magician"
-    },
-    {
-        "path": "Path of the Gifted Magician",
-        "ability": "Spirit Word",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Magician"
-    },
-    {
-        "path": "Path of the Gifted Ninja",
-        "ability": "Nimble",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Ninja"
-    },
-    {
-        "path": "Path of the Gifted Ninja",
-        "ability": "Sprightly Vigor",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Ninja"
-    },
-    {
-        "path": "Path of the Gifted Ninja",
-        "ability": "Light-Footed",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Ninja"
-    },
-    {
-        "path": "Path of the Gifted Ninja",
-        "ability": "Dash",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Ninja"
-    },
-    {
-        "path": "Path of the Gifted Ninja",
-        "ability": "Double Dash",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Ninja"
-    },
-    {
-        "path": "Path of the Gifted Ninja",
-        "ability": "Bolt Attack",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Ninja"
-    },
-    {
-        "path": "Path of the Unchosen One",
-        "ability": "The hidden Path of the Unchosen One is available only to those with no Gift.",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Unchosen_One"
-    },
-    {
-        "path": "Path of the Unchosen One",
-        "ability": "Determination",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Unchosen_One"
-    },
-    {
-        "path": "Path of the Unchosen One",
-        "ability": "Unsung Hero",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Unchosen_One"
-    },
-    {
-        "path": "Path of the Unchosen One",
-        "ability": "Luck of the Nobody",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Unchosen_One"
-    },
-    {
-        "path": "Path of the Unchosen One",
-        "ability": "Luck of the Red Shirt",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Unchosen_One"
-    },
-    {
-        "path": "Path of the Unchosen One",
-        "ability": "Background Noise",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Unchosen_One"
-    },
-    {
-        "path": "Path of the Unchosen One",
-        "ability": "Nothing Special",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Unchosen_One"
-    },
-    {
         "path": "Path of the Aggressive Weapons",
         "ability": "Aggressive Full Swing",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Aggressive_Weapons"
@@ -7482,6 +8072,11 @@
     {
         "path": "Path of the Arcane Weapons",
         "ability": "Spectral Weapon",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Arcane_Weapons"
+    },
+    {
+        "path": "Path of the Arcane Weapons",
+        "ability": "Homing Spell",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Arcane_Weapons"
     },
     {
@@ -7621,6 +8216,11 @@
     },
     {
         "path": "Path of the Bow Weapons",
+        "ability": "Hunter's Mark",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Bow_Weapons"
+    },
+    {
+        "path": "Path of the Bow Weapons",
         "ability": "Silence of the Bow",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Bow_Weapons"
     },
@@ -7657,16 +8257,6 @@
     {
         "path": "Path of the Bow Weapons",
         "ability": "Longbow Expertise",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Bow_Weapons"
-    },
-    {
-        "path": "Path of the Bow Weapons",
-        "ability": "Shortbow Mastery",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Bow_Weapons"
-    },
-    {
-        "path": "Path of the Bow Weapons",
-        "ability": "Longbow Mastery",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Bow_Weapons"
     },
     {
@@ -7898,6 +8488,51 @@
         "path": "Path of the Great Weapons",
         "ability": "Great Stance",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Great_Weapons"
+    },
+    {
+        "path": "Path of the Grenade Weapons",
+        "ability": "Full to Bursting",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Grenade_Weapons"
+    },
+    {
+        "path": "Path of the Grenade Weapons",
+        "ability": "Cook Grenade",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Grenade_Weapons"
+    },
+    {
+        "path": "Path of the Grenade Weapons",
+        "ability": "Grenade Defense Breaker",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Grenade_Weapons"
+    },
+    {
+        "path": "Path of the Grenade Weapons",
+        "ability": "Huge Grenades",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Grenade_Weapons"
+    },
+    {
+        "path": "Path of the Grenade Weapons",
+        "ability": "Curveball",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Grenade_Weapons"
+    },
+    {
+        "path": "Path of the Grenade Weapons",
+        "ability": "Screwball",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Grenade_Weapons"
+    },
+    {
+        "path": "Path of the Grenade Weapons",
+        "ability": "Eephus",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Grenade_Weapons"
+    },
+    {
+        "path": "Path of the Grenade Weapons",
+        "ability": "With Extra Sauce",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Grenade_Weapons"
+    },
+    {
+        "path": "Path of the Grenade Weapons",
+        "ability": "Perfect Placement",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Grenade_Weapons"
     },
     {
         "path": "Path of the Polearm Weapons",

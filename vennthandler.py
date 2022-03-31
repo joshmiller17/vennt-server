@@ -128,6 +128,20 @@ class VenntHandler(BaseHTTPRequestHandler):
         if username is None:
             return self.respond({"success": False, "info": MSG_BAD_AUTH})
 
+        # -------------  CHARACTERS / ENEMIES -------------------------
+
+        if path == POST_PATHS["CREATE_CHARACTER"]:
+            key_error = self.check_keys(args, [KEY_AUTH])
+            if key_error:
+                return self.respond(key_error)
+            return create_character_post(self, json_data, username)
+
+        if path == POST_PATHS["CREATE_ENEMY"]:
+            key_error = self.check_keys(args, [KEY_AUTH], [KEY_CAMPAIGN_ID])
+            if key_error:
+                return self.respond(key_error)
+            return create_enemy_post(self, json_data, args, username)
+
         # ----------------  ABILITIES -----------------------
 
         if path == POST_PATHS["CREATE_ABILITIY"]:
@@ -338,7 +352,7 @@ class VenntHandler(BaseHTTPRequestHandler):
 
         elif path == PATHS["ADD_ITEM"]:
             key_error = self.check_keys(
-                args, [KEY_AUTH, KEY_ID, KEY_NAME, KEY_DESC, KEY_BULK])
+                args, [KEY_AUTH, KEY_ID, ITEM_NAME, ITEM_DESC, ITEM_BULK], [ITEM_TYPE, ITEM_COURSES])
             if key_error:
                 return self.respond(key_error)
 
@@ -384,7 +398,7 @@ class VenntHandler(BaseHTTPRequestHandler):
 
         elif path == PATHS["CREATE_CHARACTER"]:
             key_error = self.check_keys(
-                args, [KEY_AUTH, KEY_NAME], keys_opt=ATTRIBUTES + [KEY_GIFT])
+                args, [KEY_AUTH, KEY_NAME], keys_opt=ATTRIBUTES + [KEY_GIFT] + OPTIONAL_ATTRIBUTES)
             if key_error:
                 return self.respond(key_error)
 

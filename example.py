@@ -171,6 +171,110 @@ data = {"auth_token": gm_token,
 response = requests.get(url + 'get_ability', params=data, verify=do_ssl)
 check_continue(response)
 
+print("update ability comment")
+comment = "test comment" + str(uuid.uuid4())
+data = {"auth_token": gm_token,
+        "name": example_ability, "id": my_character_id, "comment": comment}
+response = requests.get(url + 'update_ability_comment', params=data, verify=do_ssl)
+check_continue(response)
+data = {"auth_token": gm_token,
+        "name": example_ability, "id": my_character_id}
+response = requests.get(url + 'get_ability', params=data, verify=do_ssl)
+check_continue(response)
+response = json.loads(response.text)
+assert(not args.verify or response["value"]["comment"] == comment)
+
+print("refresh ability")
+data = {"auth_token": gm_token,
+        "name": example_ability, "id": my_character_id}
+response = requests.get(url + 'refresh_abillty', params=data, verify=do_ssl)
+check_continue(response)
+data = {"auth_token": gm_token,
+        "name": example_ability, "id": my_character_id}
+response = requests.get(url + 'get_ability', params=data, verify=do_ssl)
+check_continue(response)
+response = json.loads(response.text)
+assert(not args.verify or "comment" not in response["value"])
+
+print("remove ability")
+data = {"auth_token": gm_token,
+        "name": example_ability, "id": my_character_id}
+response = requests.get(url + 'remove_abillty', params=data, verify=do_ssl)
+check_continue(response)
+
+print("create custom ability")
+custom_ability = {"name": "custom ability", "effect": "fancy custom ability", "cost": {"Passive": True},
+                    "special_ability_type": "custom_ability"}
+data = {"auth_token": gm_token, "id": my_character_id}
+response = requests.post(url + 'create_ability', json=custom_ability, params=data, verify=do_ssl)
+check_continue(response)
+data = {"auth_token": gm_token,
+        "name": custom_ability["name"], "id": my_character_id}
+response = requests.get(url + 'get_ability', params=data, verify=do_ssl)
+check_continue(response)
+response = json.loads(response.text)
+assert(not args.verify or response["value"]["name"] == custom_ability["name"])
+assert(not args.verify or response["value"]["effect"] == custom_ability["effect"])
+assert(not args.verify or response["value"]["cost"] == custom_ability["cost"])
+
+print("update ability")
+custom_ability["effect"] = "new custom effect"
+custom_ability["range"] = "12m"
+data = {"auth_token": gm_token,
+        "name": custom_ability["name"], "id": my_character_id}
+response = requests.post(url + 'update_ability', json=custom_ability, params=data, verify=do_ssl)
+check_continue(response)
+data = {"auth_token": gm_token,
+        "name": custom_ability["name"], "id": my_character_id}
+response = requests.get(url + 'get_ability', params=data, verify=do_ssl)
+check_continue(response)
+response = json.loads(response.text)
+assert(not args.verify or response["value"]["name"] == custom_ability["name"])
+assert(not args.verify or response["value"]["effect"] == custom_ability["effect"])
+assert(not args.verify or response["value"]["cost"] == custom_ability["cost"])
+assert(not args.verify or response["value"]["range"] == custom_ability["range"])
+
+# Character creation via post APIs
+
+print("create character post")
+custom_item = {"name": "Fashionable Outfit", "type": "container", "bulk": 5, "desc" : "Stylish", "courses": ""}
+custom_character = {"name": str(uuid.uuid4()), "MAX_HP": 30, "HP": 3, "REACH": 2,
+                    "items": [custom_item], "abilities": [custom_ability]}
+data = {"auth_token": gm_token}
+response = requests.post(url + 'create_character', json=custom_character, params=data, verify=do_ssl)
+check_continue(response)
+response = json.loads(response.text)
+custom_character_id = response["id"]
+
+data = {"auth_token": gm_token, "id": custom_character_id}
+response = requests.get(url + 'get_character', params=data, verify=do_ssl)
+check_continue(response)
+response = json.loads(response.text)
+assert(not args.verify or response["value"]["name"] == custom_character["name"])
+assert(not args.verify or response["value"]["is_enemy"] == False)
+assert(not args.verify or len(response["value"]["items"]) == 1)
+assert(not args.verify or response["value"]["items"][0]["name"] == custom_item["name"])
+assert(not args.verify or len(response["value"]["abilities"]) == 1)
+assert(not args.verify or response["value"]["abilities"][0]["name"] == custom_ability["name"])
+
+print("create enemy post")
+data = {"auth_token": gm_token}
+response = requests.post(url + 'create_enemy', json=custom_character, params=data, verify=do_ssl)
+check_continue(response)
+response = json.loads(response.text)
+custom_enemy_id = response["id"]
+
+data = {"auth_token": gm_token, "id": custom_enemy_id}
+response = requests.get(url + 'get_character', params=data, verify=do_ssl)
+check_continue(response)
+response = json.loads(response.text)
+assert(not args.verify or response["value"]["name"] == custom_character["name"])
+assert(not args.verify or response["value"]["is_enemy"] == True)
+assert(not args.verify or len(response["value"]["items"]) == 1)
+assert(not args.verify or response["value"]["items"][0]["name"] == custom_item["name"])
+assert(not args.verify or len(response["value"]["abilities"]) == 1)
+assert(not args.verify or response["value"]["abilities"][0]["name"] == custom_ability["name"])
+
 # ITEMS
 
 print("Add item")

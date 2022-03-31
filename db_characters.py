@@ -18,14 +18,8 @@ def get_character(self, username, char_id):
     return None
 
 
-def create_character(self, username, character, is_enemy=False):
+def create_character(self, username, character):
     self.assert_valid("accounts", username, "characters")
-    for attr in ATTRIBUTES:
-        if attr not in character:
-            character[attr] = 0
-    character["items"] = []
-    character["abilities"] = []
-    character["is_enemy"] = is_enemy
     self.db["accounts"][username]["characters"][character["id"]] = character
     self.save_db()
 

@@ -66,9 +66,18 @@ PATHS = {
 ATTRIBUTES = [
     "AGI", "CHA", "DEX", "INT", "PER", "SPI",
     "STR", "TEK", "WIS", "HP", "MAX_HP", "MP",
-    "MAX_MP", "VIM", "MAX_VIM", "ARMOR", "HERO",
-    "MAX_HERO", "INIT", "SPEED", "XP", "SP",
-    "MAX_BULK"
+    "MAX_MP", "VIM", "MAX_VIM", "ARMOR", "INIT",
+    "SPEED", "XP", "SP", "HERO", "MAX_HERO",
+]
+
+OPTIONAL_ATTRIBUTES = [
+    "TEMPLATE", # Cog template
+    "COG_TYPE", # Cog type
+    "LEVEL", # Used when level is not determined by XP levels
+    "ACC", # Used when accuracy has a special definition for a character
+    "RADIUS", # Used for the size of a character
+    "REACH", # Used for when a character has an unusual reach
+    "MAX_BULK", # this is now deprecated for using a "container" type item
 ]
 
 # Need to add combat attributes here:
@@ -151,6 +160,14 @@ class Permission:
     EDIT = 5  # can edit all details -- UNUSED
     OWN = 6  # owner-only
 
+CHAR_NAME = "name"
+CHAR_ID = "id"
+CHAR_GIFT = "gift"
+CHAR_ABILITIES = "abilities"
+CHAR_ITEMS = "items"
+CHAR_WEAPONS = "weapons"
+CHAR_IS_ENEMY = "is_enemy"
+
 # Ability dictionary keys
 ABI_DICT_CONTENTS = "contents"
 ABI_DICT_NAME = "name"
@@ -170,6 +187,15 @@ ABI_DICT_NOT_REQ = "not_required"
 ABI_DICT_FLAVOR = "flavor"
 ABI_DICT_EFFECT = "effect"
 ABI_DICT_PATH = "path"
-ABI_DICT_SPECIAL_TYPE = "specialAbilityType" # used for seperating custom abilities from default abilities
+ABI_DICT_SPECIAL_TYPE = "special_ability_type" # used for seperating custom abilities from default abilities
 ABI_DICT_AP = "ap" # when making a cog, the AP cost of the ability
 ABI_DICT_COMMENT = "comment" # used for leaving a personal comment on an ability - e.g. how many times you have used it
+
+# Item dictionary keys
+ITEM_ID = "id"
+ITEM_NAME = "name"
+ITEM_DESC = "desc"
+ITEM_BULK = "bulk"
+ITEM_TYPE = "type"
+ITEM_COURSES = "courses"
+ITEM_COMMENT = "comment" # used for leaving a personal comment on an item

@@ -4,7 +4,7 @@
 import venntdb
 import webscraper
 import time
-import ability as Ability
+import utilities.ability as ability
 from constants import *
 
 import importlib
@@ -16,21 +16,22 @@ logger = logClass.Logger("db_abilities")
 
 def add_ability(self, username, character_id, abiDict):
     self.assert_valid("accounts", username, "characters",
-                      character_id, "abilities")
-    self.db["accounts"][username]["characters"][character_id]["abilities"].append(
+                      character_id, CHAR_ABILITIES)
+    self.db["accounts"][username]["characters"][character_id][CHAR_ABILITIES].append(
         abiDict)
+    self.save_db()
 
 
 def get_abilities(self, username, character_id):
     self.assert_valid("accounts", username, "characters",
-                      character_id, "abilities")
-    return [abiDict[ABI_DICT_NAME] for abiDict in self.db["accounts"][username]["characters"][character_id]["abilities"]]
+                      character_id, CHAR_ABILITIES)
+    return [abiDict[ABI_DICT_NAME] for abiDict in self.db["accounts"][username]["characters"][character_id][CHAR_ABILITIES]]
 
 
 def get_ability(self, username, character_id, ability):
     self.assert_valid("accounts", username, "characters",
-                      character_id, "abilities")
-    for abiDict in self.db["accounts"][username]["characters"][character_id]["abilities"]:
+                      character_id, CHAR_ABILITIES)
+    for abiDict in self.db["accounts"][username]["characters"][character_id][CHAR_ABILITIES]:
         if ability == abiDict[ABI_DICT_NAME]:
             return abiDict
     return None
@@ -38,12 +39,12 @@ def get_ability(self, username, character_id, ability):
 
 def remove_ability(self, username, character_id, ability):
     self.assert_valid("accounts", username, "characters",
-                      character_id, "abilities")
-    abilities = self.db["accounts"][username]["characters"][character_id]["abilities"]
+                      character_id, CHAR_ABILITIES)
+    abilities = self.db["accounts"][username]["characters"][character_id][CHAR_ABILITIES]
     new_abilities = [a for a in abilities if a[ABI_DICT_NAME] != ability]
     if len(abilities) - len(new_abilities) > 0:
         # If there are multiple abilities with the same name, we remove all of them
-        self.db["accounts"][username]["characters"][character_id]["abilities"] = new_abilities
+        self.db["accounts"][username]["characters"][character_id][CHAR_ABILITIES] = new_abilities
         return True
     return False
 
@@ -104,7 +105,7 @@ def get_or_make_ability(self, name):
     contents = webscraper.get_ability_contents(found_name, URL)
     if contents == []:
         pass  # TODO?
-    new_ability = Ability.make_ability(contents, path)
+    new_ability = ability.make_ability(contents, path)
     self.cache_ability(new_ability)
     return new_ability
 

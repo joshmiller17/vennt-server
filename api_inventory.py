@@ -40,7 +40,12 @@ def add_item(self, args, username):
 		return self.respond({"success":False, "info":MSG_NOT_INT.format(KEY_BULK)})
 	
 	id = IDType.ITEM + str(uuid.uuid4())
-	item = {"name":name, "id":id, "desc":desc, "bulk":bulk}
+	item = { ITEM_ID: id, ITEM_NAME: name, ITEM_DESC: desc, ITEM_BULK: bulk, ITEM_TYPE: "custom" }
+	if ITEM_TYPE in args and len(args[ITEM_TYPE]) <= MAX_NAME_LENGTH:
+		item[ITEM_TYPE] = args[ITEM_TYPE]
+	if ITEM_COURSES in args and len(args[ITEM_COURSES]) <= MAX_NAME_LENGTH:
+		item[ITEM_COURSES] = args[ITEM_COURSES]
+
 	success = self.server.db.add_item(username, args[KEY_ID], item)
 	
 	if not success:

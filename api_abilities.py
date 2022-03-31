@@ -3,7 +3,7 @@
 
 import venntdb, uuid
 from constants import *
-import ability
+import utilities.ability as ability_util
 
 # VenntHandler methods
 
@@ -46,7 +46,7 @@ def get_ability(self, args, username):
 
 def add_custom_ability(self, json_data, args, username):
 	# Validate json_data
-	if not ability.is_valid(json_data, True):
+	if not ability_util.is_valid(json_data, True):
 		return self.respond({"success":False, "info":"Invalid ability shape"})
 
 	character_id = args[KEY_ID]
@@ -61,7 +61,7 @@ def add_custom_ability(self, json_data, args, username):
 	return self.respond({"success":True})
 
 def update_ability(self, json_data, args, username):
-	if not ability.is_valid(json_data):
+	if not ability_util.is_valid(json_data):
 		return self.respond({"success":False, "info":"Invalid ability shape"})
 
 	ability_name = args[KEY_NAME]
@@ -92,9 +92,9 @@ def refresh_ability(self, args, username):
 		return self.respond({"success":False, "info":MSG_NO_PERMISSION})
 
 	current_ability = self.server.db.get_ability(username, character_id, ability_name)
-	if current_ability is not None:
-		return self.respond({"success":False, "info":"Ability of the same name already exists."})
-	elif ABI_DICT_SPECIAL_TYPE not in current_ability:
+	if current_ability is None:
+		return self.respond({"success":False, "info":"Ability of the same name does not already exist."})
+	elif ABI_DICT_SPECIAL_TYPE in current_ability:
 		return self.respond({"success":False, "info":"Custom abilities may not be refreshed"})
 
 	# Refresh ability by removing it from the character, clearing the ability from the cache,

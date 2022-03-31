@@ -47,10 +47,10 @@ def add_weapon(self, username, weapon):
 
 def add_item(self, username, character_id, item):
     self.assert_valid("accounts", username, "characters",
-                      character_id, "items")
-    if len(self.db["accounts"][username]["characters"][character_id]["items"]) >= MAX_INVENTORY_SIZE:
+                      character_id, CHAR_ITEMS)
+    if len(self.db["accounts"][username]["characters"][character_id][CHAR_ITEMS]) >= MAX_INVENTORY_SIZE:
         return False
-    self.db["accounts"][username]["characters"][character_id]["items"].append(
+    self.db["accounts"][username]["characters"][character_id][CHAR_ITEMS].append(
         item)
     self.save_db()
     return True
@@ -58,16 +58,16 @@ def add_item(self, username, character_id, item):
 
 def view_items(self, username, character_id):
     self.assert_valid("accounts", username, "characters",
-                      character_id, "items")
-    return self.db["accounts"][username]["characters"][character_id]["items"]
+                      character_id,CHAR_ITEMS)
+    return self.db["accounts"][username]["characters"][character_id][CHAR_ITEMS]
 
 
 def remove_item(self, username, character_id, item_id):
     self.assert_valid("accounts", username, "characters",
-                      character_id, "items")
-    for item in self.db["accounts"][username]["characters"][character_id]["items"]:
+                      character_id, CHAR_ITEMS)
+    for item in self.db["accounts"][username]["characters"][character_id][CHAR_ITEMS]:
         if item["id"] == item_id:
-            self.db["accounts"][username]["characters"][character_id]["items"].remove(
+            self.db["accounts"][username]["characters"][character_id][CHAR_ITEMS].remove(
                 item)
             self.save_db()
             return True

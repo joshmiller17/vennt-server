@@ -4500,6 +4500,116 @@
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Chirurgeon"
     },
     {
+        "path": "Path of the Wrestler",
+        "ability": "Body Block",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Wrestler"
+    },
+    {
+        "path": "Path of the Wrestler",
+        "ability": "Quick Thinking: Body Block",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Wrestler"
+    },
+    {
+        "path": "Path of the Wrestler",
+        "ability": "Pro Wrestler",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Wrestler"
+    },
+    {
+        "path": "Path of the Wrestler",
+        "ability": "Tighten Hold",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Wrestler"
+    },
+    {
+        "path": "Path of the Wrestler",
+        "ability": "Scuffle",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Wrestler"
+    },
+    {
+        "path": "Path of the Wrestler",
+        "ability": "Shove",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Wrestler"
+    },
+    {
+        "path": "Path of the Wrestler",
+        "ability": "Pin",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Wrestler"
+    },
+    {
+        "path": "Path of the Wrestler",
+        "ability": "Break It Up",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Wrestler"
+    },
+    {
+        "path": "Path of the Wrestler",
+        "ability": "Reverse Maneuver",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Wrestler"
+    },
+    {
+        "path": "Path of the Slippery",
+        "ability": "Weasel",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Slippery"
+    },
+    {
+        "path": "Path of the Slippery",
+        "ability": "Squirm",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Slippery"
+    },
+    {
+        "path": "Path of the Slippery",
+        "ability": "Monkey Grapple",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Slippery"
+    },
+    {
+        "path": "Path of the Slippery",
+        "ability": "Defensive Elbow",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Slippery"
+    },
+    {
+        "path": "Path of the Slippery",
+        "ability": "Bait and Switch",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Slippery"
+    },
+    {
+        "path": "Path of the Gunner",
+        "ability": "Gun Down",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gunner"
+    },
+    {
+        "path": "Path of the Gunner",
+        "ability": "Wild Shot",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gunner"
+    },
+    {
+        "path": "Path of the Gunner",
+        "ability": "Spray and Pray",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gunner"
+    },
+    {
+        "path": "Path of the Gunner",
+        "ability": "Bullet Blitz",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gunner"
+    },
+    {
+        "path": "Path of the Gunner",
+        "ability": "Repeater Shot",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gunner"
+    },
+    {
+        "path": "Path of the Gunner",
+        "ability": "Six-Way Spree",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gunner"
+    },
+    {
+        "path": "Path of the Gunner",
+        "ability": "Once More With Feeling",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gunner"
+    },
+    {
+        "path": "Path of the Gunner",
+        "ability": "Gunner's Echo",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gunner"
+    },
+    {
         "path": "Path of the Alchemical Tinker",
         "ability": "Wise Alchemist",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Alchemical_Tinker"
@@ -5101,6 +5211,11 @@
     },
     {
         "path": "Path of the Transport Tinker",
+        "ability": "Vehicle Pro",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Transport_Tinker"
+    },
+    {
+        "path": "Path of the Transport Tinker",
         "ability": "Mechanical Flippers",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Transport_Tinker"
     },
@@ -5172,6 +5287,11 @@
     {
         "path": "Path of the Transport Tinker",
         "ability": "Armored Hellcopter",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Transport_Tinker"
+    },
+    {
+        "path": "Path of the Transport Tinker",
+        "ability": "Tinkertank",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Transport_Tinker"
     },
     {

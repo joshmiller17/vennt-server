@@ -88,9 +88,13 @@ if __name__ == "__main__":
 	args = parser.parse_args()
 	#get the list of paths
 	if args.paths is not None:
-		paths = getPaths(args.paths.split(","))
+		all_paths = getPaths(args.paths.split(","))
 	else:
-		paths = getPaths(args.paths)
+		all_paths = getPaths(args.paths)
+
+	# remove any duplicates from all_paths
+	paths = []
+	[paths.append(x) for x in all_paths if x not in paths]
 	print("Found %d paths"%len(paths))
 
 	all_entries = []

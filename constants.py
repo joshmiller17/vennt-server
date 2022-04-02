@@ -8,6 +8,15 @@ MAX_UNDO_HISTORY = 100
 
 FULL_UUID_LEN = 37  # uuid is 36 + prefix
 
+POST_PATHS = {
+    "LOGIN_SIGNUP": "",
+    "LOGIN_SIGNUP2": "/",
+    "CREATE_CHARACTER": "/create_character",
+    "CREATE_ENEMY": "/create_enemy",
+    "CREATE_ABILITIY": "/create_ability",
+    "UPDATE_ABILITY": "/update_ability",
+}
+
 PATHS = {
     "LOGOUT": "/logout",
     "CREATE_CHARACTER": "/create_character",
@@ -25,6 +34,9 @@ PATHS = {
     "ADD_ABILITY": "/add_ability",
     "GET_ABILITIES": "/get_abilities",
     "GET_ABILITY": "/get_ability",
+    "REMOVE_ABILITY": "/remove_abillty",
+    "REFRESH_ABILITY": "/refresh_abillty",
+    "UPDATE_ABILITY_COMMENT": "/update_ability_comment",
     "CREATE_ENEMY": "/create_enemy",
     "CREATE_CAMPAIGN": "/create_campaign",
     "GET_CAMPAIGNS": "/get_campaigns",
@@ -54,9 +66,18 @@ PATHS = {
 ATTRIBUTES = [
     "AGI", "CHA", "DEX", "INT", "PER", "SPI",
     "STR", "TEK", "WIS", "HP", "MAX_HP", "MP",
-    "MAX_MP", "VIM", "MAX_VIM", "ARMOR", "HERO",
-    "MAX_HERO", "INIT", "SPEED", "XP", "SP",
-    "MAX_BULK"
+    "MAX_MP", "VIM", "MAX_VIM", "ARMOR", "INIT",
+    "SPEED", "XP", "SP", "HERO", "MAX_HERO",
+]
+
+OPTIONAL_ATTRIBUTES = [
+    "TEMPLATE", # Cog template
+    "COG_TYPE", # Cog type
+    "LEVEL", # Used when level is not determined by XP levels
+    "ACC", # Used when accuracy has a special definition for a character
+    "RADIUS", # Used for the size of a character
+    "REACH", # Used for when a character has an unusual reach
+    "MAX_BULK", # this is now deprecated for using a "container" type item
 ]
 
 # Need to add combat attributes here:
@@ -86,6 +107,7 @@ KEY_MODS = "mods"
 KEY_ROLL = "roll"
 KEY_GIFT = "gift"
 KEY_STYLE = "style"
+KEY_COMMENT = "comment"
 
 MSG_TOO_MANY_REQ = "Too many requests"
 MSG_REQ_LARGE = "Request too large"
@@ -137,3 +159,43 @@ class Permission:
     PRIVATE_VIEW = 4  # can see detailed information
     EDIT = 5  # can edit all details -- UNUSED
     OWN = 6  # owner-only
+
+CHAR_NAME = "name"
+CHAR_ID = "id"
+CHAR_GIFT = "gift"
+CHAR_ABILITIES = "abilities"
+CHAR_ITEMS = "items"
+CHAR_WEAPONS = "weapons"
+CHAR_IS_ENEMY = "is_enemy"
+
+# Ability dictionary keys
+ABI_DICT_CONTENTS = "contents"
+ABI_DICT_NAME = "name"
+ABI_DICT_PURCHASE = "purchase"
+ABI_DICT_EXPEDITED = "expedited"
+ABI_DICT_UNLOCKS = "unlocks"
+ABI_DICT_PARTIAL_UNLOCKS = "partial_unlocks"
+ABI_DICT_PREREQ = "prereq"
+ABI_DICT_MP_COST = "mp_cost"
+ABI_DICT_CAST_DL = "cast_dl"
+ABI_DICT_BUILD_DC = "build_dc"
+ABI_DICT_BUILD_TIME = "build_time"
+ABI_DICT_COST = "cost"
+ABI_DICT_ACTIVATION = "activation"
+ABI_DICT_RANGE = "range"
+ABI_DICT_NOT_REQ = "not_required"
+ABI_DICT_FLAVOR = "flavor"
+ABI_DICT_EFFECT = "effect"
+ABI_DICT_PATH = "path"
+ABI_DICT_SPECIAL_TYPE = "special_ability_type" # used for seperating custom abilities from default abilities
+ABI_DICT_AP = "ap" # when making a cog, the AP cost of the ability
+ABI_DICT_COMMENT = "comment" # used for leaving a personal comment on an ability - e.g. how many times you have used it
+
+# Item dictionary keys
+ITEM_ID = "id"
+ITEM_NAME = "name"
+ITEM_DESC = "desc"
+ITEM_BULK = "bulk"
+ITEM_TYPE = "type"
+ITEM_COURSES = "courses"
+ITEM_COMMENT = "comment" # used for leaving a personal comment on an item

@@ -4,7 +4,7 @@
 import venntdb
 import webscraper
 import time
-import ability as Ability
+import utilities.ability as ability
 from constants import *
 
 import importlib
@@ -16,30 +16,43 @@ logger = logClass.Logger("db_abilities")
 
 def add_ability(self, username, character_id, abiDict):
     self.assert_valid("accounts", username, "characters",
-                      character_id, "abilities")
-    self.db["accounts"][username]["characters"][character_id]["abilities"].append(
+                      character_id, CHAR_ABILITIES)
+    self.db["accounts"][username]["characters"][character_id][CHAR_ABILITIES].append(
         abiDict)
+    self.save_db()
 
 
 def get_abilities(self, username, character_id):
     self.assert_valid("accounts", username, "characters",
-                      character_id, "abilities")
-    return [abiDict["name"] for abiDict in self.db["accounts"][username]["characters"][character_id]["abilities"]]
+                      character_id, CHAR_ABILITIES)
+    return [abiDict[ABI_DICT_NAME] for abiDict in self.db["accounts"][username]["characters"][character_id][CHAR_ABILITIES]]
 
 
 def get_ability(self, username, character_id, ability):
     self.assert_valid("accounts", username, "characters",
-                      character_id, "abilities")
-    for abiDict in self.db["accounts"][username]["characters"][character_id]["abilities"]:
-        if ability == abiDict["name"]:
+                      character_id, CHAR_ABILITIES)
+    for abiDict in self.db["accounts"][username]["characters"][character_id][CHAR_ABILITIES]:
+        if ability == abiDict[ABI_DICT_NAME]:
             return abiDict
     return None
+
+
+def remove_ability(self, username, character_id, ability):
+    self.assert_valid("accounts", username, "characters",
+                      character_id, CHAR_ABILITIES)
+    abilities = self.db["accounts"][username]["characters"][character_id][CHAR_ABILITIES]
+    new_abilities = [a for a in abilities if a[ABI_DICT_NAME] != ability]
+    if len(abilities) - len(new_abilities) > 0:
+        # If there are multiple abilities with the same name, we remove all of them
+        self.db["accounts"][username]["characters"][character_id][CHAR_ABILITIES] = new_abilities
+        return True
+    return False
 
 
 def get_cached_ability(self, name):
     for ability in self.db["ability_cache"]:
         if ability is not None:
-            if name == ability["name"]:
+            if name == ability[ABI_DICT_NAME]:
                 return ability
     return None
 
@@ -49,6 +62,18 @@ def cache_ability(self, abiDict):
     self.db["ability_cache_index"] += 1
     if self.db["ability_cache_index"] > MAX_ABILITY_CACHE:
         self.db["ability_cache_index"] = 0
+
+
+def remove_cached_ability(self, name):
+    ability_idx = -1
+    for idx, ability in enumerate(self.db["ability_cache"]):
+        if ability is not None:
+            if name == ability[ABI_DICT_NAME]:
+                ability_idx = idx
+                break
+    if ability_idx >= 0:
+        # Clear cache record
+        self.db["ability_cache"][ability_idx] = None
 
 
 def find_ability(self, ability_name):
@@ -70,16 +95,17 @@ def find_ability(self, ability_name):
 
 
 def get_or_make_ability(self, name):
-    cached = self.get_cached_ability(name)
-    if cached is not None:
-        return cached
     approximations, URL, path = self.find_ability(name)
     if len(approximations) != 1:
         raise AssertionError("Bad call to db_abilities.get_or_make_ability, incorrect number of approximations")
-    contents = webscraper.get_ability_contents(approximations[0], URL)
+    found_name = approximations[0]
+    cached = self.get_cached_ability(found_name)
+    if cached is not None:
+        return cached
+    contents = webscraper.get_ability_contents(found_name, URL)
     if contents == []:
         pass  # TODO?
-    new_ability = Ability.make_ability(contents, path)
+    new_ability = ability.make_ability(contents, path)
     self.cache_ability(new_ability)
     return new_ability
 

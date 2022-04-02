@@ -33,7 +33,7 @@ def create_campaign(self, username, campaign_id, name):
     self.db["campaigns"][campaign_id]["init_round"] = 0
     self.db["campaigns"][campaign_id]["in_combat"] = False
     self.db["campaigns"][campaign_id]["attacks"] = {}
-	self.db["campaigns"][campaign_id]["courses"] = {}
+    self.db["campaigns"][campaign_id]["courses"] = {}
     #self.db["campaigns"][campaign_id]["logs"] = []
     #self.db["campaigns"][campaign_id]["rolls"] = {}
     self.save_db()

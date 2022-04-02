@@ -76,12 +76,25 @@ class VenntHandler(BaseHTTPRequestHandler):
         self.send_header('Access-Control-Allow-Methods',
                          'OPTIONS, GET, HEAD, POST')
         self.send_header('Allow', 'OPTIONS, GET, HEAD, POST')
+        self.send_header('Access-Control-Max-Age', '86400')
         self.send_header('Content-type', 'text/html')
         self.end_headers()
 
     def do_POST(self):
         if rate_limiter.is_rate_limited(self.client_address[0]):
             return self.respond({"success": False, "info": MSG_TOO_MANY_REQ})
+
+        parse = urlparse(self.path)
+        path = parse.path
+        if len(path) > MAX_REQUEST_SIZE:
+            return self.respond({"success": False, "info": MSG_REQ_LARGE})
+
+        # get the JSON arguments
+        args = parse_qs(parse.query)
+
+        # convert key, [val] to key, val
+        for k, v in args.items():
+            args[k] = v[0]
 
         content_length = int(self.headers['Content-Length'])
         if content_length > MAX_REQUEST_SIZE:
@@ -96,14 +109,59 @@ class VenntHandler(BaseHTTPRequestHandler):
             self.respond({"success": False, "info": "Bad query"})
             return
 
-        if "register" in json_data:
-            handle_register(self, json_data)
-        elif "login" in json_data:
-            handle_login(self, json_data)
-        else:
-            self.respond(
-                {"success": False, "info": "POST must contain register or login key"})
-            return
+        # ----------------  META -------------------------
+
+        if path == POST_PATHS["LOGIN_SIGNUP"] or path == POST_PATHS["LOGIN_SIGNUP2"]:
+            if "register" in json_data:
+                return handle_register(self, json_data)
+            elif "login" in json_data:
+                return handle_login(self, json_data)
+            else:
+                self.respond(
+                    {"success": False, "info": "POST must contain register or login key"})
+                return
+
+        # All following requests need to be authenticated
+        if KEY_AUTH not in args:
+            return self.respond({"success": False, "info": 'Missing required key ' + KEY_AUTH + '.'})
+        username = self.server.db.auth.check_and_fetch(self.client_address[0], args[KEY_AUTH])
+        if username is None:
+            return self.respond({"success": False, "info": MSG_BAD_AUTH})
+
+        # -------------  CHARACTERS / ENEMIES -------------------------
+
+        if path == POST_PATHS["CREATE_CHARACTER"]:
+            key_error = self.check_keys(args, [KEY_AUTH])
+            if key_error:
+                return self.respond(key_error)
+            return create_character_post(self, json_data, username)
+
+        if path == POST_PATHS["CREATE_ENEMY"]:
+            key_error = self.check_keys(args, [KEY_AUTH], [KEY_CAMPAIGN_ID])
+            if key_error:
+                return self.respond(key_error)
+            return create_enemy_post(self, json_data, args, username)
+
+        # ----------------  ABILITIES -----------------------
+
+        if path == POST_PATHS["CREATE_ABILITIY"]:
+            key_error = self.check_keys(args, [KEY_AUTH, KEY_ID])
+            if key_error:
+                return self.respond(key_error)
+            return add_custom_ability(self, json_data, args, username)
+
+        if path == POST_PATHS["UPDATE_ABILITY"]:
+            key_error = self.check_keys(args, [KEY_AUTH, KEY_ID, KEY_NAME])
+            if key_error:
+                return self.respond(key_error)
+            return update_ability(self, json_data, args, username)
+
+        if path in PATHS:
+            self.respond({"success": False, "info": MSG_NO_IMP})
+
+        # return error for unrecognized request
+        return self.respond('Bad request path.')
+
 
     def do_GET(self):
         if rate_limiter.is_rate_limited(self.client_address[0]):
@@ -125,8 +183,7 @@ class VenntHandler(BaseHTTPRequestHandler):
 
         if KEY_AUTH not in args:
             return self.respond({"success": False, "info": 'Missing required key ' + KEY_AUTH + '.'})
-        username = self.server.db.auth.check_and_fetch(
-            self.client_address[0], args[KEY_AUTH])
+        username = self.server.db.auth.check_and_fetch(self.client_address[0], args[KEY_AUTH])
         if username is None:
             return self.respond({"success": False, "info": MSG_BAD_AUTH})
 
@@ -169,6 +226,27 @@ class VenntHandler(BaseHTTPRequestHandler):
                 return self.respond(key_error)
 
             return get_ability(self, args, username)
+
+        elif path == PATHS["REMOVE_ABILITY"]:
+            key_error = self.check_keys(args, [KEY_AUTH, KEY_ID, KEY_NAME])
+            if key_error:
+                return self.respond(key_error)
+
+            return remove_ability(self, args, username)
+
+        elif path == PATHS["REFRESH_ABILITY"]:
+            key_error = self.check_keys(args, [KEY_AUTH, KEY_ID, KEY_NAME])
+            if key_error:
+                return self.respond(key_error)
+
+            return refresh_ability(self, args, username)
+
+        elif path == PATHS["UPDATE_ABILITY_COMMENT"]:
+            key_error = self.check_keys(args, [KEY_AUTH, KEY_ID, KEY_NAME, KEY_COMMENT])
+            if key_error:
+                return self.respond(key_error)
+
+            return update_ability_comment(self, args, username)
 
         # -------------  COMBAT -------------------------
 
@@ -274,7 +352,7 @@ class VenntHandler(BaseHTTPRequestHandler):
 
         elif path == PATHS["ADD_ITEM"]:
             key_error = self.check_keys(
-                args, [KEY_AUTH, KEY_ID, KEY_NAME, KEY_DESC, KEY_BULK])
+                args, [KEY_AUTH, KEY_ID, ITEM_NAME, ITEM_DESC, ITEM_BULK], [ITEM_TYPE, ITEM_COURSES])
             if key_error:
                 return self.respond(key_error)
 
@@ -320,7 +398,7 @@ class VenntHandler(BaseHTTPRequestHandler):
 
         elif path == PATHS["CREATE_CHARACTER"]:
             key_error = self.check_keys(
-                args, [KEY_AUTH, KEY_NAME], keys_opt=ATTRIBUTES + [KEY_GIFT])
+                args, [KEY_AUTH, KEY_NAME], keys_opt=ATTRIBUTES + [KEY_GIFT] + OPTIONAL_ATTRIBUTES)
             if key_error:
                 return self.respond(key_error)
 

@@ -4,7 +4,7 @@ A headless server for making API calls to the Vennt database.
 
 # API Documentation
 
-API documentation can be found in API.md.
+API documentation can be found in [API.md](https://github.com/joshmiller17/vennt-server/blob/main/API.md).
 
 # Server Documentation
 
@@ -60,7 +60,8 @@ venntDB.db is organized in this way:
 5. Add an example to example.py, test the new function locally
 6. Use `python3 venntserver.py --nocert` to run the server locally
 7. Use `python3 example.py --verify --nocert` to run examples locally
-8. Add the documentation to this README
+8. Check the state of your test db with `python3 dump.py vennt.db`
+9. Add the documentation to this README
 
 ### Adding a new method to the DB
 

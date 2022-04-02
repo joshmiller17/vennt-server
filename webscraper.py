@@ -20,7 +20,7 @@ def lookup_ability(self, args):
 	abiDict = self.server.db.get_cached_ability(name)
 	if abiDict is not None:
 		logger.log("lookup_ability", "cache hit")
-		return self.respond({"success":True, "value":abiDict["contents"]})
+		return self.respond({"success":True, "value":'\n'.join(abiDict["contents"])})
 	
 	logger.log("lookup_ability", "cache miss")
 	approximations, URL = find_ability(self, name)

@@ -63,6 +63,16 @@ Optional args:
 
 Additional keys returned: -`id`: on success, the unique ID of your new character
 
+### Create a character by post
+
+POST: `<baseURL>/create_character`
+
+- `auth_token`: auth token
+
+pass in all of the args that you would pass into the post version but formatted in a json dictionary. Can pass in arrays of items and abilities to automatically populate in your new character.
+
+Additional keys returned: -`id`: on success, the unique ID of your new character
+
 ### List characters
 
 GET: `<baseURL>/get_characters`
@@ -169,6 +179,56 @@ Additional keys returned:
     - `Passive`: If key is present, this ability is passive
     - `Special`: Anything which cannot be currently parsed, e.g. "3\* Actions" or "X Vim"
 
+### Remove ability
+
+GET: `<baseURL>/remove_abillty`
+
+- `auth_token`: auth token
+- `id`: character ID
+- `name` : ability name
+
+Removes the given ability from the given character.
+
+### Refresh ability
+
+GET: `<baseURL>/refresh_abillty`
+
+- `auth_token`: auth token
+- `id`: character ID
+- `name` : ability name
+
+Deletes the given ability from the character, clears any cached values of the ability on the server, and then returns a newly webscraped version of the ability. This is useful for updating abilities which were effected by updates on the wiki.
+
+### Update ability comment
+
+GET: `<baseURL>/update_ability_comment`
+
+- `auth_token`: auth token
+- `id`: character ID
+- `name` : ability name
+- `comment` : comment string
+
+Adds or updates a personal comment on an ability. Useful for keeping notes on abilities, like current bonuses, etc.
+
+### Create custom ability
+
+POST: `<baseURL>/create_ability`
+
+- `auth_token`: auth token
+- `id`: character ID
+
+Creates a custom ability using values not webscraped from the wiki. Pass in the ability as a post object. You must include the "special_ability_type" key in this object.
+
+### Update ability
+
+POST: `<baseURL>/update_ability`
+
+- `auth_token`: auth token
+- `id`: character ID
+- `name` : ability name
+
+Updates an existing ability to a new ability which is passed in via a post object.
+
 ## Inventory
 
 ### Add an item
@@ -247,7 +307,7 @@ GET: `<baseURL>/remove_weapon`
 
 ### Create an enemy
 
-GET: `<baseURL>/create_enemy?q={"auth_token":"<auth_token>", "name":"myfirstenemy"[,"ATTR":"<num>"...]}`
+GET: `<baseURL>/create_enemy`
 
 - `auth_token`: auth token
 - `name`: enemy name
@@ -256,6 +316,16 @@ Optional args:
 
 - `attr`: attribute value, see Data Types above
 - `campaign_id`: if this user is a GM in the given campaign, this enemy will be automatically added to the campaign and hidden to users.
+
+Additional keys returned: -`id`: on success, the unique ID of your new enemy
+
+### Create an enemy by post
+
+POST: `<baseURL>/create_enemy`
+
+- `auth_token`: auth token
+
+pass in all of the args that you would pass into the post version but formatted in a json dictionary. Can pass in arrays of items and abilities to automatically populate in your new enemy.
 
 Additional keys returned: -`id`: on success, the unique ID of your new enemy
 

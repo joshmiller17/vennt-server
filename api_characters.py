@@ -4,6 +4,7 @@
 import venntdb
 import uuid
 from constants import *
+import utilities.character as character_util
 
 # VenntHandler methods
 
@@ -26,20 +27,37 @@ def create_character(self, args, username):
     elif args[KEY_GIFT] not in GIFTS:
         return self.respond({"success": False, "info": MSG_INVALID_GIFT})
 
-    id = IDType.CHARACTER + str(uuid.uuid4())
-    character = {"name": name, "id": id}
+    character = { CHAR_NAME: name, CHAR_GIFT: args[KEY_GIFT] }
+    character_util.set_defaults(character)
+
     for key in args:
         if key in ATTRIBUTES:
             try:
                 character[key] = int(args[key])
             except ValueError:
                 return self.respond({"success": False, "info": MSG_INVALID_ATTRIBUTE})
-    character[KEY_GIFT] = args[KEY_GIFT]
+        elif key in OPTIONAL_ATTRIBUTES:
+            character[key] = args[key]
+
+    if not character_util.is_valid(character):
+        return self.respond({"success": False, "info": MSG_INVALID_ATTRIBUTE})
     self.server.db.create_character(username, character)
 
-    ret = {"success": True, "id": id}
+    ret = { "success": True, "id": character[CHAR_ID] }
     return self.respond(ret)
 
+
+def create_character_post(self, json_data, username):
+    # define some defaults if unset
+    character_util.set_defaults(json_data)
+    if not character_util.is_valid(json_data):
+        return self.respond({"success": False, "info": MSG_INVALID_ATTRIBUTE})
+
+    self.server.db.create_character(username, json_data)
+
+    ret = { "success": True, "id": json_data[CHAR_ID] }
+    return self.respond(ret)
+    
 
 def set_attr(self, args, username):
     char_id = args[KEY_ID]

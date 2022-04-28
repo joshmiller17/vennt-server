@@ -47,8 +47,8 @@ def make_ability(contents, path):
 			abiDict[ABI_DICT_ACTIVATION] = line[12:-1]
 		elif line.startswith("Range:"):
 			abiDict[ABI_DICT_RANGE] = parse_range(line)
-		elif "This ability is not required for the Path Completion Bonus." in line:
-			abiDict["ABI_DICT_NOT_REQ"] = True
+		elif "is not required for the Path Completion Bonus" in line:
+			abiDict[ABI_DICT_NOT_REQ] = True
 		elif line.startswith("Flavor:"):
 			abiDict[ABI_DICT_FLAVOR] = parse_flavor(line)
 		elif ABI_DICT_NAME in abiDict:

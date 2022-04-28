@@ -48,7 +48,7 @@ def getAbilities(url):
 
 	abilities = []
 	expediteCount = defaultdict(int)
-	secondLineStarts = ["This ability", "Cost", "Prereq", "Unlock"]
+	secondLineStarts = ["This ability", "This skill", "Cost", "Prereq", "Unlock"]
 	found = False
 	exclusives = {}
 	for idx,text in enumerate(pTags):

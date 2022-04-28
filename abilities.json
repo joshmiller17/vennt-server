@@ -131,6 +131,11 @@
     },
     {
         "path": "Path of the Spellcaster",
+        "ability": "Conjure Water",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Spellcaster"
+    },
+    {
+        "path": "Path of the Spellcaster",
         "ability": "Spellcaster's Vigor",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Spellcaster"
     },
@@ -382,6 +387,11 @@
     {
         "path": "Path of the Gifted Fighter",
         "ability": "Untiring",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Fighter"
+    },
+    {
+        "path": "Path of the Gifted Fighter",
+        "ability": "Fighting Spirit",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Fighter"
     },
     {
@@ -648,6 +658,36 @@
         "path": "Path of the Gifted Ninja",
         "ability": "Professional Ninja",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Gifted_Ninja"
+    },
+    {
+        "path": "Path of the Unchosen One",
+        "ability": "Determination",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Unchosen_One"
+    },
+    {
+        "path": "Path of the Unchosen One",
+        "ability": "Background Noise",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Unchosen_One"
+    },
+    {
+        "path": "Path of the Unchosen One",
+        "ability": "Nothing Special",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Unchosen_One"
+    },
+    {
+        "path": "Path of the Unchosen One",
+        "ability": "Luck of the Nobody",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Unchosen_One"
+    },
+    {
+        "path": "Path of the Unchosen One",
+        "ability": "Luck of the Red Shirt",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Unchosen_One"
+    },
+    {
+        "path": "Path of the Unchosen One",
+        "ability": "Unsung Hero",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Unchosen_One"
     },
     {
         "path": "Path of the Colorful",
@@ -2270,6 +2310,96 @@
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Nimble"
     },
     {
+        "path": "Path of the Detective",
+        "ability": "Card Shark",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Detective"
+    },
+    {
+        "path": "Path of the Detective",
+        "ability": "Rough and Tumble",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Detective"
+    },
+    {
+        "path": "Path of the Detective",
+        "ability": "Sucker Punch",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Detective"
+    },
+    {
+        "path": "Path of the Detective",
+        "ability": "Contingency",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Detective"
+    },
+    {
+        "path": "Path of the Detective",
+        "ability": "Good Cop, Bad Cop",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Detective"
+    },
+    {
+        "path": "Path of the Detective",
+        "ability": "Detective Board",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Detective"
+    },
+    {
+        "path": "Path of the Detective",
+        "ability": "Field Notes",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Detective"
+    },
+    {
+        "path": "Path of the Detective",
+        "ability": "Keen Eye",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Detective"
+    },
+    {
+        "path": "Path of the Detective",
+        "ability": "Keen Mind",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Detective"
+    },
+    {
+        "path": "Path of the Detective",
+        "ability": "Crime Scene Investigator",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Detective"
+    },
+    {
+        "path": "Path of the Detective",
+        "ability": "Licensed Larceny",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Detective"
+    },
+    {
+        "path": "Path of the Detective",
+        "ability": "Streetswift",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Detective"
+    },
+    {
+        "path": "Path of the Detective",
+        "ability": "Tool User",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Detective"
+    },
+    {
+        "path": "Path of the Detective",
+        "ability": "Effective Auditory Recorder (E.A.R.)",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Detective"
+    },
+    {
+        "path": "Path of the Detective",
+        "ability": "Concealed Camera (C.C.)",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Detective"
+    },
+    {
+        "path": "Path of the Detective",
+        "ability": "Tracking Jinx",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Detective"
+    },
+    {
+        "path": "Path of the Detective",
+        "ability": "Mind-Reading Jinx",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Detective"
+    },
+    {
+        "path": "Path of the Detective",
+        "ability": "Hair of the Dog",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Detective"
+    },
+    {
         "path": "Path of the Stealthy",
         "ability": "Watch Their Path",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Stealthy"
@@ -2390,14 +2520,14 @@
         "url": "https://vennt.fandom.com/wiki/Path_of_the_First_Responder"
     },
     {
-        "path": "Path of the First Responder",
+        "path": "Path of the River",
         "ability": "In the Zone",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_First_Responder"
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_River"
     },
     {
-        "path": "Path of the First Responder",
+        "path": "Path of the River",
         "ability": "Swell",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_First_Responder"
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_River"
     },
     {
         "path": "Path of the Supporter",
@@ -2770,6 +2900,56 @@
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Shadow_Arcana"
     },
     {
+        "path": "Path of the Water Arcana",
+        "ability": "Boil and Blast",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Water_Arcana"
+    },
+    {
+        "path": "Path of the Water Arcana",
+        "ability": "Evaporate",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Water_Arcana"
+    },
+    {
+        "path": "Path of the Water Arcana",
+        "ability": "Wave Runner",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Water_Arcana"
+    },
+    {
+        "path": "Path of the Water Arcana",
+        "ability": "Disarming Spout",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Water_Arcana"
+    },
+    {
+        "path": "Path of the Water Arcana",
+        "ability": "Move Water",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Water_Arcana"
+    },
+    {
+        "path": "Path of the Water Arcana",
+        "ability": "Hostile Conjure Water",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Water_Arcana"
+    },
+    {
+        "path": "Path of the Elementalist",
+        "ability": "Pressure Blast",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Elementalist"
+    },
+    {
+        "path": "Path of the Elementalist",
+        "ability": "Water Whip",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Elementalist"
+    },
+    {
+        "path": "Path of the Elementalist",
+        "ability": "Flowing Armor",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Elementalist"
+    },
+    {
+        "path": "Path of the Elementalist",
+        "ability": "Conjuration Expert",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Elementalist"
+    },
+    {
         "path": "Path of the Shadow Conjurer",
         "ability": "Conjure Minor Shadows",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Shadow_Conjurer"
@@ -2793,6 +2973,16 @@
         "path": "Path of the Shadow Weaver",
         "ability": "Death's Embrace",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Shadow_Weaver"
+    },
+    {
+        "path": "Path of the Conjurer",
+        "ability": "Greater Conjure Water",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Conjurer"
+    },
+    {
+        "path": "Path of the Conjurer",
+        "ability": "Summon Aquatic Creature",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Conjurer"
     },
     {
         "path": "Path of the Byronic Hero",
@@ -6665,86 +6855,6 @@
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Universalist_Arcana"
     },
     {
-        "path": "Path of the Water Arcana",
-        "ability": "Pressure Blast",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Water_Arcana"
-    },
-    {
-        "path": "Path of the Water Arcana",
-        "ability": "Water Whip",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Water_Arcana"
-    },
-    {
-        "path": "Path of the Water Arcana",
-        "ability": "Boil and Blast",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Water_Arcana"
-    },
-    {
-        "path": "Path of the Water Arcana",
-        "ability": "Evaporate",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Water_Arcana"
-    },
-    {
-        "path": "Path of the Water Arcana",
-        "ability": "Strong Swimmer",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Water_Arcana"
-    },
-    {
-        "path": "Path of the Water Arcana",
-        "ability": "Wave Runner",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Water_Arcana"
-    },
-    {
-        "path": "Path of the Water Arcana",
-        "ability": "Flowing Armor",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Water_Arcana"
-    },
-    {
-        "path": "Path of the Water Arcana",
-        "ability": "Disarming Spout",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Water_Arcana"
-    },
-    {
-        "path": "Path of the Water Arcana",
-        "ability": "Natural Swimmer",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Water_Arcana"
-    },
-    {
-        "path": "Path of the Water Arcana",
-        "ability": "Ebbing Waves",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Water_Arcana"
-    },
-    {
-        "path": "Path of the Water Arcana",
-        "ability": "Feet to Flippers",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Water_Arcana"
-    },
-    {
-        "path": "Path of the Water Arcana",
-        "ability": "Move Water",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Water_Arcana"
-    },
-    {
-        "path": "Path of the Water Arcana",
-        "ability": "Hostile Conjure Water",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Water_Arcana"
-    },
-    {
-        "path": "Path of the Water Arcana",
-        "ability": "Ocean Native",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Water_Arcana"
-    },
-    {
-        "path": "Path of the Water Arcana",
-        "ability": "Greater Conjure Water",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Water_Arcana"
-    },
-    {
-        "path": "Path of the Water Arcana",
-        "ability": "Summon Aquatic Creature",
-        "url": "https://vennt.fandom.com/wiki/Path_of_the_Water_Arcana"
-    },
-    {
         "path": "Path of the Aethermancer",
         "ability": "Draw Aether",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Aethermancer"
@@ -7188,6 +7298,11 @@
         "path": "Path of the Mastermind",
         "ability": "Three Steps Ahead",
         "url": "https://vennt.fandom.com/wiki/Path_of_the_Mastermind"
+    },
+    {
+        "path": "Path of the Magus",
+        "ability": "Arcane Magnetism",
+        "url": "https://vennt.fandom.com/wiki/Path_of_the_Magus"
     },
     {
         "path": "Path of the Magus",

@@ -419,6 +419,21 @@ class VenntHandler(BaseHTTPRequestHandler):
 
             return get_attr(self, args, username)
 
+        elif path == PATHS["UPDATE_ATTRS"]:
+            key_error = self.check_keys(
+                args, [KEY_AUTH, KEY_ID], [KEY_MSG, CHAR_NAME, CHAR_GIFT] + ATTRIBUTES + OPTIONAL_ATTRIBUTES)
+            if key_error:
+                return self.respond(key_error)
+
+            return update_attrs(self, args, username)
+
+        elif path == PATHS["CLEAR_CHANGELOG"]:
+            key_error = self.check_keys(args, [KEY_AUTH, KEY_ID], [KEY_ATTR])
+            if key_error:
+                return self.respond(key_error)
+
+            return clear_changelog(self, args, username)
+
         elif path == PATHS["GET_CHARACTERS"]:
             key_error = self.check_keys(args, [KEY_AUTH])
             if key_error:

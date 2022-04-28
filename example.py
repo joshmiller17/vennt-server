@@ -43,6 +43,20 @@ def check_continue(response, expectError=False):
         print(data["info"])
         exit(1)
 
+def get_character(token, id):
+    data = {"auth_token": token, "id": id}
+    response = requests.get(url + 'get_character', params=data, verify=do_ssl)
+    check_continue(response)
+    response = json.loads(response.text)
+    return response["value"]
+
+def get_campaign(token, id):
+    data = {"auth_token": token, "campaign_id": id}
+    response = requests.get(url + 'get_campaign', params=data, verify=do_ssl)
+    check_continue(response)
+    response = json.loads(response.text)
+    return response["value"]
+
 #################### ACCOUNT APIS ####################
 
 
@@ -123,11 +137,8 @@ assert(not args.verify or response["value"]
        [my_character_id]["is_enemy"] == False)
 
 print("Get character")
-data = {"auth_token": gm_token, "id": my_character_id}
-response = requests.get(url + 'get_character', params=data, verify=do_ssl)
-check_continue(response)
-response = json.loads(response.text)
-assert(not args.verify or response["value"]["name"] == random_name)
+char = get_character(gm_token, my_character_id)
+assert(not args.verify or char["name"] == random_name)
 
 # ATTRIBUTES
 
@@ -143,6 +154,56 @@ response = requests.get(url + 'get_attr', params=data, verify=do_ssl)
 check_continue(response)
 response = json.loads(response.text)
 assert(not args.verify or response["value"] == 3)
+
+print("update multiple attributes")
+example_update_msg = "Example attr update"
+data = {"auth_token": gm_token, "id": my_character_id, "INT": 3, "SPEED": 5, "REACH": 2, "msg": example_update_msg}
+response = requests.get(url + 'update_attrs', params=data, verify=do_ssl)
+check_continue(response)
+
+char = get_character(gm_token, my_character_id)
+assert(not args.verify or char["INT"] == 3)
+assert(not args.verify or char["SPEED"] == 5)
+assert(not args.verify or char["REACH"] == 2)
+assert(not args.verify or len(char["changelog"]) == 3)
+assert(not args.verify or char["changelog"][0]["msg"] == example_update_msg)
+assert(not args.verify or char["changelog"][0]["attr"] == "INT")
+assert(not args.verify or char["changelog"][0]["prev"] == 0)
+assert(not args.verify or "time" in char["changelog"][0])
+assert(not args.verify or char["changelog"][2]["msg"] == example_update_msg)
+assert(not args.verify or char["changelog"][2]["attr"] == "REACH")
+assert(not args.verify or "prev" not in char["changelog"][2])
+
+print("update character name")
+random_name = "Updated name"
+new_gift = "Alertness"
+data = {"auth_token": gm_token, "id": my_character_id, "name": random_name, "gift": new_gift}
+response = requests.get(url + 'update_attrs', params=data, verify=do_ssl)
+check_continue(response)
+
+char = get_character(gm_token, my_character_id)
+assert(not args.verify or char["name"] == random_name)
+assert(not args.verify or char["gift"] == new_gift)
+assert(not args.verify or len(char["changelog"]) == 3) # no new logs
+
+# CHANGELOG
+
+print("clear attribute's changelog")
+data = {"auth_token": gm_token, "id": my_character_id, "attr": "SPEED"}
+response = requests.get(url + 'clear_changelog', params=data, verify=do_ssl)
+check_continue(response)
+
+char = get_character(gm_token, my_character_id)
+assert(not args.verify or len(char["changelog"]) == 2)
+assert(not args.verify or char["changelog"][1]["attr"] == "REACH")
+
+print("clear all changelogs")
+data = {"auth_token": gm_token, "id": my_character_id}
+response = requests.get(url + 'clear_changelog', params=data, verify=do_ssl)
+check_continue(response)
+
+char = get_character(gm_token, my_character_id)
+assert(not args.verify or len(char["changelog"]) == 0)
 
 # ABILITIES
 
@@ -246,16 +307,13 @@ check_continue(response)
 response = json.loads(response.text)
 custom_character_id = response["id"]
 
-data = {"auth_token": gm_token, "id": custom_character_id}
-response = requests.get(url + 'get_character', params=data, verify=do_ssl)
-check_continue(response)
-response = json.loads(response.text)
-assert(not args.verify or response["value"]["name"] == custom_character["name"])
-assert(not args.verify or response["value"]["is_enemy"] == False)
-assert(not args.verify or len(response["value"]["items"]) == 1)
-assert(not args.verify or response["value"]["items"][0]["name"] == custom_item["name"])
-assert(not args.verify or len(response["value"]["abilities"]) == 1)
-assert(not args.verify or response["value"]["abilities"][0]["name"] == custom_ability["name"])
+char = get_character(gm_token, custom_character_id)
+assert(not args.verify or char["name"] == custom_character["name"])
+assert(not args.verify or char["is_enemy"] == False)
+assert(not args.verify or len(char["items"]) == 1)
+assert(not args.verify or char["items"][0]["name"] == custom_item["name"])
+assert(not args.verify or len(char["abilities"]) == 1)
+assert(not args.verify or char["abilities"][0]["name"] == custom_ability["name"])
 
 print("create enemy post")
 data = {"auth_token": gm_token}
@@ -264,16 +322,13 @@ check_continue(response)
 response = json.loads(response.text)
 custom_enemy_id = response["id"]
 
-data = {"auth_token": gm_token, "id": custom_enemy_id}
-response = requests.get(url + 'get_character', params=data, verify=do_ssl)
-check_continue(response)
-response = json.loads(response.text)
-assert(not args.verify or response["value"]["name"] == custom_character["name"])
-assert(not args.verify or response["value"]["is_enemy"] == True)
-assert(not args.verify or len(response["value"]["items"]) == 1)
-assert(not args.verify or response["value"]["items"][0]["name"] == custom_item["name"])
-assert(not args.verify or len(response["value"]["abilities"]) == 1)
-assert(not args.verify or response["value"]["abilities"][0]["name"] == custom_ability["name"])
+char = get_character(gm_token, custom_enemy_id)
+assert(not args.verify or char["name"] == custom_character["name"])
+assert(not args.verify or char["is_enemy"] == True)
+assert(not args.verify or len(char["items"]) == 1)
+assert(not args.verify or char["items"][0]["name"] == custom_item["name"])
+assert(not args.verify or len(char["abilities"]) == 1)
+assert(not args.verify or char["abilities"][0]["name"] == custom_ability["name"])
 
 # ITEMS
 
@@ -321,18 +376,14 @@ data = {"auth_token": gm_token, "name": "myfirstenemy",
         "WIS": 3, "MAX_HP": 10, "HP": 10}
 response = requests.get(url + 'create_enemy', params=data, verify=do_ssl)
 check_continue(response)
-
 response = json.loads(response.text)
 enemy_id = response["id"]
 
-data = {"auth_token": gm_token, "id": enemy_id}
-response = requests.get(url + 'get_character', params=data, verify=do_ssl)
-check_continue(response)
-response = json.loads(response.text)
-assert(not args.verify or response["value"]["name"] == "myfirstenemy")
-assert(not args.verify or response["value"]["WIS"] == 3)
-assert(not args.verify or response["value"]["INT"] == 0)
-assert(not args.verify or response["value"]["is_enemy"] == True)
+char = get_character(gm_token, enemy_id)
+assert(not args.verify or char["name"] == "myfirstenemy")
+assert(not args.verify or char["WIS"] == 3)
+assert(not args.verify or char["INT"] == 0)
+assert(not args.verify or char["is_enemy"] == True)
 
 
 #################### CAMPAIGN APIS ####################
@@ -511,12 +562,7 @@ check_continue(response, expectError=True)
 
 
 print("Get campaign - player")
-data = {"auth_token": player_token, "campaign_id": campaign_id}
-response = requests.get(url + 'get_campaign', params=data, verify=do_ssl)
-check_continue(response)
-
-response = json.loads(response.text)
-player_campaign = response["value"]
+player_campaign = get_campaign(player_token, campaign_id)
 assert(not args.verify or player_campaign["name"] == "myfirstcampaign")
 assert(not args.verify or player_campaign["owner"] == gm_username)
 assert(not args.verify or len(player_campaign["members"]) == 3)
@@ -547,12 +593,8 @@ assert(not args.verify or player_campaign["init_round"] == 0)
 assert(not args.verify or player_campaign["in_combat"] == False)
 
 print("Get campaign - spectator")
-data = {"auth_token": spectator_token, "campaign_id": campaign_id}
-response = requests.get(url + 'get_campaign', params=data, verify=do_ssl)
-check_continue(response)
-
-response = json.loads(response.text)
-assert(not args.verify or response["value"] == player_campaign)
+camp = get_campaign(spectator_token, campaign_id)
+assert(not args.verify or camp == player_campaign)
 
 print("Get campaign - no permission - will fail")
 data = {"auth_token": no_perms_token, "campaign_id": campaign_id}
@@ -560,12 +602,7 @@ response = requests.get(url + 'get_campaign', params=data, verify=do_ssl)
 check_continue(response, expectError=True)
 
 print("Get campaign - GM")
-data = {"auth_token": gm_token, "campaign_id": campaign_id}
-response = requests.get(url + 'get_campaign', params=data, verify=do_ssl)
-check_continue(response)
-
-response = json.loads(response.text)
-gm_campaign = response["value"]
+gm_campaign = get_campaign(gm_token, campaign_id)
 assert(not args.verify or gm_campaign != player_campaign)
 assert(not args.verify or len(gm_campaign["entities"]) == 3)
 assert(not args.verify or gm_campaign["entities"]
@@ -630,47 +667,30 @@ data = {"auth_token": player_token, "campaign_id": campaign_id,
 response = requests.get(url + 'add_to_combat', params=data, verify=do_ssl)
 check_continue(response)
 
-data = {"auth_token": spectator_token, "campaign_id": campaign_id}
-response = requests.get(url + 'get_campaign', params=data, verify=do_ssl)
-check_continue(response)
-
-response = json.loads(response.text)
-assert(not args.verify or response["value"]
-       ["entities"][enemy_id]["gm_only"] == False)
-assert(not args.verify or len(response["value"]["init"]) == 5)
-assert(not args.verify or response["value"]
-       ["init"][0]["entity_id"] == second_enemy_id)
-assert(not args.verify or response["value"]
-       ["init"][1]["entity_id"] == player_character_id)
-assert(not args.verify or response["value"]
-       ["init"][2]["entity_id"] == my_character_id)
-assert(not args.verify or response["value"]
-       ["init"][3]["entity_id"] == player_second_character_id)
-assert(not args.verify or response["value"]
-       ["init"][4]["entity_id"] == enemy_id)
-assert(not args.verify or response["value"]
-       ["entities"][enemy_id]["reactions"] == 1)
-assert(not args.verify or response["value"]["init_index"] == 0)
-assert(not args.verify or response["value"]["init_round"] == 0)
-assert(not args.verify or response["value"]["in_combat"] == False)
+camp = get_campaign(spectator_token, campaign_id)
+assert(not args.verify or camp["entities"][enemy_id]["gm_only"] == False)
+assert(not args.verify or len(camp["init"]) == 5)
+assert(not args.verify or camp["init"][0]["entity_id"] == second_enemy_id)
+assert(not args.verify or camp["init"][1]["entity_id"] == player_character_id)
+assert(not args.verify or camp["init"][2]["entity_id"] == my_character_id)
+assert(not args.verify or camp["init"][3]["entity_id"] == player_second_character_id)
+assert(not args.verify or camp["init"][4]["entity_id"] == enemy_id)
+assert(not args.verify or camp["entities"][enemy_id]["reactions"] == 1)
+assert(not args.verify or camp["init_index"] == 0)
+assert(not args.verify or camp["init_round"] == 0)
+assert(not args.verify or camp["in_combat"] == False)
 
 print("Start combat")
 data = {"auth_token": gm_token, "campaign_id": campaign_id}
 response = requests.get(url + 'start_combat', params=data, verify=do_ssl)
 check_continue(response)
 
-data = {"auth_token": spectator_token, "campaign_id": campaign_id}
-response = requests.get(url + 'get_campaign', params=data, verify=do_ssl)
-check_continue(response)
-
-response = json.loads(response.text)
-assert(not args.verify or response["value"]["init_index"] == 0)
-assert(not args.verify or response["value"]["init_round"] == 0)
-assert(not args.verify or response["value"]["in_combat"] == True)
-assert(not args.verify or response["value"]
-       ["entities"][second_enemy_id]["actions"] == 3)
-assert(not args.verify or response["value"]
-       ["entities"][second_enemy_id]["reactions"] == 1)
+camp = get_campaign(spectator_token, campaign_id)
+assert(not args.verify or camp["init_index"] == 0)
+assert(not args.verify or camp["init_round"] == 0)
+assert(not args.verify or camp["in_combat"] == True)
+assert(not args.verify or camp["entities"][second_enemy_id]["actions"] == 3)
+assert(not args.verify or camp["entities"][second_enemy_id]["reactions"] == 1)
 
 print("End turn - GM")
 data = {"auth_token": gm_token,
@@ -678,22 +698,14 @@ data = {"auth_token": gm_token,
 response = requests.get(url + 'end_turn', params=data, verify=do_ssl)
 check_continue(response)
 
-data = {"auth_token": spectator_token, "campaign_id": campaign_id}
-response = requests.get(url + 'get_campaign', params=data, verify=do_ssl)
-check_continue(response)
-
-response = json.loads(response.text)
-assert(not args.verify or response["value"]["init_index"] == 1)
-assert(not args.verify or response["value"]["init_round"] == 0)
-assert(not args.verify or response["value"]["in_combat"] == True)
-assert(not args.verify or response["value"]
-       ["entities"][second_enemy_id]["actions"] == 0)
-assert(not args.verify or response["value"]
-       ["entities"][second_enemy_id]["reactions"] == 1)
-assert(not args.verify or response["value"]
-       ["entities"][player_character_id]["actions"] == 3)
-assert(not args.verify or response["value"]
-       ["entities"][player_character_id]["reactions"] == 1)
+camp = get_campaign(spectator_token, campaign_id)
+assert(not args.verify or camp["init_index"] == 1)
+assert(not args.verify or camp["init_round"] == 0)
+assert(not args.verify or camp["in_combat"] == True)
+assert(not args.verify or camp["entities"][second_enemy_id]["actions"] == 0)
+assert(not args.verify or camp["entities"][second_enemy_id]["reactions"] == 1)
+assert(not args.verify or camp["entities"][player_character_id]["actions"] == 3)
+assert(not args.verify or camp["entities"][player_character_id]["reactions"] == 1)
 
 print("End turn - player - init jumps forward 2")
 data = {"auth_token": player_token,
@@ -701,26 +713,16 @@ data = {"auth_token": player_token,
 response = requests.get(url + 'end_turn', params=data, verify=do_ssl)
 check_continue(response)
 
-data = {"auth_token": spectator_token, "campaign_id": campaign_id}
-response = requests.get(url + 'get_campaign', params=data, verify=do_ssl)
-check_continue(response)
-
-response = json.loads(response.text)
-assert(not args.verify or response["value"]["init_index"] == 3)
-assert(not args.verify or response["value"]["init_round"] == 0)
-assert(not args.verify or response["value"]["in_combat"] == True)
-assert(not args.verify or response["value"]
-       ["entities"][player_character_id]["actions"] == 0)
-assert(not args.verify or response["value"]
-       ["entities"][player_character_id]["reactions"] == 1)
-assert(not args.verify or response["value"]
-       ["entities"][my_character_id]["actions"] == 3)
-assert(not args.verify or response["value"]
-       ["entities"][my_character_id]["reactions"] == 1)
-assert(not args.verify or response["value"]
-       ["entities"][player_second_character_id]["actions"] == 3)
-assert(not args.verify or response["value"]
-       ["entities"][player_second_character_id]["reactions"] == 1)
+camp = get_campaign(spectator_token, campaign_id)
+assert(not args.verify or camp["init_index"] == 3)
+assert(not args.verify or camp["init_round"] == 0)
+assert(not args.verify or camp["in_combat"] == True)
+assert(not args.verify or camp["entities"][player_character_id]["actions"] == 0)
+assert(not args.verify or camp["entities"][player_character_id]["reactions"] == 1)
+assert(not args.verify or camp["entities"][my_character_id]["actions"] == 3)
+assert(not args.verify or camp["entities"][my_character_id]["reactions"] == 1)
+assert(not args.verify or camp["entities"][player_second_character_id]["actions"] == 3)
+assert(not args.verify or camp["entities"][player_second_character_id]["reactions"] == 1)
 
 print("End turn - player - init does not move")
 data = {"auth_token": player_token,
@@ -728,26 +730,16 @@ data = {"auth_token": player_token,
 response = requests.get(url + 'end_turn', params=data, verify=do_ssl)
 check_continue(response)
 
-data = {"auth_token": spectator_token, "campaign_id": campaign_id}
-response = requests.get(url + 'get_campaign', params=data, verify=do_ssl)
-check_continue(response)
-
-response = json.loads(response.text)
-assert(not args.verify or response["value"]["init_index"] == 3)
-assert(not args.verify or response["value"]["init_round"] == 0)
-assert(not args.verify or response["value"]["in_combat"] == True)
-assert(not args.verify or response["value"]
-       ["entities"][player_character_id]["actions"] == 0)
-assert(not args.verify or response["value"]
-       ["entities"][player_character_id]["reactions"] == 1)
-assert(not args.verify or response["value"]
-       ["entities"][my_character_id]["actions"] == 3)
-assert(not args.verify or response["value"]
-       ["entities"][my_character_id]["reactions"] == 1)
-assert(not args.verify or response["value"]
-       ["entities"][player_second_character_id]["actions"] == 0)
-assert(not args.verify or response["value"]
-       ["entities"][player_second_character_id]["reactions"] == 1)
+camp = get_campaign(spectator_token, campaign_id)
+assert(not args.verify or camp["init_index"] == 3)
+assert(not args.verify or camp["init_round"] == 0)
+assert(not args.verify or camp["in_combat"] == True)
+assert(not args.verify or camp["entities"][player_character_id]["actions"] == 0)
+assert(not args.verify or camp["entities"][player_character_id]["reactions"] == 1)
+assert(not args.verify or camp["entities"][my_character_id]["actions"] == 3)
+assert(not args.verify or camp["entities"][my_character_id]["reactions"] == 1)
+assert(not args.verify or camp["entities"][player_second_character_id]["actions"] == 0)
+assert(not args.verify or camp["entities"][player_second_character_id]["reactions"] == 1)
 
 print("End turn - GM - init moves 1")
 data = {"auth_token": gm_token,
@@ -755,30 +747,18 @@ data = {"auth_token": gm_token,
 response = requests.get(url + 'end_turn', params=data, verify=do_ssl)
 check_continue(response)
 
-data = {"auth_token": spectator_token, "campaign_id": campaign_id}
-response = requests.get(url + 'get_campaign', params=data, verify=do_ssl)
-check_continue(response)
-
-response = json.loads(response.text)
-assert(not args.verify or response["value"]["init_index"] == 4)
-assert(not args.verify or response["value"]["init_round"] == 0)
-assert(not args.verify or response["value"]["in_combat"] == True)
-assert(not args.verify or response["value"]
-       ["entities"][player_character_id]["actions"] == 0)
-assert(not args.verify or response["value"]
-       ["entities"][player_character_id]["reactions"] == 1)
-assert(not args.verify or response["value"]
-       ["entities"][my_character_id]["actions"] == 0)
-assert(not args.verify or response["value"]
-       ["entities"][my_character_id]["reactions"] == 1)
-assert(not args.verify or response["value"]
-       ["entities"][player_second_character_id]["actions"] == 0)
-assert(not args.verify or response["value"]
-       ["entities"][player_second_character_id]["reactions"] == 1)
-assert(not args.verify or response["value"]
-       ["entities"][enemy_id]["actions"] == 3)
-assert(not args.verify or response["value"]
-       ["entities"][enemy_id]["reactions"] == 1)
+camp = get_campaign(spectator_token, campaign_id)
+assert(not args.verify or camp["init_index"] == 4)
+assert(not args.verify or camp["init_round"] == 0)
+assert(not args.verify or camp["in_combat"] == True)
+assert(not args.verify or camp["entities"][player_character_id]["actions"] == 0)
+assert(not args.verify or camp["entities"][player_character_id]["reactions"] == 1)
+assert(not args.verify or camp["entities"][my_character_id]["actions"] == 0)
+assert(not args.verify or camp["entities"][my_character_id]["reactions"] == 1)
+assert(not args.verify or camp["entities"][player_second_character_id]["actions"] == 0)
+assert(not args.verify or camp["entities"][player_second_character_id]["reactions"] == 1)
+assert(not args.verify or camp["entities"][enemy_id]["actions"] == 3)
+assert(not args.verify or camp["entities"][enemy_id]["reactions"] == 1)
 
 print("End turn - GM - init wraps around again")
 data = {"auth_token": gm_token,
@@ -786,22 +766,14 @@ data = {"auth_token": gm_token,
 response = requests.get(url + 'end_turn', params=data, verify=do_ssl)
 check_continue(response)
 
-data = {"auth_token": spectator_token, "campaign_id": campaign_id}
-response = requests.get(url + 'get_campaign', params=data, verify=do_ssl)
-check_continue(response)
-
-response = json.loads(response.text)
-assert(not args.verify or response["value"]["init_index"] == 0)
-assert(not args.verify or response["value"]["init_round"] == 1)
-assert(not args.verify or response["value"]["in_combat"] == True)
-assert(not args.verify or response["value"]
-       ["entities"][second_enemy_id]["actions"] == 3)
-assert(not args.verify or response["value"]
-       ["entities"][second_enemy_id]["reactions"] == 1)
-assert(not args.verify or response["value"]
-       ["entities"][enemy_id]["actions"] == 0)
-assert(not args.verify or response["value"]
-       ["entities"][enemy_id]["reactions"] == 1)
+camp = get_campaign(spectator_token, campaign_id)
+assert(not args.verify or camp["init_index"] == 0)
+assert(not args.verify or camp["init_round"] == 1)
+assert(not args.verify or camp["in_combat"] == True)
+assert(not args.verify or camp["entities"][second_enemy_id]["actions"] == 3)
+assert(not args.verify or camp["entities"][second_enemy_id]["reactions"] == 1)
+assert(not args.verify or camp["entities"][enemy_id]["actions"] == 0)
+assert(not args.verify or camp["entities"][enemy_id]["reactions"] == 1)
 
 print("Remove from combat - GM")
 data = {"auth_token": gm_token,
@@ -809,16 +781,12 @@ data = {"auth_token": gm_token,
 response = requests.get(url + 'remove_from_combat', params=data, verify=do_ssl)
 check_continue(response)
 
-data = {"auth_token": spectator_token, "campaign_id": campaign_id}
-response = requests.get(url + 'get_campaign', params=data, verify=do_ssl)
-check_continue(response)
-
-response = json.loads(response.text)
-assert(not args.verify or response["value"]["init_index"] == 0)
-assert(not args.verify or response["value"]["init_round"] == 1)
-assert(not args.verify or response["value"]["in_combat"] == True)
+camp = get_campaign(spectator_token, campaign_id)
+assert(not args.verify or camp["init_index"] == 0)
+assert(not args.verify or camp["init_round"] == 1)
+assert(not args.verify or camp["in_combat"] == True)
 assert(not args.verify or len(list(filter(
-    lambda init: init["entity_id"] == player_second_character_id, response["value"]["init"]))) == 0)
+    lambda init: init["entity_id"] == player_second_character_id, camp["init"]))) == 0)
 
 print("Remove from combat - GM - init_index remains the same")
 data = {"auth_token": gm_token,
@@ -826,31 +794,23 @@ data = {"auth_token": gm_token,
 response = requests.get(url + 'remove_from_combat', params=data, verify=do_ssl)
 check_continue(response)
 
-data = {"auth_token": spectator_token, "campaign_id": campaign_id}
-response = requests.get(url + 'get_campaign', params=data, verify=do_ssl)
-check_continue(response)
-
-response = json.loads(response.text)
-assert(not args.verify or response["value"]["init_index"] == 0)
-assert(not args.verify or response["value"]["init_round"] == 1)
-assert(not args.verify or response["value"]["in_combat"] == True)
+camp = get_campaign(spectator_token, campaign_id)
+assert(not args.verify or camp["init_index"] == 0)
+assert(not args.verify or camp["init_round"] == 1)
+assert(not args.verify or camp["in_combat"] == True)
 assert(not args.verify or len(list(filter(
-    lambda init: init["entity_id"] == second_enemy_id, response["value"]["init"]))) == 0)
+    lambda init: init["entity_id"] == second_enemy_id, camp["init"]))) == 0)
 
 print("End combat")
 data = {"auth_token": gm_token, "campaign_id": campaign_id}
 response = requests.get(url + 'end_combat', params=data, verify=do_ssl)
 check_continue(response)
 
-data = {"auth_token": spectator_token, "campaign_id": campaign_id}
-response = requests.get(url + 'get_campaign', params=data, verify=do_ssl)
-check_continue(response)
-
-response = json.loads(response.text)
-assert(not args.verify or response["value"]["init_index"] == 0)
-assert(not args.verify or response["value"]["init_round"] == 0)
-assert(not args.verify or response["value"]["in_combat"] == False)
-assert(not args.verify or len(response["value"]["init"]) == 0)
+camp = get_campaign(spectator_token, campaign_id)
+assert(not args.verify or camp["init_index"] == 0)
+assert(not args.verify or camp["init_round"] == 0)
+assert(not args.verify or camp["in_combat"] == False)
+assert(not args.verify or len(camp["init"]) == 0)
 
 # Print user information for further testing purposes
 print("----------------------------------------------------------------------------------")

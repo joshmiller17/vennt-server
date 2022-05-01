@@ -15,6 +15,7 @@ POST_PATHS = {
     "LOGIN_SIGNUP2": "/",
     "CREATE_CHARACTER": "/create_character",
     "CREATE_ENEMY": "/create_enemy",
+    "UPDATE_ATTRS": "/update_attrs",
     "CREATE_ABILITIY": "/create_ability",
     "UPDATE_ABILITY": "/update_ability",
 }
@@ -24,7 +25,6 @@ PATHS = {
     "CREATE_CHARACTER": "/create_character",
     "GET_ATTR": "/get_attr",
     "SET_ATTR": "/set_attr",
-    "UPDATE_ATTRS": "/update_attrs",
     "CLEAR_CHANGELOG": "/clear_changelog",
     "GET_CHARACTERS": "/get_characters",
     "GET_CHARACTER": "/get_character",

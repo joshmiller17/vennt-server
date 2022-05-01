@@ -91,7 +91,7 @@ def get_attr(self, args, username):
     return self.respond({"success": True, "value": val})
 
 
-def update_attrs(self, args, username):
+def update_attrs(self, json_data, args, username):
     char_id = args[KEY_ID]
     msg = None
     if KEY_MSG in args:
@@ -103,21 +103,12 @@ def update_attrs(self, args, username):
         return self.respond({"success": False, "info": MSG_NO_CHAR})
 
     valid_keys = [CHAR_NAME, CHAR_GIFT] + ATTRIBUTES + OPTIONAL_ATTRIBUTES
-    attrs = { key: args[key] for key in valid_keys if key in args }
-
-    # update types, if possible
-    for (attr, val) in attrs.items():
-        try:
-            converted_val = int(val)
-        except ValueError:
-            # not an int, so we just default to base type
-            converted_val = val
-        attrs[attr] = converted_val
+    attrs = { key: json_data[key] for key in valid_keys if key in json_data }
 
     # start by attempting to update attributes on a copy and ensure the result is valid
     char = self.server.db.get_character(username, char_id).copy()
     for (attr, val) in attrs.items():
-        char[attr] = converted_val
+        char[attr] = val
     
     if not character_util.is_valid(char):
         return self.respond({"success": False, "info": MSG_INVALID_ATTRIBUTE})

@@ -142,6 +142,14 @@ class VenntHandler(BaseHTTPRequestHandler):
                 return self.respond(key_error)
             return create_enemy_post(self, json_data, args, username)
 
+        elif path == POST_PATHS["UPDATE_ATTRS"]:
+            key_error = self.check_keys(
+                args, [KEY_AUTH, KEY_ID], [KEY_MSG])
+            if key_error:
+                return self.respond(key_error)
+
+            return update_attrs(self, json_data, args, username)
+
         # ----------------  ABILITIES -----------------------
 
         if path == POST_PATHS["CREATE_ABILITIY"]:
@@ -418,14 +426,6 @@ class VenntHandler(BaseHTTPRequestHandler):
                 return self.respond(key_error)
 
             return get_attr(self, args, username)
-
-        elif path == PATHS["UPDATE_ATTRS"]:
-            key_error = self.check_keys(
-                args, [KEY_AUTH, KEY_ID], [KEY_MSG, CHAR_NAME, CHAR_GIFT] + ATTRIBUTES + OPTIONAL_ATTRIBUTES)
-            if key_error:
-                return self.respond(key_error)
-
-            return update_attrs(self, args, username)
 
         elif path == PATHS["CLEAR_CHANGELOG"]:
             key_error = self.check_keys(args, [KEY_AUTH, KEY_ID], [KEY_ATTR])

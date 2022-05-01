@@ -115,12 +115,13 @@ Additional keys returned:
 
 ### Update multiple attributes
 
-GET: `<baseURL>/update_attrs`
+POST: `<baseURL>/update_attrs`
 
 - `auth_token`: auth token
 - `char_id`: character ID
-- `<ATTR>`: Key is any character attr. Value is the new value. You can have as many of these as you want to update. Also, this can be used to rename your character or change your character's gift.
 - `msg`: (optional) If included, we will update a changelog with this message for each attribute changed.
+
+Post data is a JSON of `attr: value` pairs where the new value is the value that will be used in the character. Also, this can be used to rename your character or change your character's gift.
 
 ### Clear character's changelog
 

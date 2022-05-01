@@ -157,8 +157,9 @@ assert(not args.verify or response["value"] == 3)
 
 print("update multiple attributes")
 example_update_msg = "Example attr update"
-data = {"auth_token": gm_token, "id": my_character_id, "INT": 3, "SPEED": 5, "REACH": 2, "msg": example_update_msg}
-response = requests.get(url + 'update_attrs', params=data, verify=do_ssl)
+data = {"auth_token": gm_token, "id": my_character_id, "msg": example_update_msg}
+post_data = {"INT": 3, "SPEED": 5, "REACH": 2}
+response = requests.post(url + 'update_attrs', json=post_data, params=data, verify=do_ssl)
 check_continue(response)
 
 char = get_character(gm_token, my_character_id)
@@ -177,8 +178,9 @@ assert(not args.verify or "prev" not in char["changelog"][2])
 print("update character name")
 random_name = "Updated name"
 new_gift = "Alertness"
-data = {"auth_token": gm_token, "id": my_character_id, "name": random_name, "gift": new_gift}
-response = requests.get(url + 'update_attrs', params=data, verify=do_ssl)
+data = {"auth_token": gm_token, "id": my_character_id}
+post_data = {"name": random_name, "gift": new_gift}
+response = requests.post(url + 'update_attrs', json=post_data, params=data, verify=do_ssl)
 check_continue(response)
 
 char = get_character(gm_token, my_character_id)

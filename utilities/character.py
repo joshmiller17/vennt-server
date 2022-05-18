@@ -24,8 +24,6 @@ def set_defaults(character, is_enemy=False):
         character[CHAR_ABILITIES] = []
     if CHAR_ITEMS not in character:
         character[CHAR_ITEMS] = []
-    if CHAR_WEAPONS not in character:
-        character[CHAR_WEAPONS] = []
     if CHAR_CHANGELOG not in character:
         character[CHAR_CHANGELOG] = []
     if CHAR_PATHS not in character:
@@ -63,12 +61,12 @@ def changelog_is_valid(changelog):
     return all(changelog_row_is_valid(row) for row in changelog)
 
 def is_valid(character):
-    other_req_keys = [CHAR_NAME, CHAR_ID, CHAR_GIFT, CHAR_ABILITIES, CHAR_ITEMS, CHAR_WEAPONS, CHAR_IS_ENEMY]
+    other_req_keys = [CHAR_NAME, CHAR_ID, CHAR_GIFT, CHAR_ABILITIES, CHAR_ITEMS, CHAR_IS_ENEMY]
     for key in ATTRIBUTES + other_req_keys:
         if key not in character:
             # missing required attribute
             return False
-    all_keys = ATTRIBUTES + OPTIONAL_ATTRIBUTES + other_req_keys + [CHAR_CHANGELOG, CHAR_PATHS]
+    all_keys = ATTRIBUTES + OPTIONAL_ATTRIBUTES + other_req_keys + [CHAR_CHANGELOG, CHAR_WEAPONS, CHAR_PATHS]
     for key in character:
         if key not in all_keys:
             # includes invalid attribute

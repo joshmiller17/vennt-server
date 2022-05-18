@@ -43,6 +43,11 @@ def set_attr(self, username, char_id, attr, val):
 def update_attrs(self, username, char_id, attrs, msg=None):
     self.assert_valid("accounts", username, "characters", char_id)
     char = self.get_character(username, char_id)
+
+    if CHAR_CHANGELOG not in self.db["accounts"][username]["characters"][char_id]:
+        # safety fallback for older characters
+        self.db["accounts"][username]["characters"][char_id][CHAR_CHANGELOG] = []
+
     for (attr, val) in attrs.items():
         if msg != None:
             __add_to_changelog(self, username, char_id, attr, msg)
@@ -61,10 +66,9 @@ def filter_changelog(self, username, char_id, attr=None):
 
 
 def __add_to_changelog(self, username, char_id, attr, msg):
-    self.assert_valid("accounts", username, "characters", char_id)
-    if CHAR_CHANGELOG not in self.db["accounts"][username]["characters"][char_id]:
-        # safety fallback for older characters
-        self.db["accounts"][username]["characters"][char_id][CHAR_CHANGELOG] = []
+    if attr == "NOTES":
+        # do not add NOTES to the changelog because they can be very long
+        return
     
     log = { CHANGE_ATTR: attr, CHANGE_MSG: msg, CHANGE_TIME: int(time.time()) }
     if attr in self.db["accounts"][username]["characters"][char_id]:

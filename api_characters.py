@@ -89,3 +89,44 @@ def get_attr(self, args, username):
 
     val = self.server.db.get_attr(username, char_id, attr)
     return self.respond({"success": True, "value": val})
+
+
+def update_attrs(self, json_data, args, username):
+    char_id = args[KEY_ID]
+    msg = None
+    if KEY_MSG in args:
+        msg = args[KEY_MSG]
+        if len(msg) > MAX_NAME_LENGTH:
+            return self.respond({"success": False, "info": MSG_INVALID_ATTRIBUTE})
+
+    if not self.server.db.character_exists(username, char_id):
+        return self.respond({"success": False, "info": MSG_NO_CHAR})
+
+    valid_keys = [CHAR_NAME, CHAR_GIFT] + ATTRIBUTES + OPTIONAL_ATTRIBUTES
+    attrs = { key: json_data[key] for key in valid_keys if key in json_data }
+
+    # start by attempting to update attributes on a copy and ensure the result is valid
+    char = self.server.db.get_character(username, char_id).copy()
+    for (attr, val) in attrs.items():
+        char[attr] = val
+    
+    if not character_util.is_valid(char):
+        return self.respond({"success": False, "info": MSG_INVALID_ATTRIBUTE})
+
+    if msg != None and CHAR_CHANGELOG in char and len(char[CHAR_CHANGELOG]) + len(attrs) > MAX_CHANGELOG_LENGTH:
+        return self.respond({"success": False, "info": MSG_CHANGELOG_TOO_LONG})
+
+    self.server.db.update_attrs(username, char_id, attrs, msg)
+
+    return self.respond({"success": True})
+
+
+def clear_changelog(self, args, username):
+    char_id = args[KEY_ID]
+    attr = None
+    if KEY_ATTR in args:
+        attr = args[KEY_ATTR]
+    
+    self.server.db.filter_changelog(username, char_id, attr)
+    
+    return self.respond({"success": True})

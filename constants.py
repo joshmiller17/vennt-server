@@ -5,6 +5,8 @@ MAX_DESC_LENGTH = 500
 MAX_ABILITY_CACHE = 100
 MAX_INIT = 100
 MAX_UNDO_HISTORY = 100
+MAX_CHANGELOG_LENGTH = 300
+MAX_NOTES_LENGTH = 10000
 
 FULL_UUID_LEN = 37  # uuid is 36 + prefix
 
@@ -13,6 +15,7 @@ POST_PATHS = {
     "LOGIN_SIGNUP2": "/",
     "CREATE_CHARACTER": "/create_character",
     "CREATE_ENEMY": "/create_enemy",
+    "UPDATE_ATTRS": "/update_attrs",
     "CREATE_ABILITIY": "/create_ability",
     "UPDATE_ABILITY": "/update_ability",
 }
@@ -20,8 +23,9 @@ POST_PATHS = {
 PATHS = {
     "LOGOUT": "/logout",
     "CREATE_CHARACTER": "/create_character",
-    "GET_ATTR": '/get_attr',
-    "SET_ATTR": '/set_attr',
+    "GET_ATTR": "/get_attr",
+    "SET_ATTR": "/set_attr",
+    "CLEAR_CHANGELOG": "/clear_changelog",
     "GET_CHARACTERS": "/get_characters",
     "GET_CHARACTER": "/get_character",
     "ADD_ITEM": "/add_item",
@@ -77,6 +81,7 @@ OPTIONAL_ATTRIBUTES = [
     "ACC", # Used when accuracy has a special definition for a character
     "RADIUS", # Used for the size of a character
     "REACH", # Used for when a character has an unusual reach
+    "NOTES", # this is for taking notes on the character
     "MAX_BULK", # this is now deprecated for using a "container" type item
 ]
 
@@ -108,12 +113,14 @@ KEY_ROLL = "roll"
 KEY_GIFT = "gift"
 KEY_STYLE = "style"
 KEY_COMMENT = "comment"
+KEY_MSG = "msg"
 
 MSG_TOO_MANY_REQ = "Too many requests"
 MSG_REQ_LARGE = "Request too large"
 MSG_INVITE_EXISTS = "User already invited"
 MSG_NAME_LONG = "Name too long"
 MSG_INVALID_GIFT = "Invalid gift"
+MSG_CHANGELOG_TOO_LONG = "Character changelog is too long. Clear some history first"
 MSG_INVALID_ATTRIBUTE = "Invalid attribute value"
 MSG_DESC_LONG = "Description too long"
 MSG_NOT_INT = "Key {} should be an integer"
@@ -167,6 +174,8 @@ CHAR_ABILITIES = "abilities"
 CHAR_ITEMS = "items"
 CHAR_WEAPONS = "weapons"
 CHAR_IS_ENEMY = "is_enemy"
+CHAR_CHANGELOG = "changelog"
+CHAR_PATHS = "paths"
 
 # Ability dictionary keys
 ABI_DICT_CONTENTS = "contents"
@@ -196,6 +205,12 @@ ITEM_ID = "id"
 ITEM_NAME = "name"
 ITEM_DESC = "desc"
 ITEM_BULK = "bulk"
-ITEM_TYPE = "type"
+ITEM_TYPE = "type" # Special types used by the frontend are: "equipment", "consumable", "container", and "weapon"
 ITEM_COURSES = "courses"
 ITEM_COMMENT = "comment" # used for leaving a personal comment on an item
+
+# Changelog dictionary keys
+CHANGE_ATTR = "attr"
+CHANGE_MSG = "msg"
+CHANGE_TIME = "time" # unix timestamp of the change
+CHANGE_PREV = "prev" # not required, has the previous attribute data

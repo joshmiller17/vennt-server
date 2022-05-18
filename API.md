@@ -113,6 +113,24 @@ Additional keys returned:
 
 - `value`: the attribute value
 
+### Update multiple attributes
+
+POST: `<baseURL>/update_attrs`
+
+- `auth_token`: auth token
+- `char_id`: character ID
+- `msg`: (optional) If included, we will update a changelog with this message for each attribute changed.
+
+Post data is a JSON of `attr: value` pairs where the new value is the value that will be used in the character. Also, this can be used to rename your character or change your character's gift.
+
+### Clear character's changelog
+
+GET: `<baseURL>/clear_changelog`
+
+- `auth_token`: auth token
+- `char_id`: character ID
+- `attr`: (optional) If included, we will only clear this attribute's changelog. If not included, we will remove all changelogs.
+
 ## Abilities
 
 ### Lookup ability
@@ -240,6 +258,8 @@ GET: `<baseURL>/add_item`
 - `name`: item name
 - `bulk`: item bulk
 - `desc`: item description
+- `type`: (optional) item type
+- `courses`: (optional) courses that should be unlocked before you can use this item
 
 Additional keys returned: -`id`: on success, the unique ID of your new item
 

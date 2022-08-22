@@ -167,11 +167,8 @@ def is_valid(abiDict, must_be_custom=False):
 			# Missing required key
 			return False
 	for key, val in abiDict.items():
-		if key not in valid_keys:
-			# Has extra, invalud key
-			return False
-		if not isinstance(val, valid_keys[key]):
-			# valid key, but invalid type
+		if key not in valid_keys or not isinstance(val, valid_keys[key]):
+			# Has extra, invalid key or the key has an invalid type
 			return False
 	return True
 	

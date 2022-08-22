@@ -336,12 +336,29 @@ assert(not args.verify or char["abilities"][0]["name"] == custom_ability["name"]
 
 print("Add item")
 data = {"auth_token": gm_token, "id": my_character_id,
-        "name": "donut", "bulk": "1", "desc": "Just a donut"}
+        "name": "donut", "bulk": "1", "desc": "Just a donut", "equipped": "false"}
 response = requests.get(url + 'add_item', params=data, verify=do_ssl)
 check_continue(response)
 
 response = json.loads(response.text)
 item_id = response["id"]
+
+print("Update item")
+example_item_comment = "test comment" + str(uuid.uuid4())
+data = {"auth_token": gm_token, "id": my_character_id, "id2": item_id, "comment": example_item_comment, "equipped": "true"}
+response = requests.get(url + 'update_item', params=data, verify=do_ssl)
+check_continue(response)
+response = json.loads(response.text)
+assert(not args.verify or "comment" in response["value"])
+assert(not args.verify or response["value"]["comment"] == example_item_comment)
+assert(not args.verify or response["value"]["equipped"] == True)
+
+print("Unequip item")
+data = {"auth_token": gm_token, "id": my_character_id, "id2": item_id, "equipped": "false"}
+response = requests.get(url + 'update_item', params=data, verify=do_ssl)
+check_continue(response)
+response = json.loads(response.text)
+assert(not args.verify or response["value"]["equipped"] == False)
 
 print("View items")
 data = {"auth_token": gm_token, "id": my_character_id}
@@ -814,7 +831,7 @@ assert(not args.verify or camp["init_round"] == 0)
 assert(not args.verify or camp["in_combat"] == False)
 assert(not args.verify or len(camp["init"]) == 0)
 
-# Print user information for further testing purposes
+# Print user information for manual testing purposes
 print("----------------------------------------------------------------------------------")
 print("GM username: '{}' password: '{}' auth_token: '{}'".format(
     gm_username, gm_password, gm_token))

@@ -260,6 +260,12 @@ GET: `<baseURL>/add_item`
 - `desc`: item description
 - `type`: (optional) item type
 - `courses`: (optional) courses that should be unlocked before you can use this item
+- `comment`: (optional) a user's personal comment on the item
+- `weapon_type`: (optional) if the item is a weapon, the types of the weapon
+- `range`: (optional) the item's range
+- `dmg`: (optional) if the item deals damage, supports dice roll strings
+- `special`: (optional) any special features of the item
+- `equipped`: (optional) boolean whether the item has been equipped
 
 Additional keys returned: -`id`: on success, the unique ID of your new item
 
@@ -283,6 +289,26 @@ GET: `<baseURL>/remove_item`
 - `auth_token`: auth token
 - `id`: character ID
 - `id2`: item ID to remove
+
+### Update item
+
+GET: `<baseURL>/update_item`
+
+- `auth_token`: auth token
+- `id`: character ID
+- `id2`: item ID to update
+- `bulk`: (optional) item bulk
+- `desc`: (optional) item description
+- `type`: (optional) item type
+- `courses`: (optional) courses that should be unlocked before you can use this item
+- `comment`: (optional) a user's personal comment on the item
+- `weapon_type`: (optional) if the item is a weapon, the types of the weapon
+- `range`: (optional) the item's range
+- `dmg`: (optional) if the item deals damage, supports dice roll strings
+- `special`: (optional) any special features of the item
+- `equipped`: (optional) boolean whether the item has been equipped
+
+Updates the given item with values that have been provided. 
 
 ### Add weapon
 

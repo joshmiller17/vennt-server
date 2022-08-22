@@ -58,7 +58,7 @@ def add_item(self, username, character_id, item):
 
 def view_items(self, username, character_id):
     self.assert_valid("accounts", username, "characters",
-                      character_id,CHAR_ITEMS)
+                      character_id, CHAR_ITEMS)
     return self.db["accounts"][username]["characters"][character_id][CHAR_ITEMS]
 
 
@@ -71,4 +71,16 @@ def remove_item(self, username, character_id, item_id):
                 item)
             self.save_db()
             return True
+    return False
+
+def update_item(self, username, character_id, updated):
+    for item in self.db["accounts"][username]["characters"][character_id][CHAR_ITEMS]:
+        if item["id"] == updated["id"]:
+            changeable = [ITEM_DESC, ITEM_BULK, ITEM_ATTR, ITEM_TYPE, ITEM_COURSES, ITEM_COMMENT, 
+                          ITEM_CATEGORY, ITEM_WEAPON_TYPE, ITEM_RANGE, ITEM_DMG, ITEM_SPECIAL, ITEM_EQUIPPED]
+            for key in changeable:
+                if (key in updated) and ((key not in item) or (item[key] != updated[key])):
+                    item[key] = updated[key]
+            self.save_db()
+            return item
     return False

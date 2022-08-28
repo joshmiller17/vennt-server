@@ -73,7 +73,8 @@ class VenntHandler(BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header('Access-Control-Allow-Origin', '*')
         self.send_header('Access-Control-Allow-Headers',
-            'Accept,Accept-Encoding,Accept-Language,Connection,Content-Length,Content-Type,Host,Origin,Referer,User-Agent,X-Requested-With')
+            'Accept,Accept-Encoding,Accept-Language,Connection,Content-Length,'
+            + 'Content-Type,Host,Origin,Referer,User-Agent,X-Requested-With')
         self.send_header('Access-Control-Allow-Methods',
                          'OPTIONS, GET, HEAD, POST')
         self.send_header('Allow', 'OPTIONS, GET, HEAD, POST')
@@ -361,7 +362,9 @@ class VenntHandler(BaseHTTPRequestHandler):
 
         elif path == PATHS["ADD_ITEM"]:
             key_error = self.check_keys(
-                args, [KEY_AUTH, KEY_ID, ITEM_NAME, ITEM_DESC, ITEM_BULK], [ITEM_TYPE, ITEM_COURSES])
+                args,
+                [KEY_AUTH, KEY_ID, ITEM_NAME, ITEM_DESC, ITEM_BULK],
+                [ITEM_TYPE, ITEM_COURSES, ITEM_COMMENT, ITEM_CATEGORY, ITEM_WEAPON_TYPE, ITEM_RANGE, ITEM_ATTR, ITEM_DMG, ITEM_SPECIAL, ITEM_EQUIPPED])
             if key_error:
                 return self.respond(key_error)
 
@@ -380,6 +383,16 @@ class VenntHandler(BaseHTTPRequestHandler):
                 return self.respond(key_error)
 
             return remove_item(self, args, username)
+
+        elif path == PATHS["UPDATE_ITEM"]:
+            key_error = self.check_keys(
+                args,
+                [KEY_AUTH, KEY_ID, KEY_ID2],
+                [ITEM_DESC, ITEM_BULK, ITEM_TYPE, ITEM_COURSES, ITEM_COMMENT, ITEM_CATEGORY, ITEM_WEAPON_TYPE, ITEM_RANGE, ITEM_ATTR, ITEM_DMG, ITEM_SPECIAL, ITEM_EQUIPPED])
+            if key_error:
+                return self.respond(key_error)
+
+            return update_item(self, args, username)
 
         elif path == PATHS["ADD_WEAPON"]:
             key_error = self.check_keys(

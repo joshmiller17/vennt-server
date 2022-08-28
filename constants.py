@@ -31,6 +31,7 @@ PATHS = {
     "ADD_ITEM": "/add_item",
     "VIEW_ITEMS": "/view_items",
     "REMOVE_ITEM": "/remove_item",
+    "UPDATE_ITEM": "/update_item",
     "ADD_WEAPON": "/add_weapon",
     "REMOVE_WEAPON": "/remove_weapon",
     "GET_WEAPON": "/get_weapon",
@@ -124,7 +125,9 @@ MSG_CHANGELOG_TOO_LONG = "Character changelog is too long. Clear some history fi
 MSG_INVALID_ATTRIBUTE = "Invalid attribute value"
 MSG_DESC_LONG = "Description too long"
 MSG_NOT_INT = "Key {} should be an integer"
+MSG_NOT_BOOLEAN = "Key {} should be a boolean"
 MSG_DID_JOIN = "User already joined this campaign"
+MSG_ARGS_NOT_VALID = "Provided args were not valid"
 
 MSG_BAD_AUTH = "Authentication invalid"
 MSG_BAD_CAMP = "Invalid campaign ID"
@@ -135,6 +138,7 @@ MSG_NO_CHAR = "No such character"
 MSG_NO_ENTITY = "No such entity"
 MSG_NO_ATTR = "No such attribute"
 MSG_NO_ABI = "No such ability"
+MSG_NO_ITEM = "No such item"
 MSG_NO_INIT_STYLE = "No such initiative style"
 MSG_NO_PERMISSION = "Invalid permissions"
 MSG_NO_IMP = "Not yet implemented."
@@ -208,6 +212,13 @@ ITEM_BULK = "bulk"
 ITEM_TYPE = "type" # Special types used by the frontend are: "equipment", "consumable", "container", and "weapon"
 ITEM_COURSES = "courses"
 ITEM_COMMENT = "comment" # used for leaving a personal comment on an item
+ITEM_CATEGORY = "category"
+ITEM_WEAPON_TYPE = "weapon_type"
+ITEM_RANGE = "range"
+ITEM_ATTR = "attr"
+ITEM_DMG = "dmg"
+ITEM_SPECIAL = "special"
+ITEM_EQUIPPED = "equipped"
 
 # Changelog dictionary keys
 CHANGE_ATTR = "attr"
